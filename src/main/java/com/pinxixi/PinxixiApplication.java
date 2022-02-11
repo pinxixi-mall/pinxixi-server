@@ -6,10 +6,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @MapperScan("com.pinxixi.dao")
 @SpringBootApplication
-public class PinxixiServerApplication {
+public class PinxixiApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(PinxixiServerApplication.class, args);
+        SpringApplication.run(PinxixiApplication.class, args);
     }
 
 }
