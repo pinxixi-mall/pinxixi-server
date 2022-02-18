@@ -5,8 +5,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/manage")
+@RequestMapping("/admin")
 public class AdminUserController {
+
+
 
     @PostMapping("/login")
     public String login() {
