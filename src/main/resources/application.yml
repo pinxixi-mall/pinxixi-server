@@ -10,7 +10,9 @@ spring:
   devtools:
     livereload:
       enabled: false #热部署
-
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
 
 mybatis:
   mapper-locations: classpath:mapper/*.xml

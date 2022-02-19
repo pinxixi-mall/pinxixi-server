@@ -1,10 +1,12 @@
 package com.pinxixi.config;
 
+import io.swagger.annotations.ApiOperation;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
+import springfox.documentation.oas.annotations.EnableOpenApi;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
@@ -14,15 +16,27 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
  * swagger配置
  */
 @Configuration
-@EnableSwagger2
+//@EnableSwagger2
+@EnableOpenApi
 public class SwaggerConfig {
 
+    //swagger2配置
+    //@Bean
+    //public Docket docket() {
+    //    return new Docket(DocumentationType.SWAGGER_2)
+    //            .apiInfo(apiInfo())
+    //            .select()
+    //            .apis(RequestHandlerSelectors.basePackage("com.pinxixi.controller"))
+    //            .paths(PathSelectors.any())
+    //            .build();
+    //}
+
     @Bean
-    public Docket docket() {
-        return new Docket(DocumentationType.SWAGGER_2)
+    public Docket createRestApi() {
+        return new Docket(DocumentationType.OAS_30)
                 .apiInfo(apiInfo())
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.pinxixi.controller"))
+                .apis(RequestHandlerSelectors.withMethodAnnotation(ApiOperation.class))
                 .paths(PathSelectors.any())
                 .build();
     }
