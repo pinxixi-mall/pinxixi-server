@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@Api(tags = "管理后台用户管理")
+@Api(tags = "用户管理（管理端）")
 @RestController
 @RequestMapping("/admin")
 public class AdminUserController {
