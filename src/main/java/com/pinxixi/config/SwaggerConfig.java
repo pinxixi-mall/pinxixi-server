@@ -44,7 +44,7 @@ public class SwaggerConfig {
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
                 .title("拼夕夕商城接口文档")
-                .termsOfServiceUrl("http://localhost:9090/swagger/")
+                //.termsOfServiceUrl("http://localhost:9090/swagger/")
                 .version("1.0")
                 .build();
     }
