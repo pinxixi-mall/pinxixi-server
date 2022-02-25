@@ -1,5 +1,7 @@
 package com.pinxixi.service.admin;
 
+import com.pinxixi.entity.AdminUserToken;
+
 public interface AdminUserService {
 
     /**
@@ -8,7 +10,7 @@ public interface AdminUserService {
      * @param password
      * @return
      */
-    String login(String username, String password);
+    AdminUserToken login(String username, String password);
 
     /**
      * 注册

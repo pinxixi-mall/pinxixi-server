@@ -14,4 +14,17 @@ application.yml
       matching-strategy: ant_path_matcher
 ```
 
-2. 
+### 2. Interceptor里通过@Value读取不到application.yml的值
+
+原因： 
+>Interceptor默认没有被spring容器管理。
+
+解决：
+```
+    @Bean
+    public TokenInterceptor tokenInterceptor() {
+        return new TokenInterceptor();
+    }
+```
+
+### 3. 404异常拦截不到，NoHandlerFoundException不生效

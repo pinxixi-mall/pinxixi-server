@@ -1,6 +1,6 @@
-package com.pinxixi.utils;
+package com.pinxixi.config;
 
-import com.pinxixi.common.HttpStatus;
+import com.pinxixi.common.HttpStatusEnum;
 
 import java.util.HashMap;
 
@@ -24,7 +24,7 @@ public class Result extends HashMap<String, Object> {
      * @return 默认成功提示
      */
     public static Result success() {
-        return Result.success("操作成功");
+        return Result.success(HttpStatusEnum.SUCCESS.getMsg());
     }
 
     /**
@@ -42,7 +42,7 @@ public class Result extends HashMap<String, Object> {
      * @return 默认消息+数据
      */
     public static Result success(Object data) {
-        return Result.success("操作成功", data);
+        return Result.success(HttpStatusEnum.SUCCESS.getMsg(), data);
     }
 
     /**
@@ -52,7 +52,7 @@ public class Result extends HashMap<String, Object> {
      * @return 自定义消息+数据
      */
     public static Result success(String msg, Object data) {
-        return Result.success(HttpStatus.SUCCESS, msg, data);
+        return Result.success(HttpStatusEnum.SUCCESS.getCode(), msg, data);
     }
 
     /**
@@ -70,21 +70,10 @@ public class Result extends HashMap<String, Object> {
 
     /**
      * 请求失败
-     * @param code 失败状态码
-     * @param msg 失败提示
-     * @param data
-     * @return
-     */
-    public static Result fail(int code, String msg, Object data){
-        return new Result(code, msg, data);
-    }
-
-    /**
-     * 请求失败
      * @return 默认失败提示
      */
-    public static Result error() {
-        return Result.error("请求失败");
+    public static Result fail() {
+        return Result.fail(HttpStatusEnum.FAIL.getMsg());
     }
 
     /**
@@ -92,8 +81,8 @@ public class Result extends HashMap<String, Object> {
      * @param msg 失败提示
      * @return
      */
-    public static Result error(String msg) {
-        return Result.error(HttpStatus.ERROR, msg, null);
+    public static Result fail(String msg) {
+        return Result.fail(HttpStatusEnum.FAIL.getCode(), msg, null);
     }
 
     /**
@@ -102,8 +91,8 @@ public class Result extends HashMap<String, Object> {
      * @param msg 失败提示
      * @return
      */
-    public static Result error(int code, String msg) {
-        return Result.error(code, msg, null);
+    public static Result fail(int code, String msg) {
+        return Result.fail(code, msg, null);
     }
 
     /**
@@ -113,8 +102,25 @@ public class Result extends HashMap<String, Object> {
      * @param data 失败数据
      * @return
      */
-    public static Result error(int code, String msg, Object data) {
+    public static Result fail(int code, String msg, Object data) {
         return new Result(code, msg, data);
     }
 
+    /**
+     * 系统错误
+     * @return
+     */
+    public static Result error() {
+        return Result.error(HttpStatusEnum.ERROR.getCode(), HttpStatusEnum.ERROR.getMsg());
+    }
+
+    /**
+     * 系统错误
+     * @param code
+     * @param msg
+     * @return
+     */
+    public static Result error(int code, String msg) {
+        return new Result(code, msg, null);
+    }
 }
