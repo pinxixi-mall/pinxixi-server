@@ -28,3 +28,12 @@ application.yml
 ```
 
 ### 3. 404异常拦截不到，NoHandlerFoundException不生效
+
+y原因：
+>exceptionHandler只接收一个参数....@@
+
+解决：
+
+```java
+public Result exceptionHandler(NoHandlerFoundException e) {}
+```

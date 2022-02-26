@@ -8,7 +8,6 @@ import com.pinxixi.entity.AdminUserToken;
 import com.pinxixi.entity.TokenObj;
 import com.pinxixi.service.admin.AdminUserService;
 import com.pinxixi.utils.TokenUtils;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -63,12 +62,14 @@ public class AdminUserServiceImpl implements AdminUserService {
         return null;
     }
 
-    public AdminUser getUserInfo() {
-        return null;
+    /**
+     * 根据ID获取用户信息
+     * @param userId
+     * @return
+     */
+    @Override
+    public AdminUser getUser(int userId) {
+        return adminUserMapper.selectUserById(userId);
     }
 
-    @Override
-    public String register(String username, String password) {
-        return null;
-    }
 }

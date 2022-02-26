@@ -14,7 +14,7 @@ public interface AdminUserTokenMapper {
      * @param id
      * @return
      */
-    AdminUserToken selectTokenById(Long id);
+    AdminUserToken selectTokenById(int id);
 
     /**
      * 新建token

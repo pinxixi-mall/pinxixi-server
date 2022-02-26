@@ -14,6 +14,7 @@ CREATE TABLE IF NOT EXISTS `tb_admin_user` (
   `user_name` varchar(50) NOT NULL COMMENT '管理员名称',
   `password` varchar(50) NOT NULL COMMENT '管理员密码',
   `nick_name` varchar(50) NOT NULL COMMENT '管理员昵称',
+  `avater` varchar(200) COMMENT '管理员头像',
   `locked` tinyint(4) DEFAULT '0' COMMENT '是否锁定 0-未锁定 1-已锁定',
   PRIMARY KEY (`user_id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
@@ -31,9 +32,11 @@ UNLOCK TABLES;
 
 # 管理员token表
 
+DROP TABLE IF EXISTS tb_admin_user_token;
+
 CREATE TABLE IF NOT EXISTS tb_admin_user_token (
     `user_id` bigint(20) NOT NULL COMMENT '管理员id',
-    `token` varchar(100) NOT NULL COMMENT 'token值（32位）',
+    `token` varchar(200) NOT NULL COMMENT 'token值',
     `update_time` datetime NOT NULL COMMENT '更新时间',
     `expired_time` datetime NOT NULL COMMENT '过期时间',
     PRIMARY KEY (`user_id`) USING BTREE

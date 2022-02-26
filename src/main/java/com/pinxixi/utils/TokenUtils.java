@@ -4,21 +4,20 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
-import com.auth0.jwt.exceptions.JWTVerificationException;
-import com.auth0.jwt.interfaces.DecodedJWT;
+import com.auth0.jwt.exceptions.SignatureVerificationException;
+import com.auth0.jwt.exceptions.TokenExpiredException;
+import com.pinxixi.common.HttpStatusEnum;
+import com.pinxixi.config.PinxixiException;
+import com.pinxixi.config.PinxixiMallConfig;
 import com.pinxixi.entity.TokenObj;
+import org.springframework.stereotype.Component;
 
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+@Component
 public class TokenUtils {
-
-    //过期时间: 30分钟
-    private static final long EXPIRED_TIME = 30 * 60 * 1000;
-
-    //秘钥
-    private static final String TOKEN_SECRET = "pinxixi2022666";
 
     /**
      * 生成token
@@ -29,9 +28,9 @@ public class TokenUtils {
     public static TokenObj generateToken(String username, String password) {
         try {
             //过期时间
-            Date expiredDate = new Date(System.currentTimeMillis() + EXPIRED_TIME);
+            Date expiredDate = new Date(System.currentTimeMillis() + PinxixiMallConfig.TOKEN_EXPIRED_TIME);
             //加密算法
-            Algorithm algorithm = Algorithm.HMAC256(TOKEN_SECRET);
+            Algorithm algorithm = Algorithm.HMAC256(PinxixiMallConfig.TOKEN_SECRET);
             //设置头部信息
             Map<String, Object> header = new HashMap<>();
             header.put("typ", "JWT");
@@ -60,16 +59,23 @@ public class TokenUtils {
      * @param token
      * @return
      */
-    public static void verifyToken(String token) {
+    public static boolean verifyToken(String token) {
         try {
-            Algorithm algorithm = Algorithm.HMAC256(TOKEN_SECRET);
+            Algorithm algorithm = Algorithm.HMAC256(PinxixiMallConfig.TOKEN_SECRET);
             JWTVerifier verifier = JWT.require(algorithm)
                     .withIssuer("auth0")
                     .build();
-            DecodedJWT jwt = verifier.verify(token);
-            System.out.println(jwt);
-        } catch (JWTVerificationException e) {
+            verifier.verify(token);
+        } catch (SignatureVerificationException e) {
             e.printStackTrace();
+            throw new PinxixiException(HttpStatusEnum.INVALID_AUTH.getCode(), HttpStatusEnum.INVALID_AUTH.getMsg());
+        } catch (TokenExpiredException e) {
+            e.printStackTrace();
+            throw new PinxixiException(HttpStatusEnum.FORBIDDEN.getCode(), HttpStatusEnum.FORBIDDEN.getMsg());
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new PinxixiException(HttpStatusEnum.ERROR.getCode(), "身份验证失败");
         }
+        return true;
     }
 }

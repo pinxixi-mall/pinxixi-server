@@ -13,7 +13,9 @@ public enum HttpStatusEnum {
 
     UNAUTHORIZED(401, "请求未授权"),
 
-    FORBIDDEN(403, "授权过期"),
+    INVALID_AUTH(401, "无效的签名"),
+
+    FORBIDDEN(403, "授权已过期"),
 
     NOT_FOUND(404, "资源未找到"),
 

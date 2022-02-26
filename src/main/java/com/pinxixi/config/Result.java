@@ -111,7 +111,7 @@ public class Result extends HashMap<String, Object> {
      * @return
      */
     public static Result error() {
-        return Result.error(HttpStatusEnum.ERROR.getCode(), HttpStatusEnum.ERROR.getMsg());
+        return Result.error(HttpStatusEnum.ERROR.getCode(), HttpStatusEnum.ERROR.getMsg(), null);
     }
 
     /**
@@ -121,6 +121,17 @@ public class Result extends HashMap<String, Object> {
      * @return
      */
     public static Result error(int code, String msg) {
-        return new Result(code, msg, null);
+        return Result.error(code, msg, null);
+    }
+
+    /**
+     *
+     * @param code
+     * @param msg
+     * @param data
+     * @return
+     */
+    public static Result error(int code, String msg, Object data) {
+        return new Result(code, msg, data);
     }
 }
