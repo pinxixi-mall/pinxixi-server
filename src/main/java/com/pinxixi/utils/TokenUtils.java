@@ -7,8 +7,8 @@ import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.SignatureVerificationException;
 import com.auth0.jwt.exceptions.TokenExpiredException;
 import com.pinxixi.common.HttpStatusEnum;
+import com.pinxixi.config.JWTConfig;
 import com.pinxixi.config.PinxixiException;
-import com.pinxixi.config.PinxixiMallConfig;
 import com.pinxixi.entity.TokenObj;
 import org.springframework.stereotype.Component;
 
@@ -28,9 +28,9 @@ public class TokenUtils {
     public static TokenObj generateToken(String username, String password) {
         try {
             //过期时间
-            Date expiredDate = new Date(System.currentTimeMillis() + PinxixiMallConfig.TOKEN_EXPIRED_TIME);
+            Date expiredDate = new Date(System.currentTimeMillis() + JWTConfig.expiration);
             //加密算法
-            Algorithm algorithm = Algorithm.HMAC256(PinxixiMallConfig.TOKEN_SECRET);
+            Algorithm algorithm = Algorithm.HMAC256(JWTConfig.secret);
             //设置头部信息
             Map<String, Object> header = new HashMap<>();
             header.put("typ", "JWT");
@@ -61,7 +61,7 @@ public class TokenUtils {
      */
     public static boolean verifyToken(String token) {
         try {
-            Algorithm algorithm = Algorithm.HMAC256(PinxixiMallConfig.TOKEN_SECRET);
+            Algorithm algorithm = Algorithm.HMAC256(JWTConfig.secret);
             JWTVerifier verifier = JWT.require(algorithm)
                     .withIssuer("auth0")
                     .build();

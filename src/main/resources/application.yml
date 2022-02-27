@@ -2,6 +2,7 @@ server:
   port: 9090
 
 spring:
+   # 数据源配置
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql:///pinxixi_mall?useUnicode=true&serverTimezone=Asia/Shanghai
@@ -9,18 +10,35 @@ spring:
     password: 123456789
   devtools:
     livereload:
-      enabled: false #热部署
+      #热部署
+      enabled: false
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
-    throw-exception-if-no-handler-found: true # 抛出404异常
+    # 抛出404异常
+    throw-exception-if-no-handler-found: true
   web:
     resources:
       add-mappings: false
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
+    # 时区
     time-zone: GMT+8
 
+# JWT配置
+jwt:
+  # 秘钥
+  secret: pinxixi2022666
+  # token请求头
+  tokenHeader: Authorization
+  # token前缀
+  tokenPrefix: Bear
+  # token过期时间 单位 秒
+  expiration: 1800
+  # 不需要认证的路径
+  excludePaths: /admin/login, /client/register, /client/login, /error
+
+# mybatis配置
 mybatis:
   mapper-locations: classpath:mapper/*.xml
 

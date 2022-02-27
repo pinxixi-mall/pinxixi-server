@@ -1,6 +1,4 @@
-package com.pinxixi.config;
-
-import com.pinxixi.common.HttpStatusEnum;
+package com.pinxixi.common;
 
 import java.util.HashMap;
 

@@ -5,7 +5,7 @@ import com.pinxixi.controller.admin.vo.AdminUserLoginParam;
 import com.pinxixi.entity.AdminUser;
 import com.pinxixi.entity.AdminUserToken;
 import com.pinxixi.service.admin.AdminUserService;
-import com.pinxixi.config.Result;
+import com.pinxixi.common.Result;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
