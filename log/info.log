@@ -75,3 +75,31 @@
 2022-02-27 11:34:46.125 [34mINFO [0;39m [http-nio-9090-exec-2] [36morg.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/][0;39m - [35m[log,173][0;39m : Initializing Spring DispatcherServlet 'dispatcherServlet'
 2022-02-27 11:34:46.376 [34mINFO [0;39m [http-nio-9090-exec-2] [36mcom.zaxxer.hikari.HikariDataSource[0;39m - [35m[getConnection,110][0;39m : HikariPool-1 - Starting...
 2022-02-27 11:34:46.973 [34mINFO [0;39m [http-nio-9090-exec-2] [36mcom.zaxxer.hikari.HikariDataSource[0;39m - [35m[getConnection,123][0;39m : HikariPool-1 - Start completed.
+2022-02-27 13:47:03.993 [34mINFO [0;39m [SpringApplicationShutdownHook] [36mcom.zaxxer.hikari.HikariDataSource[0;39m - [35m[close,350][0;39m : HikariPool-1 - Shutdown initiated...
+2022-02-27 13:47:04.007 [34mINFO [0;39m [SpringApplicationShutdownHook] [36mcom.zaxxer.hikari.HikariDataSource[0;39m - [35m[close,352][0;39m : HikariPool-1 - Shutdown completed.
+2022-02-27 13:47:10.168 [34mINFO [0;39m [restartedMain] [36mcom.pinxixi.PinxixiApplication[0;39m - [35m[logStarting,55][0;39m : Starting PinxixiApplication using Java 1.8.0_202 on yetms-MacBook-Pro.local with PID 2391 (/Users/ytm/IdeaProjects/pinxixi-server/target/classes started by ytm in /Users/ytm/IdeaProjects/pinxixi-server)
+2022-02-27 13:47:10.169 [34mINFO [0;39m [background-preinit] [36morg.hibernate.validator.internal.util.Version[0;39m - [35m[<clinit>,21][0;39m : HV000001: Hibernate Validator 6.2.0.Final
+2022-02-27 13:47:10.170 [34mINFO [0;39m [restartedMain] [36mcom.pinxixi.PinxixiApplication[0;39m - [35m[logStartupProfileInfo,637][0;39m : No active profile set, falling back to default profiles: default
+2022-02-27 13:47:11.797 [34mINFO [0;39m [restartedMain] [36morg.apache.coyote.http11.Http11NioProtocol[0;39m - [35m[log,173][0;39m : Initializing ProtocolHandler ["http-nio-9090"]
+2022-02-27 13:47:11.798 [34mINFO [0;39m [restartedMain] [36morg.apache.catalina.core.StandardService[0;39m - [35m[log,173][0;39m : Starting service [Tomcat]
+2022-02-27 13:47:11.798 [34mINFO [0;39m [restartedMain] [36morg.apache.catalina.core.StandardEngine[0;39m - [35m[log,173][0;39m : Starting Servlet engine: [Apache Tomcat/9.0.56]
+2022-02-27 13:47:11.854 [34mINFO [0;39m [restartedMain] [36morg.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/][0;39m - [35m[log,173][0;39m : Initializing Spring embedded WebApplicationContext
+2022-02-27 13:47:12.687 [34mINFO [0;39m [restartedMain] [36morg.apache.coyote.http11.Http11NioProtocol[0;39m - [35m[log,173][0;39m : Starting ProtocolHandler ["http-nio-9090"]
+2022-02-27 13:47:12.995 [34mINFO [0;39m [restartedMain] [36mcom.pinxixi.PinxixiApplication[0;39m - [35m[logStarted,61][0;39m : Started PinxixiApplication in 3.351 seconds (JVM running for 4.135)
+2022-02-27 13:47:49.892 [34mINFO [0;39m [http-nio-9090-exec-2] [36morg.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/][0;39m - [35m[log,173][0;39m : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-02-27 13:47:50.059 [34mINFO [0;39m [http-nio-9090-exec-2] [36mcom.zaxxer.hikari.HikariDataSource[0;39m - [35m[getConnection,110][0;39m : HikariPool-1 - Starting...
+2022-02-27 13:47:50.507 [34mINFO [0;39m [http-nio-9090-exec-2] [36mcom.zaxxer.hikari.HikariDataSource[0;39m - [35m[getConnection,123][0;39m : HikariPool-1 - Start completed.
+2022-02-27 13:54:40.927 [34mINFO [0;39m [SpringApplicationShutdownHook] [36mcom.zaxxer.hikari.HikariDataSource[0;39m - [35m[close,350][0;39m : HikariPool-1 - Shutdown initiated...
+2022-02-27 13:54:40.936 [34mINFO [0;39m [SpringApplicationShutdownHook] [36mcom.zaxxer.hikari.HikariDataSource[0;39m - [35m[close,352][0;39m : HikariPool-1 - Shutdown completed.
+2022-02-27 13:54:45.775 [34mINFO [0;39m [restartedMain] [36mcom.pinxixi.PinxixiApplication[0;39m - [35m[logStarting,55][0;39m : Starting PinxixiApplication using Java 1.8.0_202 on yetms-MacBook-Pro.local with PID 2462 (/Users/ytm/IdeaProjects/pinxixi-server/target/classes started by ytm in /Users/ytm/IdeaProjects/pinxixi-server)
+2022-02-27 13:54:45.776 [34mINFO [0;39m [restartedMain] [36mcom.pinxixi.PinxixiApplication[0;39m - [35m[logStartupProfileInfo,637][0;39m : No active profile set, falling back to default profiles: default
+2022-02-27 13:54:45.778 [34mINFO [0;39m [background-preinit] [36morg.hibernate.validator.internal.util.Version[0;39m - [35m[<clinit>,21][0;39m : HV000001: Hibernate Validator 6.2.0.Final
+2022-02-27 13:54:47.023 [34mINFO [0;39m [restartedMain] [36morg.apache.coyote.http11.Http11NioProtocol[0;39m - [35m[log,173][0;39m : Initializing ProtocolHandler ["http-nio-9090"]
+2022-02-27 13:54:47.023 [34mINFO [0;39m [restartedMain] [36morg.apache.catalina.core.StandardService[0;39m - [35m[log,173][0;39m : Starting service [Tomcat]
+2022-02-27 13:54:47.024 [34mINFO [0;39m [restartedMain] [36morg.apache.catalina.core.StandardEngine[0;39m - [35m[log,173][0;39m : Starting Servlet engine: [Apache Tomcat/9.0.56]
+2022-02-27 13:54:47.067 [34mINFO [0;39m [restartedMain] [36morg.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/][0;39m - [35m[log,173][0;39m : Initializing Spring embedded WebApplicationContext
+2022-02-27 13:54:47.838 [34mINFO [0;39m [restartedMain] [36morg.apache.coyote.http11.Http11NioProtocol[0;39m - [35m[log,173][0;39m : Starting ProtocolHandler ["http-nio-9090"]
+2022-02-27 13:54:48.046 [34mINFO [0;39m [restartedMain] [36mcom.pinxixi.PinxixiApplication[0;39m - [35m[logStarted,61][0;39m : Started PinxixiApplication in 2.601 seconds (JVM running for 3.195)
+2022-02-27 13:54:56.318 [34mINFO [0;39m [http-nio-9090-exec-1] [36morg.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/][0;39m - [35m[log,173][0;39m : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-02-27 13:54:56.485 [34mINFO [0;39m [http-nio-9090-exec-1] [36mcom.zaxxer.hikari.HikariDataSource[0;39m - [35m[getConnection,110][0;39m : HikariPool-1 - Starting...
+2022-02-27 13:54:56.924 [34mINFO [0;39m [http-nio-9090-exec-1] [36mcom.zaxxer.hikari.HikariDataSource[0;39m - [35m[getConnection,123][0;39m : HikariPool-1 - Start completed.

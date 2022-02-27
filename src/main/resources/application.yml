@@ -38,6 +38,7 @@ jwt:
   # 不需要认证的路径
   excludePaths: /admin/login, /client/register, /client/login, /error
 
+
 # mybatis配置
 mybatis:
   mapper-locations: classpath:mapper/*.xml

@@ -1,7 +1,8 @@
-package com.pinxixi.config;
+package com.pinxixi.config.handler;
 
 import com.pinxixi.common.HttpStatusEnum;
 import com.pinxixi.common.Result;
+import com.pinxixi.config.PinxixiException;
 import com.sun.deploy.net.HttpResponse;
 import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;

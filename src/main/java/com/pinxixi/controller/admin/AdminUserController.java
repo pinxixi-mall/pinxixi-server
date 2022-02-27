@@ -11,6 +11,9 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 /**
@@ -31,8 +34,11 @@ public class AdminUserController {
      */
     @ApiOperation("管理员登录")
     @PostMapping("/login")
-    public Result login(@RequestBody @Valid AdminUserLoginParam adminUserLoginParam) {
+    public Result login(@RequestBody @Valid AdminUserLoginParam adminUserLoginParam, HttpServletRequest httpServletRequest) {
         AdminUserToken userToken = adminUserService.login(adminUserLoginParam.getUserName(), adminUserLoginParam.getPassword());
+
+        HttpSession session = httpServletRequest.getSession();
+        System.out.println(session.getId());
 
         if (userToken != null) {
             return Result.success(ServiceResultEnum.LOGIN_SUCCESS.getResult(), userToken);
@@ -42,8 +48,10 @@ public class AdminUserController {
 
     }
 
-    @GetMapping
-    public Result logout(@PathVariable int userId) {
+    @PostMapping("/logout")
+    public Result logout(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) {
+        HttpSession session = httpServletRequest.getSession();
+        System.out.println(session.getId());
         return null;
     }
 
