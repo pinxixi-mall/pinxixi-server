@@ -29,6 +29,10 @@ public class JWTConfig {
         this.tokenHeader = tokenHeader;
     }
 
+    public void setTokenPrefix(String tokenPrefix) {
+        this.tokenPrefix = tokenPrefix;
+    }
+
     public void setExpiration(Integer expiration) {
         this.expiration = expiration * 1000;
     }

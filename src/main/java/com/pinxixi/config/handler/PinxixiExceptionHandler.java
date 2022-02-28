@@ -43,14 +43,13 @@ public class PinxixiExceptionHandler {
     @ExceptionHandler(NoHandlerFoundException.class)
     public Result exceptionHandler(NoHandlerFoundException e) {
         e.printStackTrace();
-        System.out.println(e.getMessage());
         return Result.error(HttpStatusEnum.NOT_FOUND.getCode(), e.getMessage());
     }
 
     @ExceptionHandler(Exception.class)
-    public Result exceptionHandler(HttpRequest httpRequest, HttpResponse httpResponse, Exception e) {
-        System.out.println(httpResponse.getStatusCode());
+    public Result exceptionHandler(Exception e) {
+        System.out.println(e.getMessage());
         e.printStackTrace();
-        return Result.error(500, e.getMessage());
+        return Result.error(500, "未知异常");
     }
 }

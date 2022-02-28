@@ -13,6 +13,10 @@ public enum ServiceResultEnum {
 
     LOGIN_FAIL("用户名或密码错误"),
 
+    LOGOUT_SUCCESS("退出登录成功"),
+
+    LOGOUT_FAIL("退出登录失败"),
+
     USER_NOT_FOUND("没找到用户");
 
     private String result;

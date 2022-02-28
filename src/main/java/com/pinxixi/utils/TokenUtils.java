@@ -6,6 +6,7 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.SignatureVerificationException;
 import com.auth0.jwt.exceptions.TokenExpiredException;
+import com.pinxixi.common.Constants;
 import com.pinxixi.common.HttpStatusEnum;
 import com.pinxixi.config.JWTConfig;
 import com.pinxixi.config.PinxixiException;
@@ -77,5 +78,29 @@ public class TokenUtils {
             throw new PinxixiException(HttpStatusEnum.ERROR.getCode(), "身份验证失败");
         }
         return true;
+    }
+
+    /**
+     * 截掉token前缀
+     * @param token
+     * @return
+     */
+    public static String splitTokenPrefix(String token) {
+        if (token.startsWith(JWTConfig.tokenPrefix)) {
+            return token.replace(JWTConfig.tokenPrefix, "").trim();
+        } else {
+            return token;
+        }
+    }
+
+    /**
+     * 获取token在redis中的key
+     * @param token
+     * @param sysName admin：管理后台；client：客户端
+     * @return
+     */
+    public static String getTokenCacheKey(String token, String sysName) {
+        String prefix = sysName == "admin" ? Constants.ADMIN_TOKEN_CACHE_KEY : Constants.ClIENT_TOKEN_CACHE_KEY;
+        return prefix + token;
     }
 }

@@ -1,6 +1,7 @@
 package com.pinxixi.controller.admin;
 
 import com.pinxixi.common.ServiceResultEnum;
+import com.pinxixi.config.JWTConfig;
 import com.pinxixi.controller.admin.vo.AdminUserLoginParam;
 import com.pinxixi.entity.AdminUser;
 import com.pinxixi.entity.AdminUserToken;
@@ -34,11 +35,8 @@ public class AdminUserController {
      */
     @ApiOperation("管理员登录")
     @PostMapping("/login")
-    public Result login(@RequestBody @Valid AdminUserLoginParam adminUserLoginParam, HttpServletRequest httpServletRequest) {
+    public Result login(@RequestBody @Valid AdminUserLoginParam adminUserLoginParam) {
         AdminUserToken userToken = adminUserService.login(adminUserLoginParam.getUserName(), adminUserLoginParam.getPassword());
-
-        HttpSession session = httpServletRequest.getSession();
-        System.out.println(session.getId());
 
         if (userToken != null) {
             return Result.success(ServiceResultEnum.LOGIN_SUCCESS.getResult(), userToken);
@@ -48,11 +46,19 @@ public class AdminUserController {
 
     }
 
+    /**
+     * 退出登录
+     * @param httpServletRequest
+     * @return
+     */
     @PostMapping("/logout")
-    public Result logout(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) {
-        HttpSession session = httpServletRequest.getSession();
-        System.out.println(session.getId());
-        return null;
+    public Result logout(HttpServletRequest httpServletRequest) {
+        Boolean logout = adminUserService.logout(httpServletRequest);
+        if (logout) {
+            return Result.success(ServiceResultEnum.LOGOUT_SUCCESS.getResult());
+        } else {
+            return Result.fail(ServiceResultEnum.LOGOUT_FAIL.getResult());
+        }
     }
 
     /**
