@@ -38,9 +38,9 @@ jwt:
   # token前缀
   tokenPrefix: Bearer
   # token过期时间 单位 秒
-  expiration: 1800
+  expiration: 3600
   # 不需要认证的路径
-  excludePaths: /admin/login, /client/register, /client/login, /error
+  excludePaths: /admin/login, /client/register, /client/login, /error, /swagger-ui/**, /swagger-resources/**, /v3/api-docs
 
 
 # mybatis配置

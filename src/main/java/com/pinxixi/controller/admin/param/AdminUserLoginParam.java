@@ -1,4 +1,4 @@
-package com.pinxixi.controller.admin.vo;
+package com.pinxixi.controller.admin.param;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;

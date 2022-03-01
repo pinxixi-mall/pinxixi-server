@@ -1,5 +1,6 @@
 package com.pinxixi.service.admin;
 
+import com.pinxixi.controller.admin.vo.AdminUserVO;
 import com.pinxixi.entity.AdminUser;
 import com.pinxixi.entity.AdminUserToken;
 

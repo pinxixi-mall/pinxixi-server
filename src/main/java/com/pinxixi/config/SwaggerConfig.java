@@ -10,26 +10,13 @@ import springfox.documentation.oas.annotations.EnableOpenApi;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
-import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 /**
  * swagger配置
  */
 @Configuration
-//@EnableSwagger2
 @EnableOpenApi
 public class SwaggerConfig {
-
-    //swagger2配置
-    //@Bean
-    //public Docket docket() {
-    //    return new Docket(DocumentationType.SWAGGER_2)
-    //            .apiInfo(apiInfo())
-    //            .select()
-    //            .apis(RequestHandlerSelectors.basePackage("com.pinxixi.controller"))
-    //            .paths(PathSelectors.any())
-    //            .build();
-    //}
 
     @Bean
     public Docket createRestApi() {
@@ -44,7 +31,6 @@ public class SwaggerConfig {
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
                 .title("拼夕夕商城接口文档")
-                //.termsOfServiceUrl("http://localhost:9090/swagger/")
                 .version("1.0")
                 .build();
     }

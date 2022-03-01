@@ -6,6 +6,7 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.SignatureVerificationException;
 import com.auth0.jwt.exceptions.TokenExpiredException;
+import com.auth0.jwt.interfaces.DecodedJWT;
 import com.pinxixi.common.Constants;
 import com.pinxixi.common.HttpStatusEnum;
 import com.pinxixi.config.JWTConfig;
@@ -18,7 +19,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Component
-public class TokenUtils {
+public class JWTUtils {
 
     /**
      * 生成token
@@ -60,13 +61,14 @@ public class TokenUtils {
      * @param token
      * @return
      */
-    public static boolean verifyToken(String token) {
+    public static DecodedJWT verifyToken(String token) {
         try {
             Algorithm algorithm = Algorithm.HMAC256(JWTConfig.secret);
             JWTVerifier verifier = JWT.require(algorithm)
                     .withIssuer("auth0")
                     .build();
-            verifier.verify(token);
+            DecodedJWT verify = verifier.verify(token);
+            return verify;
         } catch (SignatureVerificationException e) {
             e.printStackTrace();
             throw new PinxixiException(HttpStatusEnum.INVALID_AUTH.getCode(), HttpStatusEnum.INVALID_AUTH.getMsg());
@@ -77,7 +79,6 @@ public class TokenUtils {
             e.printStackTrace();
             throw new PinxixiException(HttpStatusEnum.ERROR.getCode(), "身份验证失败");
         }
-        return true;
     }
 
     /**

@@ -1,19 +1,39 @@
 package com.pinxixi.common;
 
+import lombok.Data;
+
 import java.util.HashMap;
 
 /**
  * 返回结果
  */
-public class Result extends HashMap<String, Object> {
+@Data
+public class Result<T> {
+
+    private int code;
+
+    private String msg;
+
+    private T data;
 
     public Result() {}
 
-    public Result(int code, String msg, Object data) {
-        super.put("code", code);
-        super.put("msg", msg);
-        super.put("data", data);
+    public Result(int code, String msg) {
+        this.code = code;
+        this.msg = msg;
     }
+
+    public Result(int code, String msg, T data) {
+        this.code = code;
+        this.msg = msg;
+        this.data = data;
+    }
+
+    //public Result(int code, String msg, T data) {
+    //    //super.put("code", code);
+    //    //super.put("msg", msg);
+    //    //super.put("data", data);
+    //}
 
     /***************** 成功 ******************/
 

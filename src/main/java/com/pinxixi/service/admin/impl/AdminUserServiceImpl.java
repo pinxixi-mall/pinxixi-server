@@ -1,8 +1,6 @@
 package com.pinxixi.service.admin.impl;
 
-import com.auth0.jwt.JWT;
 import com.pinxixi.common.Constants;
-import com.pinxixi.common.ServiceResultEnum;
 import com.pinxixi.config.JWTConfig;
 import com.pinxixi.dao.AdminUserMapper;
 import com.pinxixi.dao.AdminUserTokenMapper;
@@ -11,7 +9,7 @@ import com.pinxixi.entity.AdminUserToken;
 import com.pinxixi.entity.TokenObj;
 import com.pinxixi.service.admin.AdminUserService;
 import com.pinxixi.utils.RedisUtils;
-import com.pinxixi.utils.TokenUtils;
+import com.pinxixi.utils.JWTUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -43,7 +41,7 @@ public class AdminUserServiceImpl implements AdminUserService {
         AdminUser adminUser = adminUserMapper.selectUser(username, password);
         if (adminUser != null) {
             //新token对象
-            TokenObj tokenObj = TokenUtils.generateToken(adminUser.getUserName(), adminUser.getPassword());
+            TokenObj tokenObj = JWTUtils.generateToken(adminUser.getUserName(), adminUser.getPassword());
 
             AdminUserToken adminUserToken = new AdminUserToken();
             adminUserToken.setUserId(adminUser.getUserId());
@@ -74,7 +72,7 @@ public class AdminUserServiceImpl implements AdminUserService {
             //用户存在，获取token
             AdminUserToken adminUserToken = adminUserTokenMapper.selectTokenById(adminUser.getUserId());
             //新token对象
-            TokenObj tokenObj = TokenUtils.generateToken(adminUser.getUserName(), adminUser.getPassword());
+            TokenObj tokenObj = JWTUtils.generateToken(adminUser.getUserName(), adminUser.getPassword());
 
             if (adminUserToken != null) {
                 //有token，更新
@@ -123,7 +121,7 @@ public class AdminUserServiceImpl implements AdminUserService {
     @Override
     public Boolean logout(HttpServletRequest httpServletRequest) {
         String token = httpServletRequest.getHeader(JWTConfig.tokenHeader);
-        token = TokenUtils.splitTokenPrefix(token);
+        token = JWTUtils.splitTokenPrefix(token);
         //删除token缓存
         return redisUtils.del(Constants.ADMIN_TOKEN_CACHE_KEY + token);
     }
