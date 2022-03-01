@@ -1,6 +1,7 @@
 package com.pinxixi.controller.admin;
 
 import com.pinxixi.common.ServiceResultEnum;
+import com.pinxixi.config.annotation.AdminUserFromToken;
 import com.pinxixi.controller.admin.param.AdminUserLoginParam;
 import com.pinxixi.controller.admin.vo.AdminUserVO;
 import com.pinxixi.entity.AdminUser;
@@ -61,13 +62,13 @@ public class AdminUserController {
     }
 
     /**
-     * 用户信息
+     * 根据userId查询用户信息
      * @param userId
      * @return
      */
-    @ApiOperation("管理员信息")
-    @GetMapping("/users/{userId}")
-    public Result<AdminUserVO> getUserInfo(@PathVariable int userId) {
+    @ApiOperation("根据userId查询管理员信息")
+    @GetMapping("/user/{userId}")
+    public Result<AdminUserVO> userInfo(@PathVariable int userId) {
         AdminUser user = adminUserService.getUser(userId);
         if (user != null) {
             AdminUserVO adminUserVO = new AdminUserVO();
@@ -76,5 +77,12 @@ public class AdminUserController {
         } else {
             return Result.fail(ServiceResultEnum.USER_NOT_FOUND.getResult());
         }
+    }
+
+    @ApiOperation("管理员信息")
+    @GetMapping("/userInfo")
+    public Result<AdminUserVO> userInfo(@AdminUserFromToken AdminUser adminUser) {
+        System.out.println(adminUser);
+        return Result.success();
     }
 }

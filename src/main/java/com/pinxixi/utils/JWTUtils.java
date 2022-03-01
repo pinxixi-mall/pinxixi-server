@@ -23,11 +23,11 @@ public class JWTUtils {
 
     /**
      * 生成token
-     * @param username
+     * @param userName
      * @param password
      * @return
      */
-    public static TokenObj generateToken(String username, String password) {
+    public static TokenObj generateToken(String userName, String password) {
         try {
             //过期时间
             Date expiredDate = new Date(System.currentTimeMillis() + JWTConfig.expiration);
@@ -41,7 +41,7 @@ public class JWTUtils {
             String token = JWT.create()
                     .withHeader(header)
                     .withIssuer("auth0")
-                    .withClaim("username", username)
+                    .withClaim("username", userName)
                     .withClaim("password", password)
                     .withExpiresAt(expiredDate)
                     .sign(algorithm);

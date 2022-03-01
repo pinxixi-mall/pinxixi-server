@@ -39,7 +39,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
      */
     @Override
     public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
-        //管理员信息
+        //管理员信息注解
         resolvers.add(new AdminUserFromTokenResolver());
     }
 

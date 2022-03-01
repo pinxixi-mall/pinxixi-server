@@ -20,4 +20,8 @@ public interface AdminUserMapper {
     @ResultMap(value = "adminUserMap")
     @Select("SELECT * FROM tb_admin_user WHERE user_id = #{id}")
     AdminUser selectUserById(int id);
+
+    @ResultMap(value = "adminUserMap")
+    @Select("SELECT * FROM tb_admin_user WHERE user_name = #{userName}")
+    AdminUser selectUserByName(String userName);
 }

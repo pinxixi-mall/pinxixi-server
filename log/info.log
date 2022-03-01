@@ -320,3 +320,7 @@
 2022-03-01 16:24:19.592 [34mINFO [0;39m [restartedMain] [36morg.apache.coyote.http11.Http11NioProtocol[0;39m - [35m[log,173][0;39m : Starting ProtocolHandler ["http-nio-9090"]
 2022-03-01 16:24:20.585 [34mINFO [0;39m [restartedMain] [36mcom.pinxixi.PinxixiApplication[0;39m - [35m[logStarted,61][0;39m : Started PinxixiApplication in 20.81 seconds (JVM running for 27.023)
 2022-03-01 16:24:34.816 [34mINFO [0;39m [http-nio-9090-exec-1] [36morg.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/][0;39m - [35m[log,173][0;39m : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-03-01 23:19:02.449 [34mINFO [0;39m [main] [36mcom.pinxixi.PinxixiServerApplicationTests[0;39m - [35m[logStarting,55][0;39m : Starting PinxixiServerApplicationTests using Java 1.8.0_202 on yetms-MacBook-Pro.local with PID 3103 (started by ytm in /Users/ytm/IdeaProjects/pinxixi-server)
+2022-03-01 23:19:02.453 [34mINFO [0;39m [main] [36mcom.pinxixi.PinxixiServerApplicationTests[0;39m - [35m[logStartupProfileInfo,637][0;39m : No active profile set, falling back to default profiles: default
+2022-03-01 23:19:02.500 [34mINFO [0;39m [background-preinit] [36morg.hibernate.validator.internal.util.Version[0;39m - [35m[<clinit>,21][0;39m : HV000001: Hibernate Validator 6.2.0.Final
+2022-03-01 23:19:12.583 [34mINFO [0;39m [main] [36mcom.pinxixi.PinxixiServerApplicationTests[0;39m - [35m[logStarted,61][0;39m : Started PinxixiServerApplicationTests in 11.076 seconds (JVM running for 13.161)
