@@ -1,7 +1,7 @@
 package com.pinxixi.controller.admin;
 
 import com.pinxixi.common.ServiceResultEnum;
-import com.pinxixi.config.annotation.AdminUserFromToken;
+import com.pinxixi.config.annotation.AdminUserArgument;
 import com.pinxixi.controller.admin.param.AdminUserLoginParam;
 import com.pinxixi.controller.admin.vo.AdminUserVO;
 import com.pinxixi.entity.AdminUser;
@@ -79,10 +79,16 @@ public class AdminUserController {
         }
     }
 
+    /**
+     * 管理员信息
+     * @param adminUser
+     * @return
+     */
     @ApiOperation("管理员信息")
     @GetMapping("/userInfo")
-    public Result<AdminUserVO> userInfo(@AdminUserFromToken AdminUser adminUser) {
-        System.out.println(adminUser);
-        return Result.success();
+    public Result<AdminUserVO> userInfo(@AdminUserArgument AdminUser adminUser) {
+        AdminUserVO adminUserVO = new AdminUserVO();
+        BeanUtils.copyProperties(adminUser, adminUserVO);
+        return Result.success(adminUserVO);
     }
 }

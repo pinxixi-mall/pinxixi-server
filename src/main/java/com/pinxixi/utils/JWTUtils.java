@@ -41,7 +41,7 @@ public class JWTUtils {
             String token = JWT.create()
                     .withHeader(header)
                     .withIssuer("auth0")
-                    .withClaim("username", userName)
+                    .withClaim("userName", userName)
                     .withClaim("password", password)
                     .withExpiresAt(expiredDate)
                     .sign(algorithm);

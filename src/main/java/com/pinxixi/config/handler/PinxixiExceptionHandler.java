@@ -3,6 +3,8 @@ package com.pinxixi.config.handler;
 import com.pinxixi.common.HttpStatusEnum;
 import com.pinxixi.common.Result;
 import com.pinxixi.config.PinxixiException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
@@ -16,6 +18,8 @@ import java.util.Objects;
 
 @RestControllerAdvice
 public class PinxixiExceptionHandler {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(PinxixiExceptionHandler.class);
 
     //自定义异常
     @ExceptionHandler(PinxixiException.class)
@@ -46,8 +50,8 @@ public class PinxixiExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     public Result exceptionHandler(Exception e) {
-        System.out.println(e.getMessage());
         e.printStackTrace();
+        LOGGER.error("未知异常");
         return Result.error(500, "未知异常");
     }
 }

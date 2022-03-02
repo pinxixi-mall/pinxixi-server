@@ -1,6 +1,5 @@
 package com.pinxixi.dao;
 
-import com.pinxixi.controller.admin.vo.AdminUserVO;
 import com.pinxixi.entity.AdminUser;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.ResultMap;
