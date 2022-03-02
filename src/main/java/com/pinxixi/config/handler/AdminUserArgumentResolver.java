@@ -15,6 +15,9 @@ import org.springframework.web.method.support.ModelAndViewContainer;
 
 import javax.annotation.Resource;
 
+/**
+ * 注解@AdminUserArgument处理
+ */
 @Component
 public class AdminUserArgumentResolver implements HandlerMethodArgumentResolver {
 
