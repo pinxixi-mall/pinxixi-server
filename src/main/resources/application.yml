@@ -47,3 +47,10 @@ jwt:
 mybatis:
   mapper-locations: classpath:mapper/*.xml
 
+# 分页配置
+pagehelper:
+  helper-dialect: mysql
+  reasonable: true # 页数<1查询第1页，页数>总页数查询最后一页
+  support-methods-arguments: true # 支持通过mapper接口来传递分页参数
+  # params: pageNum=pageNum;pageSize=pageSize # 默认分页参数字段
+

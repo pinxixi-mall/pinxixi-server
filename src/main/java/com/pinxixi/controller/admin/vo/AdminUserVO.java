@@ -17,6 +17,9 @@ public class AdminUserVO implements Serializable {
     @ApiModelProperty("用户昵称")
     private String nickName;
 
+    @ApiModelProperty("用户头像")
+    private String avatar;
+
     @ApiModelProperty("是否锁定：0-否，1-是")
     private Byte locked;
 }

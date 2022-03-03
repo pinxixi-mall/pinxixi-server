@@ -19,18 +19,30 @@ import springfox.documentation.spring.web.plugins.Docket;
 public class SwaggerConfig {
 
     @Bean
-    public Docket createRestApi() {
+    public Docket createClientApi() {
         return new Docket(DocumentationType.OAS_30)
+                .groupName("客户端(client)")
                 .apiInfo(apiInfo())
                 .select()
                 .apis(RequestHandlerSelectors.withMethodAnnotation(ApiOperation.class))
-                .paths(PathSelectors.any())
+                .paths(PathSelectors.regex("/client.*"))
+                .build();
+    }
+
+    @Bean
+    public Docket createAdminApi() {
+        return new Docket(DocumentationType.OAS_30)
+                .groupName("管理后台(admin)")
+                .apiInfo(apiInfo())
+                .select()
+                .apis(RequestHandlerSelectors.withMethodAnnotation(ApiOperation.class))
+                .paths(PathSelectors.regex("/admin.*"))
                 .build();
     }
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("拼夕夕商城接口文档")
+                .title("PinXiXi接口文档")
                 .version("1.0")
                 .build();
     }

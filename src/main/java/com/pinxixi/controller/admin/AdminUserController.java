@@ -20,7 +20,7 @@ import javax.validation.Valid;
 /**
  *管理后台-用户
  */
-@Api(value = "v1.0.0", tags = "用户管理（管理端）")
+@Api(value = "v1.0.0", tags = "用户管理")
 @RestController
 @RequestMapping("/admin")
 public class AdminUserController {

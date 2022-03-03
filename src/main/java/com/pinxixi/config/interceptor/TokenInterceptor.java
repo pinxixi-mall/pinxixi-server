@@ -2,7 +2,7 @@ package com.pinxixi.config.interceptor;
 
 import com.pinxixi.common.HttpStatusEnum;
 import com.pinxixi.config.JWTConfig;
-import com.pinxixi.config.PinxixiException;
+import com.pinxixi.config.PinXiXiException;
 import com.pinxixi.utils.RedisUtils;
 import com.pinxixi.utils.StringUtils;
 import com.pinxixi.utils.JWTUtils;
@@ -31,12 +31,11 @@ public class TokenInterceptor implements HandlerInterceptor {
             Object tokenCache = redisUtils.get(tokenCacheKey);
             if (tokenCache == null) {
                 //登录已失效
-                throw new PinxixiException(HttpStatusEnum.INVALID_AUTH.getCode(), HttpStatusEnum.INVALID_AUTH.getMsg());
+                throw new PinXiXiException(HttpStatusEnum.INVALID_AUTH.getCode(), HttpStatusEnum.INVALID_AUTH.getMsg());
             }
             JWTUtils.verifyToken(token);
         } else {
-            System.out.println(request.getRequestURI());
-            throw new PinxixiException(HttpStatusEnum.UNAUTHORIZED.getCode(), HttpStatusEnum.UNAUTHORIZED.getMsg());
+            throw new PinXiXiException(HttpStatusEnum.UNAUTHORIZED.getCode(), HttpStatusEnum.UNAUTHORIZED.getMsg());
         }
 
         return HandlerInterceptor.super.preHandle(request, response, handler);

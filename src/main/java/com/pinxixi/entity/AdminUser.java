@@ -13,6 +13,8 @@ public class AdminUser {
 
     private String nickName;
 
+    private String avatar;
+
     private Byte locked;
 
 }

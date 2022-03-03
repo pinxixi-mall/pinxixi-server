@@ -8,10 +8,10 @@ import org.springframework.cache.annotation.EnableCaching;
 @MapperScan("com.pinxixi.dao")
 @SpringBootApplication
 @EnableCaching
-public class PinxixiApplication {
+public class PinXiXiApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(PinxixiApplication.class, args);
+        SpringApplication.run(PinXiXiApplication.class, args);
     }
 
 }

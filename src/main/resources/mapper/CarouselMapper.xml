@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pinxixi.dao.CarouselMapper">
+    <resultMap id="carouselMap" type="com.pinxixi.entity.Carousel">
+        <id property="carouselImage" column="carousel_image" />
+        <id property="carouselUrl" column="carousel_url" />
+    </resultMap>
+    <select id="selectAll" resultType="com.pinxixi.entity.Carousel"></select>
+    <select id="selectPage" resultMap="carouselMap">
+        SELECT * FROM tb_carousel WHERE is_deleted = 0
+    </select>
+</mapper>

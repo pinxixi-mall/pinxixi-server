@@ -10,7 +10,7 @@ import com.auth0.jwt.interfaces.DecodedJWT;
 import com.pinxixi.common.Constants;
 import com.pinxixi.common.HttpStatusEnum;
 import com.pinxixi.config.JWTConfig;
-import com.pinxixi.config.PinxixiException;
+import com.pinxixi.config.PinXiXiException;
 import com.pinxixi.entity.TokenObj;
 import org.springframework.stereotype.Component;
 
@@ -71,13 +71,13 @@ public class JWTUtils {
             return verify;
         } catch (SignatureVerificationException e) {
             e.printStackTrace();
-            throw new PinxixiException(HttpStatusEnum.INVALID_AUTH.getCode(), HttpStatusEnum.INVALID_AUTH.getMsg());
+            throw new PinXiXiException(HttpStatusEnum.INVALID_AUTH.getCode(), HttpStatusEnum.INVALID_AUTH.getMsg());
         } catch (TokenExpiredException e) {
             e.printStackTrace();
-            throw new PinxixiException(HttpStatusEnum.FORBIDDEN.getCode(), HttpStatusEnum.FORBIDDEN.getMsg());
+            throw new PinXiXiException(HttpStatusEnum.FORBIDDEN.getCode(), HttpStatusEnum.FORBIDDEN.getMsg());
         } catch (Exception e) {
             e.printStackTrace();
-            throw new PinxixiException(HttpStatusEnum.ERROR.getCode(), "身份验证失败");
+            throw new PinXiXiException(HttpStatusEnum.ERROR.getCode(), "身份验证失败");
         }
     }
 

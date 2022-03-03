@@ -2,7 +2,7 @@ package com.pinxixi.config.handler;
 
 import com.pinxixi.common.HttpStatusEnum;
 import com.pinxixi.common.Result;
-import com.pinxixi.config.PinxixiException;
+import com.pinxixi.config.PinXiXiException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -17,13 +17,13 @@ import org.springframework.web.servlet.NoHandlerFoundException;
 import java.util.Objects;
 
 @RestControllerAdvice
-public class PinxixiExceptionHandler {
+public class PinXiXiExceptionHandler {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(PinxixiExceptionHandler.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(PinXiXiExceptionHandler.class);
 
     //自定义异常
-    @ExceptionHandler(PinxixiException.class)
-    public Result PinxixiExceptionHandler(PinxixiException e) {
+    @ExceptionHandler(PinXiXiException.class)
+    public Result PinxixiExceptionHandler(PinXiXiException e) {
         return Result.error(e.getErrorCode(), e.getErrorMsg());
     }
 
