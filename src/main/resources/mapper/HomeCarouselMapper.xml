@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pinxixi.dao.HomeCarouselMapper">
+    <resultMap id="carouselMap" type="com.pinxixi.entity.HomeCarousel">
+        <id property="carouselId" column="carousel_id" />
+        <id property="carouselImage" column="carousel_image" />
+        <id property="carouselUrl" column="carousel_url" />
+        <id property="carouselStatus" column="carousel_status" />
+        <id property="carouselSort" column="carousel_sort" />
+        <id property="isDeleted" column="is_deleted" />
+        <id property="createUser" column="create_user" />
+        <id property="createTime" column="create_time" />
+        <id property="updateUser" column="update_user" />
+        <id property="updateTime" column="update_time" />
+    </resultMap>
+    <select id="selectAll" resultMap="carouselMap">
+        SELECT * FROM tb_carousel
+    </select>
+    <select id="selectPage" resultMap="carouselMap">
+        SELECT * FROM tb_carousel WHERE is_deleted = 0
+    </select>
+    <insert id="insertHomeCarousel" parameterType="com.pinxixi.entity.HomeCarousel">
+        INSERT INTO tb_carousel
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="carouselId != null">carousel_id,</if>
+            <if test="carouselImage != null">carousel_image,</if>
+            <if test="carouselUrl != null">carousel_url,</if>
+            <if test="carouselStatus != null">carousel_status,</if>
+            <if test="carouselSort != null">carousel_sort,</if>
+            <if test="isDeleted != null">is_deleted,</if>
+            <if test="createUser != null">create_user,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateUser != null">update_user,</if>
+            <if test="updateTime != null">update_time,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="carouselId != null">#{carouselId},</if>
+            <if test="carouselImage != null">#{carouselImage},</if>
+            <if test="carouselUrl != null">#{carouselUrl},</if>
+            <if test="carouselStatus != null">#{carouselStatus},</if>
+            <if test="carouselSort != null">#{carouselSort},</if>
+            <if test="isDeleted != null">#{isDeleted},</if>
+            <if test="createUser != null">#{createUser},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateUser != null">#{updateUser},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+        </trim>
+    </insert>
+</mapper>

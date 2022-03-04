@@ -5,7 +5,7 @@ import lombok.Data;
 import java.util.Date;
 
 @Data
-public class Carousel {
+public class HomeCarousel {
 
     private int carouselId;
 
@@ -14,6 +14,8 @@ public class Carousel {
     private String carouselUrl;
 
     private String carouselSort;
+
+    private String carouselStatus;
 
     private String isDeleted;
 
