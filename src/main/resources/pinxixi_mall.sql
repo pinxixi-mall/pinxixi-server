@@ -43,7 +43,8 @@ CREATE TABLE `tb_carousel`(
     `carousel_image` varchar(150) NOT NULL COMMENT '轮播图片地址',
     `carousel_url` varchar(150) NOT NULL COMMENT '轮播图跳转链接',
     `carousel_sort` int NOT NULL DEFAULT 0 COMMENT '轮播图排序（越小越靠前）',
-    `is_deleted` tinyint NOT NULL DEFAULT 0 COMMENT '是否已删除（0-否，1-是）',
+    `carousel_status` tinyint NOT NULL DEFAULT 0 COMMENT '状态（0-已下架，1-上架中）',
+		`is_deleted` tinyint NOT NULL DEFAULT 0 COMMENT '删除标识（0-未删除，1-已删除）',
     `create_user` int NOT NULL COMMENT '创建人id',
     `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_user` int NOT NULL COMMENT '更新人id',
@@ -52,14 +53,14 @@ CREATE TABLE `tb_carousel`(
 ) ENGINE=InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic COMMENT='首页轮播图表';
 
 INSERT INTO `tb_carousel`
-    (`carousel_id`, `carousel_image`, `carousel_url`, `carousel_sort`, `is_deleted`, `create_user`, `create_time`, `update_user`, `update_time`)
+    (`carousel_id`, `carousel_image`, `carousel_url`, `carousel_sort`, `carousel_status`, `is_deleted`, `create_user`, `create_time`, `update_user`, `update_time`)
 VALUES
-    (1, 'https://m15.360buyimg.com/mobilecms/jfs/t1/148977/33/22598/287939/6216cfdcE5640591c/22d25c733d2b6c3b.jpg', '##', 1, 0, 1, '2022-03-01 10:15:16', 1, '2022-03-01 15:15:16'),
-    (2, 'https://m15.360buyimg.com/mobilecms/jfs/t1/107338/36/23598/145196/621d8bc1E93033a37/2d5bb408a810bf91.jpg', '##', 2, 0, 1, '2022-03-01 15:15:16', 1, '2022-03-01 15:15:16'),
-    (3, 'https://m15.360buyimg.com/mobilecms/jfs/t1/148977/33/22598/287939/6216cfdcE5640591c/22d25c733d2b6c3b.jpg', '##', 3, 0, 1, '2022-03-01 15:15:16', 1, '2022-03-01 15:15:16'),
-    (4, 'https://m15.360buyimg.com/mobilecms/jfs/t1/107338/36/23598/145196/621d8bc1E93033a37/2d5bb408a810bf91.jpg', '##', 4, 0, 1, '2022-03-01 15:15:16', 1, '2022-03-01 15:15:16'),
-    (5, 'https://m15.360buyimg.com/mobilecms/jfs/t1/148977/33/22598/287939/6216cfdcE5640591c/22d25c733d2b6c3b.jpg', '##', 5, 0, 1, '2022-03-01 15:15:16', 1, '2022-03-01 15:15:16');
-
+    (1, 'https://m15.360buyimg.com/mobilecms/jfs/t1/148977/33/22598/287939/6216cfdcE5640591c/22d25c733d2b6c3b.jpg', '##', 1, 1, 0, 1, '2022-03-01 10:15:16', 1, '2022-03-01 15:15:16'),
+    (2, 'https://m15.360buyimg.com/mobilecms/jfs/t1/107338/36/23598/145196/621d8bc1E93033a37/2d5bb408a810bf91.jpg', '##', 2, 1, 0, 1, '2022-03-01 15:15:16', 1, '2022-03-01 15:15:16'),
+    (3, 'https://m15.360buyimg.com/mobilecms/jfs/t1/148977/33/22598/287939/6216cfdcE5640591c/22d25c733d2b6c3b.jpg', '##', 3, 0, 0, 1, '2022-03-01 15:15:16', 1, '2022-03-01 15:15:16'),
+    (4, 'https://m15.360buyimg.com/mobilecms/jfs/t1/107338/36/23598/145196/621d8bc1E93033a37/2d5bb408a810bf91.jpg', '##', 4, 1, 0, 1, '2022-03-01 15:15:16', 1, '2022-03-01 15:15:16'),
+    (5, 'https://m15.360buyimg.com/mobilecms/jfs/t1/148977/33/22598/287939/6216cfdcE5640591c/22d25c733d2b6c3b.jpg', '##', 5, 0, 0, 1, '2022-03-01 15:15:16', 1, '2022-03-01 15:15:16');
+	
 -- ----------------------------
 -- 商品表
 -- ----------------------------
