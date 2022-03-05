@@ -29,4 +29,10 @@ public interface HomeCarouselMapper {
      */
     int insertHomeCarousel(HomeCarousel homeCarousel);
 
+    /**
+     * 轮播图更新
+     * @param homeCarousel
+     * @return
+     */
+    int updateCarousel(HomeCarousel homeCarousel);
 }

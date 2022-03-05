@@ -10,6 +10,7 @@ import com.pinxixi.service.admin.HomeCarouselService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -48,8 +49,24 @@ public class HomeCarouselServiceImpl implements HomeCarouselService {
      */
     @Override
     public String addCarousel(HomeCarousel homeCarousel) {
-        int row = homeCarouselMapper.insertHomeCarousel(homeCarousel);
-        if (row > 0) {
+        int rows = homeCarouselMapper.insertHomeCarousel(homeCarousel);
+        if (rows > 0) {
+            return ServiceResultEnum.SUCCESS.getResult();
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * 轮播图更新
+     * @param homeCarousel
+     * @return
+     */
+    @Override
+    public String updateCarousel(HomeCarousel homeCarousel) {
+        homeCarousel.setUpdateTime(new Date());
+        int rows = homeCarouselMapper.updateCarousel(homeCarousel);
+        if (rows > 0) {
             return ServiceResultEnum.SUCCESS.getResult();
         } else {
             return null;

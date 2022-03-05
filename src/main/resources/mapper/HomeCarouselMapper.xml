@@ -15,12 +15,15 @@
         <id property="updateUser" column="update_user" />
         <id property="updateTime" column="update_time" />
     </resultMap>
+
     <select id="selectAll" resultMap="carouselMap">
         SELECT * FROM tb_carousel
     </select>
+
     <select id="selectPage" resultMap="carouselMap">
         SELECT * FROM tb_carousel WHERE is_deleted = 0
     </select>
+
     <insert id="insertHomeCarousel" parameterType="com.pinxixi.entity.HomeCarousel">
         INSERT INTO tb_carousel
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -48,4 +51,20 @@
             <if test="updateTime != null">#{updateTime},</if>
         </trim>
     </insert>
+
+    <update id="updateCarousel" parameterType="com.pinxixi.entity.HomeCarousel">
+        UPDATE tb_carousel
+        SET carousel_image = #{carouselImage},
+            carousel_url = #{carouselUrl},
+            <if test="carouselStatus != null">
+                carousel_status = #{carouselStatus},
+            </if>
+            carousel_sort = #{carouselSort},
+            <if test="isDeleted != null">
+                is_deleted = #{isDeleted},
+            </if>
+            update_user = #{createTime},
+            update_time = #{createTime}
+        WHERE carousel_id = #{carouselId}
+    </update>
 </mapper>

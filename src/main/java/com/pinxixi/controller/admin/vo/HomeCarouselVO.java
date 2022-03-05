@@ -6,7 +6,7 @@ import lombok.Data;
 import java.util.Date;
 
 @Data
-public class HomeCarouselVO {
+public class    HomeCarouselVO {
 
     @ApiModelProperty("轮播图id")
     private int carouselId;

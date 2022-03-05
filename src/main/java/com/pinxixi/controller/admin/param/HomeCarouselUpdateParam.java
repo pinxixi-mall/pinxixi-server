@@ -3,13 +3,16 @@ package com.pinxixi.controller.admin.param;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @Data
-public class HomeCarouselAddParam {
+public class HomeCarouselUpdateParam {
+
+    @ApiModelProperty("轮播图ID")
+    @NotNull(message = "轮播图ID不能为空")
+    private Integer carouselId;
 
     @ApiModelProperty("轮播图地址")
-    @NotEmpty(message = "轮播图地址不能为空")
     private String carouselImage;
 
     @ApiModelProperty("轮播图跳转链接")

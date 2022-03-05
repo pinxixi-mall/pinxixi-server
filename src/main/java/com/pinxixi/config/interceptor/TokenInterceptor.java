@@ -4,9 +4,9 @@ import com.pinxixi.common.HttpStatusEnum;
 import com.pinxixi.config.JWTConfig;
 import com.pinxixi.config.PinXiXiException;
 import com.pinxixi.utils.RedisUtils;
-import com.pinxixi.utils.StringUtils;
 import com.pinxixi.utils.JWTUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 import javax.servlet.http.HttpServletRequest;

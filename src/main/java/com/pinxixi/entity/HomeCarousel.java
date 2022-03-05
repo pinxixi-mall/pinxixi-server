@@ -19,11 +19,11 @@ public class HomeCarousel {
 
     private String isDeleted;
 
-    private String createUser;
+    private int createUser;
 
     private Date createTime;
 
-    private String updateUser;
+    private int updateUser;
 
     private Date updateTime;
 

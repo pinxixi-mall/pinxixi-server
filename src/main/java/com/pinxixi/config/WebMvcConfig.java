@@ -1,5 +1,6 @@
 package com.pinxixi.config;
 
+import com.pinxixi.common.Constants;
 import com.pinxixi.config.handler.AdminUserArgumentResolver;
 import com.pinxixi.config.interceptor.TokenInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,8 +54,13 @@ public class WebMvcConfig implements WebMvcConfigurer {
      */
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        //swagger接口文档路径
         registry.addResourceHandler("/swagger-ui/**")
                 .addResourceLocations("classpath:/META-INF/resources/webjars/springfox-swagger-ui/")
+                .resourceChain(false);
+        //上传文件路径
+        registry.addResourceHandler("/upload/**")
+                .addResourceLocations("classpath:/" + Constants.UPLOAD_DIR + "/")
                 .resourceChain(false);
     }
 

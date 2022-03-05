@@ -13,4 +13,7 @@ public class Constants {
 
     //客户端token在redis中的key前缀
     public static final String ClIENT_TOKEN_CACHE_KEY = "client:token:";
+
+    //文件上传保存路径文件夹
+    public static final String UPLOAD_DIR = "upload";
 }

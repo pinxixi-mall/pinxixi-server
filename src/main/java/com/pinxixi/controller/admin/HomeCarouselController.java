@@ -5,6 +5,7 @@ import com.pinxixi.common.Result;
 import com.pinxixi.common.ServiceResultEnum;
 import com.pinxixi.config.annotation.AdminUserArgument;
 import com.pinxixi.controller.admin.param.HomeCarouselAddParam;
+import com.pinxixi.controller.admin.param.HomeCarouselUpdateParam;
 import com.pinxixi.controller.admin.vo.HomeCarouselVO;
 import com.pinxixi.entity.AdminUser;
 import com.pinxixi.entity.HomeCarousel;
@@ -47,15 +48,36 @@ public class HomeCarouselController {
 
     /**
      * 轮播图新增
-     * @param homeCarouselAddParam
+     * @param addParam
      * @return
      */
     @ApiOperation("轮播图新增")
     @PostMapping("/carousels")
-    public Result carousels(@RequestBody @Valid HomeCarouselAddParam homeCarouselAddParam) {
+    public Result addCarousels(@RequestBody @Valid HomeCarouselAddParam addParam, @AdminUserArgument AdminUser adminUser) {
         HomeCarousel homeCarousel = new HomeCarousel();
-        BeanUtils.copyProperties(homeCarouselAddParam, homeCarousel);
+        homeCarousel.setCreateUser(adminUser.getUserId());
+        BeanUtils.copyProperties(addParam, homeCarousel);
         String result = homeCarouselService.addCarousel(homeCarousel);
+        if (result != null) {
+            return Result.success(result);
+        } else {
+            return Result.fail(ServiceResultEnum.ERROR.getResult());
+        }
+    }
+
+    /**
+     * 轮播图更新
+     * @param updateParam
+     * @param adminUser
+     * @return
+     */
+    @ApiOperation("更新轮播图")
+    @PutMapping("/carousels")
+    public Result updateCarousels(@RequestBody @Valid HomeCarouselUpdateParam updateParam, @AdminUserArgument AdminUser adminUser) {
+        HomeCarousel homeCarousel = new HomeCarousel();
+        homeCarousel.setUpdateUser(adminUser.getUserId());
+        BeanUtils.copyProperties(updateParam, homeCarousel);
+        String result = homeCarouselService.updateCarousel(homeCarousel);
         if (result != null) {
             return Result.success(result);
         } else {

@@ -15,4 +15,5 @@ public interface HomeCarouselService {
 
     String addCarousel(HomeCarousel homeCarousel);
 
+    String updateCarousel(HomeCarousel homeCarousel);
 }

@@ -44,7 +44,7 @@ CREATE TABLE `tb_carousel`(
     `carousel_url` varchar(150) NOT NULL COMMENT '轮播图跳转链接',
     `carousel_sort` int NOT NULL DEFAULT 0 COMMENT '轮播图排序（越小越靠前）',
     `carousel_status` tinyint NOT NULL DEFAULT 0 COMMENT '状态（0-已下架，1-上架中）',
-		`is_deleted` tinyint NOT NULL DEFAULT 0 COMMENT '删除标识（0-未删除，1-已删除）',
+	`is_deleted` tinyint NOT NULL DEFAULT 0 COMMENT '删除标识（0-未删除，1-已删除）',
     `create_user` int NOT NULL COMMENT '创建人id',
     `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_user` int NOT NULL COMMENT '更新人id',
