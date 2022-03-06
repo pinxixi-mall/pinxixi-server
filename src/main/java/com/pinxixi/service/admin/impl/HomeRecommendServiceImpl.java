@@ -1,20 +1,18 @@
 package com.pinxixi.service.admin.impl;
 
 import com.github.pagehelper.PageHelper;
-import com.pinxixi.config.annotation.AdminUserArgument;
 import com.pinxixi.controller.admin.param.GoodsAddParam;
 import com.pinxixi.dao.GoodsMapper;
-import com.pinxixi.entity.AdminUser;
 import com.pinxixi.entity.Goods;
 import com.pinxixi.service.admin.GoodsService;
+import com.pinxixi.service.admin.HomeRecommendService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.Date;
 import java.util.List;
 
 @Service
-public class GoodsServiceImpl implements GoodsService {
+public class HomeRecommendServiceImpl implements HomeRecommendService {
 
     @Resource
     private GoodsMapper goodsMapper;
@@ -35,16 +33,11 @@ public class GoodsServiceImpl implements GoodsService {
     /**
      * 商品新增
      * @param goods
-     * @param adminUser
      * @return
      */
     @Override
-    public String updateGoods(Goods goods, AdminUser adminUser) {
-        goods.setCreateUser(adminUser.getUserId());
-        goods.setCreateTime(new Date());
+    public String updateGoods(Goods goods) {
         goodsMapper.insertGoods(goods);
         return null;
     }
-
-
 }

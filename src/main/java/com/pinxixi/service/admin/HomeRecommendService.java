@@ -1,13 +1,11 @@
 package com.pinxixi.service.admin;
 
-import com.pinxixi.config.annotation.AdminUserArgument;
 import com.pinxixi.controller.admin.param.GoodsAddParam;
-import com.pinxixi.entity.AdminUser;
 import com.pinxixi.entity.Goods;
 
 import java.util.List;
 
-public interface GoodsService {
+public interface HomeRecommendService {
 
     /**
      * 商品列表（分页）
@@ -19,9 +17,8 @@ public interface GoodsService {
 
     /**
      * 商品新增
-     * @param goodsAddParam
-     * @param adminUser
+     * @param goods
      * @return
      */
-    String updateGoods(Goods goodsAddParam, AdminUser adminUser);
+    String updateGoods(Goods goods);
 }
