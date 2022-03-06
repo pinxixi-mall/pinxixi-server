@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pinxixi.dao.GoodsMapper">
+    <resultMap id="GoodsMap" type="com.pinxixi.entity.Goods">
+        <id property="goodsId" column="goods_id" />
+        <id property="goodsName" column="goods_name" />
+        <id property="goodsImage" column="goods_image" />
+        <id property="goodsCategoryId" column="goods_category_id" />
+        <id property="goodsDesc" column="goods_desc" />
+        <id property="goodsPrice" column="goods_price" />
+        <id property="goodsStock" column="goods_stock" />
+        <id property="goodsStatus" column="goods_status" />
+        <id property="goodsType" column="goods_type" />
+        <id property="goodsDetail" column="goods_detail" />
+        <id property="createUser" column="create_user" />
+        <id property="createTime" column="create_time" />
+        <id property="updateUser" column="update_user" />
+        <id property="updateTime" column="update_time" />
+    </resultMap>
+
+    <select id="selectAll" resultMap="GoodsMap">
+        SELECT * FROM tb_goods
+    </select>
+
+    <select id="selectPage" resultMap="GoodsMap">
+        SELECT * FROM tb_goods
+        <where>
+            <if test="goodsStatus != null">
+                goods_status = #{goodsStatus}
+            </if>
+        </where>
+    </select>
+
+    <insert id="insertGoods" parameterType="com.pinxixi.entity.Goods">
+        INSERT INTO tb_goods
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="goodsId != null">goods_id,</if>
+            <if test="goodsName != null">goods_name,</if>
+            <if test="goodsImage != null">goods_image,</if>
+            <if test="goodsCategoryId != null">goods_category_id,</if>
+            <if test="goodsDesc != null">goods_desc,</if>
+            <if test="goodsPrice != null">goods_price,</if>
+            <if test="goodsStock != null">goods_stock,</if>
+            <if test="goodsStatus != null">goods_status,</if>
+            <if test="goodsType != null">goods_type,</if>
+            <if test="goodsDetail != null">goods_detail,</if>
+            <if test="createUser != null">create_user,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateUser != null">update_user,</if>
+            <if test="updateTime != null">update_time,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="goodsId != null">#{goodsId},</if>
+            <if test="goodsName != null">#{goodsName},</if>
+            <if test="goodsImage != null">#{goodsImage},</if>
+            <if test="goodsCategoryId != null">#{goodsCategoryId},</if>
+            <if test="goodsDesc != null">#{goodsDesc},</if>
+            <if test="goodsPrice != null">#{goodsPrice},</if>
+            <if test="goodsStock != null">#{goodsStock},</if>
+            <if test="goodsStatus != null">#{goodsStatus},</if>
+            <if test="goodsType != null">#{goodsType},</if>
+            <if test="goodsDetail != null">#{goodsDetail},</if>
+            <if test="createUser != null">#{createUser},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateUser != null">#{updateUser},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+        </trim>
+    </insert>
+
+    <update id="updateGoods" parameterType="com.pinxixi.entity.Goods">
+        UPDATE tb_goods
+        SET <if test="goodsName != null">
+                carousel_image = #{carouselImage},
+            </if>
+            <if test="goodsImage != null">
+                carousel_url = #{carouselUrl},
+            </if>
+            <if test="goodsCategoryId != null">
+                carousel_status = #{carouselStatus},
+            </if>
+            <if test="goodsDesc != null">
+                carousel_sort = #{carouselSort},
+            </if>
+            <if test="goodsPrice != null">
+                is_deleted = #{isDeleted},
+            </if>
+            <if test="goodsStock != null">
+                carousel_url = #{carouselUrl},
+            </if>
+            <if test="goodsStatus != null">
+                carousel_status = #{carouselStatus},
+            </if>
+            <if test="goodsType != null">
+                carousel_sort = #{carouselSort},
+            </if>
+            <if test="goodsDetail != null">
+                is_deleted = #{isDeleted},
+            </if>
+            update_user = #{updateUser},
+            update_time = #{updateTime}
+        WHERE carousel_id = #{carouselId}
+    </update>
+</mapper>

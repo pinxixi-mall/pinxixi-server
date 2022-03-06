@@ -6,10 +6,10 @@ import lombok.Data;
 import java.util.Date;
 
 @Data
-public class    HomeCarouselVO {
+public class HomeCarouselVO {
 
     @ApiModelProperty("轮播图id")
-    private int carouselId;
+    private Integer carouselId;
 
     @ApiModelProperty("轮播图片地址")
     private String carouselImage;
@@ -24,7 +24,7 @@ public class    HomeCarouselVO {
     private String carouselStatus;
 
     @ApiModelProperty("是否已删除（0-否，1-是）")
-    private String isDeleted;
+    private Byte isDeleted;
 
     @ApiModelProperty("创建时间")
     private Date createTime;

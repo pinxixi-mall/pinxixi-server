@@ -21,6 +21,12 @@ public class HomeCarouselUpdateParam {
     @ApiModelProperty("轮播图排序")
     private String carouselSort;
 
+    @ApiModelProperty("轮播图状态（0-已下架，1-上架中）")
+    private String carouselStatus;
+
+    @ApiModelProperty("是否已删除（0-否，1-是）")
+    private Byte isDeleted;
+
     @ApiModelProperty("创建人")
     private String createUser;
 

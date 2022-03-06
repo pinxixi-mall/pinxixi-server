@@ -17,7 +17,9 @@ public enum ServiceResultEnum {
 
     LOGOUT_FAIL("退出登录失败"),
 
-    USER_NOT_FOUND("没找到用户");
+    USER_NOT_FOUND("没找到用户"),
+
+    PAGE_PARAM_ERROR("分页参数有误");
 
     private String result;
 

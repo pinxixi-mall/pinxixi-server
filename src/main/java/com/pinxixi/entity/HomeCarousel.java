@@ -17,7 +17,7 @@ public class HomeCarousel {
 
     private String carouselStatus;
 
-    private String isDeleted;
+    private Byte isDeleted;
 
     private int createUser;
 

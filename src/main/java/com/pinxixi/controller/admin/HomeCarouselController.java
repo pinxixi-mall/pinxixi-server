@@ -34,10 +34,10 @@ public class HomeCarouselController {
     @ApiOperation("首页轮播图")
     @GetMapping("/carousels")
     public Result<PageResult<HomeCarouselVO>> carousels(@RequestParam @ApiParam("页码") Integer pageNum,
-                                        @RequestParam @ApiParam("条数") Integer pageSize,
-                                        @AdminUserArgument AdminUser adminUser) {
+                                                        @RequestParam @ApiParam("条数") Integer pageSize,
+                                                        @AdminUserArgument AdminUser adminUser) {
         if (pageNum == null || pageSize == null || pageNum < 0 || pageSize < 0) {
-            return Result.fail("分页参数异常");
+            return Result.fail(ServiceResultEnum.PAGE_PARAM_ERROR.getResult());
         }
 
         //分页查询
@@ -56,6 +56,7 @@ public class HomeCarouselController {
     public Result addCarousels(@RequestBody @Valid HomeCarouselAddParam addParam, @AdminUserArgument AdminUser adminUser) {
         HomeCarousel homeCarousel = new HomeCarousel();
         homeCarousel.setCreateUser(adminUser.getUserId());
+        homeCarousel.setUpdateUser(adminUser.getUserId());
         BeanUtils.copyProperties(addParam, homeCarousel);
         String result = homeCarouselService.addCarousel(homeCarousel);
         if (result != null) {

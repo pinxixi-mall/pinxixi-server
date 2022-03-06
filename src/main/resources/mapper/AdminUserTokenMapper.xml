@@ -3,13 +3,13 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.pinxixi.dao.AdminUserTokenMapper">
-    <resultMap id="adminUserTokenMap" type="com.pinxixi.entity.AdminUserToken">
+    <resultMap id="AdminUserTokenMap" type="com.pinxixi.entity.AdminUserToken">
         <id column="user_id" property="userId" />
         <id column="updated_time" property="updateTime" />
         <id column="expired_time" property="expiredTime" />
     </resultMap>
 
-    <select id="selectTokenById" resultMap="adminUserTokenMap">
+    <select id="selectTokenById" resultMap="AdminUserTokenMap">
         SELECT * FROM tb_admin_user_token WHERE user_id = #{id}
     </select>
 

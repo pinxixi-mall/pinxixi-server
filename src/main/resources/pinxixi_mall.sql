@@ -41,14 +41,14 @@ DROP TABLE IF EXISTS `tb_carousel`;
 CREATE TABLE `tb_carousel`(
     `carousel_id` int NOT NULL AUTO_INCREMENT COMMENT '轮播图id',
     `carousel_image` varchar(150) NOT NULL COMMENT '轮播图片地址',
-    `carousel_url` varchar(150) NOT NULL COMMENT '轮播图跳转链接',
+    `carousel_url` varchar(150) NOT NULL DEFAULT '#' COMMENT '轮播图跳转链接',
     `carousel_sort` int NOT NULL DEFAULT 0 COMMENT '轮播图排序（越小越靠前）',
     `carousel_status` tinyint NOT NULL DEFAULT 0 COMMENT '状态（0-已下架，1-上架中）',
-	`is_deleted` tinyint NOT NULL DEFAULT 0 COMMENT '删除标识（0-未删除，1-已删除）',
+    `is_deleted` tinyint NOT NULL DEFAULT 0 COMMENT '删除标识（0-未删除，1-已删除）',
     `create_user` int NOT NULL COMMENT '创建人id',
-    `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    `update_user` int NOT NULL COMMENT '更新人id',
-    `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
+    `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_user` int COMMENT '更新人id',
+    `update_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
     PRIMARY KEY (`carousel_id`) USING BTREE
 ) ENGINE=InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic COMMENT='首页轮播图表';
 

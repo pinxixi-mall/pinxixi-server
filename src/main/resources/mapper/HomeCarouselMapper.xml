@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.pinxixi.dao.HomeCarouselMapper">
-    <resultMap id="carouselMap" type="com.pinxixi.entity.HomeCarousel">
+    <resultMap id="CarouselMap" type="com.pinxixi.entity.HomeCarousel">
         <id property="carouselId" column="carousel_id" />
         <id property="carouselImage" column="carousel_image" />
         <id property="carouselUrl" column="carousel_url" />
@@ -16,11 +16,11 @@
         <id property="updateTime" column="update_time" />
     </resultMap>
 
-    <select id="selectAll" resultMap="carouselMap">
+    <select id="selectAll" resultMap="CarouselMap">
         SELECT * FROM tb_carousel
     </select>
 
-    <select id="selectPage" resultMap="carouselMap">
+    <select id="selectPage" resultMap="CarouselMap">
         SELECT * FROM tb_carousel WHERE is_deleted = 0
     </select>
 
@@ -54,17 +54,23 @@
 
     <update id="updateCarousel" parameterType="com.pinxixi.entity.HomeCarousel">
         UPDATE tb_carousel
-        SET carousel_image = #{carouselImage},
-            carousel_url = #{carouselUrl},
+        SET <if test="carouselImage != null">
+                carousel_image = #{carouselImage},
+            </if>
+            <if test="carouselUrl != null">
+                carousel_url = #{carouselUrl},
+            </if>
             <if test="carouselStatus != null">
                 carousel_status = #{carouselStatus},
             </if>
-            carousel_sort = #{carouselSort},
+            <if test="carouselSort != null">
+                carousel_sort = #{carouselSort},
+            </if>
             <if test="isDeleted != null">
                 is_deleted = #{isDeleted},
             </if>
-            update_user = #{createTime},
-            update_time = #{createTime}
+            update_user = #{updateUser},
+            update_time = #{updateTime}
         WHERE carousel_id = #{carouselId}
     </update>
 </mapper>

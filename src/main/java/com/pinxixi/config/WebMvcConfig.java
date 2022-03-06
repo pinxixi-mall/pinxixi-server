@@ -56,12 +56,14 @@ public class WebMvcConfig implements WebMvcConfigurer {
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         //swagger接口文档路径
         registry.addResourceHandler("/swagger-ui/**")
-                .addResourceLocations("classpath:/META-INF/resources/webjars/springfox-swagger-ui/")
-                .resourceChain(false);
+                .addResourceLocations("classpath:/META-INF/resources/webjars/springfox-swagger-ui/");
         //上传文件路径
+        String path = System.getProperty("user.dir") + "/src/main/resources/" + Constants.UPLOAD_DIR + "/";
         registry.addResourceHandler("/upload/**")
-                .addResourceLocations("classpath:/" + Constants.UPLOAD_DIR + "/")
-                .resourceChain(false);
+                //class路径，需重启服务才能访问
+                //.addResourceLocations("classpath:/" + Constants.UPLOAD_DIR + "/")
+                //项目路径
+                .addResourceLocations("file:" + path);
     }
 
 }
