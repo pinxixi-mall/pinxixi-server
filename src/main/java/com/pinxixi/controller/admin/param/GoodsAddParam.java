@@ -10,6 +10,8 @@ import javax.validation.constraints.NotNull;
 @Data
 public class GoodsAddParam {
 
+    private Long goodsId;
+
     @ApiModelProperty("商品名称")
     @NotEmpty(message = "商品名称不能为空")
     @Length(max = 100, message = "商品名称不能超过100个字符")
@@ -40,8 +42,8 @@ public class GoodsAddParam {
     private Byte goodsStatus;
 
     @ApiModelProperty("商品类型（1-普通，2-推荐）")
-    @NotEmpty(message = "商品类型不能为空")
-    private String goodsType;
+    @NotNull(message = "商品类型不能为空")
+    private Byte goodsType;
 
     @ApiModelProperty("商品详情")
     @NotEmpty(message = "商品详情不能为空")

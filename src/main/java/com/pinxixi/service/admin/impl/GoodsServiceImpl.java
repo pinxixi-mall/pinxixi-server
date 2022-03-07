@@ -1,8 +1,8 @@
 package com.pinxixi.service.admin.impl;
 
 import com.github.pagehelper.PageHelper;
-import com.pinxixi.config.annotation.AdminUserArgument;
-import com.pinxixi.controller.admin.param.GoodsAddParam;
+import com.pinxixi.common.ServiceResultEnum;
+import com.pinxixi.controller.admin.param.GoodsQueryParam;
 import com.pinxixi.dao.GoodsMapper;
 import com.pinxixi.entity.AdminUser;
 import com.pinxixi.entity.Goods;
@@ -23,12 +23,13 @@ public class GoodsServiceImpl implements GoodsService {
      * 商品分页列表
      * @param pageNum
      * @param pageSize
+     * @param goodsQueryParam
      * @return
      */
     @Override
-    public List<Goods> getGoodsPage(Integer pageNum, Integer pageSize) {
+    public List<Goods> getGoodsPage(Integer pageNum, Integer pageSize, GoodsQueryParam goodsQueryParam) {
         PageHelper.startPage(pageNum, pageSize);
-        List<Goods> goods = goodsMapper.selectPage();
+        List<Goods> goods = goodsMapper.selectPage(goodsQueryParam);
         return goods;
     }
 
@@ -40,10 +41,34 @@ public class GoodsServiceImpl implements GoodsService {
      */
     @Override
     public String updateGoods(Goods goods, AdminUser adminUser) {
-        goods.setCreateUser(adminUser.getUserId());
-        goods.setCreateTime(new Date());
-        goodsMapper.insertGoods(goods);
-        return null;
+        goods.setUpdateUser(adminUser.getUserId());
+        goods.setUpdateTime(new Date());
+        int rows = 0;
+        if (goods.getGoodsId() != null) {
+            //修改
+            rows = goodsMapper.updateGoods(goods);
+        } else {
+            //新增
+            goods.setCreateUser(adminUser.getUserId());
+            goods.setCreateTime(new Date());
+            rows = goodsMapper.insertGoods(goods);
+        }
+        if (rows > 0) {
+            return ServiceResultEnum.SUCCESS.getResult();
+        } else {
+            return ServiceResultEnum.ERROR.getResult();
+        }
+    }
+
+    /**
+     * 商品详情
+     * @param goodsId
+     * @return
+     */
+    @Override
+    public Goods getGoodsDetail(Integer goodsId) {
+        Goods goods = goodsMapper.selectGoods(goodsId);
+        return goods;
     }
 
 

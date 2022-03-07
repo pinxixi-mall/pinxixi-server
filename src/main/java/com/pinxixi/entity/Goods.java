@@ -23,7 +23,7 @@ public class Goods {
 
     private Byte goodsStatus;
 
-    private String goodsType;
+    private Byte goodsType;
 
     private String goodsDetail;
 

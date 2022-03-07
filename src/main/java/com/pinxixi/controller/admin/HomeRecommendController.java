@@ -1,9 +1,9 @@
 package com.pinxixi.controller.admin;
 
-import com.pinxixi.common.GoodsTypeEnum;
 import com.pinxixi.common.PageResult;
 import com.pinxixi.common.Result;
 import com.pinxixi.common.ServiceResultEnum;
+import com.pinxixi.controller.admin.param.GoodsQueryParam;
 import com.pinxixi.controller.admin.vo.GoodsVO;
 import com.pinxixi.entity.Goods;
 import com.pinxixi.service.admin.GoodsService;
@@ -39,7 +39,8 @@ public class HomeRecommendController {
         if (pageNum == null || pageSize == null || pageNum < 1 || pageSize < 0) {
             return Result.fail(ServiceResultEnum.PAGE_PARAM_ERROR.getResult());
         }
-        List<Goods> goodsPage = goodsService.getGoodsPage(pageNum, pageSize);
+        GoodsQueryParam goodsQueryParam = new GoodsQueryParam();
+        List<Goods> goodsPage = goodsService.getGoodsPage(pageNum, pageSize, goodsQueryParam);
         PageResult<GoodsVO> result = new PageResult<>(goodsPage);
         return Result.success(result);
     }

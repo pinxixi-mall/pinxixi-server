@@ -20,6 +20,10 @@
         <id property="updateTime" column="update_time" />
     </resultMap>
 
+    <select id="selectGoods" resultMap="GoodsMap">
+        SELECT * FROM tb_goods WHERE goods_id = #{goodsId}
+    </select>
+
     <select id="selectAll" resultMap="GoodsMap">
         SELECT * FROM tb_goods
     </select>
@@ -27,8 +31,14 @@
     <select id="selectPage" resultMap="GoodsMap">
         SELECT * FROM tb_goods
         <where>
+            <if test="goodsId != null">
+                and goods_id = #{goodsId}
+            </if>
+            <if test="goodsDesc != null">
+                and goods_desc LIKE CONCAT('%', #{goodsDesc}, '%')
+            </if>
             <if test="goodsStatus != null">
-                goods_status = #{goodsStatus}
+                and goods_status = #{goodsStatus}
             </if>
         </where>
     </select>
@@ -72,34 +82,34 @@
     <update id="updateGoods" parameterType="com.pinxixi.entity.Goods">
         UPDATE tb_goods
         SET <if test="goodsName != null">
-                carousel_image = #{carouselImage},
+                goods_name = #{goodsName},
             </if>
             <if test="goodsImage != null">
-                carousel_url = #{carouselUrl},
+                goods_image = #{goodsImage},
             </if>
             <if test="goodsCategoryId != null">
-                carousel_status = #{carouselStatus},
+                goods_status = #{goodsCategoryId},
             </if>
             <if test="goodsDesc != null">
-                carousel_sort = #{carouselSort},
+                goods_desc = #{goodsDesc},
             </if>
             <if test="goodsPrice != null">
-                is_deleted = #{isDeleted},
+                goods_price = #{goodsPrice},
             </if>
             <if test="goodsStock != null">
-                carousel_url = #{carouselUrl},
+                goods_stock = #{goodsStock},
             </if>
             <if test="goodsStatus != null">
-                carousel_status = #{carouselStatus},
+                goods_status = #{goodsStatus},
             </if>
             <if test="goodsType != null">
-                carousel_sort = #{carouselSort},
+                goods_type = #{goodsType},
             </if>
             <if test="goodsDetail != null">
-                is_deleted = #{isDeleted},
+                goods_detail = #{goodsDetail},
             </if>
             update_user = #{updateUser},
             update_time = #{updateTime}
-        WHERE carousel_id = #{carouselId}
+        WHERE goods_id = #{goodsId}
     </update>
 </mapper>

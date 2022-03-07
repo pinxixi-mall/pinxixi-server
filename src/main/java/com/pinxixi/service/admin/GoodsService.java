@@ -1,7 +1,6 @@
 package com.pinxixi.service.admin;
 
-import com.pinxixi.config.annotation.AdminUserArgument;
-import com.pinxixi.controller.admin.param.GoodsAddParam;
+import com.pinxixi.controller.admin.param.GoodsQueryParam;
 import com.pinxixi.entity.AdminUser;
 import com.pinxixi.entity.Goods;
 
@@ -13,9 +12,10 @@ public interface GoodsService {
      * 商品列表（分页）
      * @param pageNum
      * @param pageSize
+     * @param goodsQueryParam
      * @return
      */
-    List<Goods> getGoodsPage(Integer pageNum, Integer pageSize);
+    List<Goods> getGoodsPage(Integer pageNum, Integer pageSize, GoodsQueryParam goodsQueryParam);
 
     /**
      * 商品新增
@@ -24,4 +24,6 @@ public interface GoodsService {
      * @return
      */
     String updateGoods(Goods goodsAddParam, AdminUser adminUser);
+
+    Goods getGoodsDetail(Integer goodsId);
 }

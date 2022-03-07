@@ -33,7 +33,7 @@ public class GoodsVO {
     private Byte goodsStatus;
 
     @ApiModelProperty("商品类型（1-普通，2-推荐）")
-    private String goodsType;
+    private Byte goodsType;
 
     @ApiModelProperty("商品详情")
     private String goodsDetail;

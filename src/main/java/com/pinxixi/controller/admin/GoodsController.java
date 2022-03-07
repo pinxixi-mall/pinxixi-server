@@ -6,6 +6,7 @@ import com.pinxixi.common.Result;
 import com.pinxixi.common.ServiceResultEnum;
 import com.pinxixi.config.annotation.AdminUserArgument;
 import com.pinxixi.controller.admin.param.GoodsAddParam;
+import com.pinxixi.controller.admin.param.GoodsQueryParam;
 import com.pinxixi.controller.admin.vo.GoodsVO;
 import com.pinxixi.entity.AdminUser;
 import com.pinxixi.entity.Goods;
@@ -37,11 +38,14 @@ public class GoodsController {
     @ApiOperation("商品列表")
     @GetMapping("/goods-list")
     public Result<PageResult<GoodsVO>> goodsList(@RequestParam @ApiParam("页码") Integer pageNum,
-                                                  @RequestParam @ApiParam("条数") Integer pageSize) {
+                                                 @RequestParam @ApiParam("条数") Integer pageSize,
+                                                 @RequestParam(required = false) @ApiParam("商品描述") String goodsDesc) {
         if (pageNum < 1 || pageSize < 0) {
             return Result.fail(ServiceResultEnum.PAGE_PARAM_ERROR.getResult());
         }
-        List<Goods> goodsPage = goodsService.getGoodsPage(pageNum, pageSize);
+        GoodsQueryParam goodsQueryParam = new GoodsQueryParam();
+        goodsQueryParam.setGoodsDesc(goodsDesc);
+        List<Goods> goodsPage = goodsService.getGoodsPage(pageNum, pageSize, goodsQueryParam);
         PageResult<GoodsVO> result = new PageResult<>(goodsPage);
         return Result.success(result);
     }
@@ -58,6 +62,19 @@ public class GoodsController {
         BeanUtils.copyProperties(goodsAddParam, goods);
         String result = goodsService.updateGoods(goods, adminUser);
         return Result.success(result);
+    }
+
+    /**
+     * 商品详情
+     * @param goodsId
+     * @return
+     */
+    @GetMapping("/goods/{goodsId}")
+    public Result<GoodsVO> goodsDetail(@PathVariable("goodsId") Integer goodsId) {
+        Goods goods = goodsService.getGoodsDetail(goodsId);
+        GoodsVO goodsVO = new GoodsVO();
+        BeanUtils.copyProperties(goods, goodsVO);
+        return Result.success(goodsVO);
     }
 
 }
