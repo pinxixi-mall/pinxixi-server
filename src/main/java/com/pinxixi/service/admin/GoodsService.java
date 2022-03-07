@@ -26,4 +26,12 @@ public interface GoodsService {
     String updateGoods(Goods goodsAddParam, AdminUser adminUser);
 
     Goods getGoodsDetail(Integer goodsId);
+
+    /**
+     * 商品修改
+     * @param goods
+     * @param adminUser
+     * @return
+     */
+    String addGoods(Goods goods, AdminUser adminUser);
 }

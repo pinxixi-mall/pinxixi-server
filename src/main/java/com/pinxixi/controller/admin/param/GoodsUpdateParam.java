@@ -8,7 +8,11 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 @Data
-public class GoodsAddParam {
+public class GoodsUpdateParam {
+
+    @ApiModelProperty("商品ID")
+    @NotNull(message = "商品id不能为空")
+    private Long goodsId;
 
     @ApiModelProperty("商品名称")
     @NotEmpty(message = "商品名称不能为空")

@@ -7,6 +7,7 @@ import com.pinxixi.common.ServiceResultEnum;
 import com.pinxixi.config.annotation.AdminUserArgument;
 import com.pinxixi.controller.admin.param.GoodsAddParam;
 import com.pinxixi.controller.admin.param.GoodsQueryParam;
+import com.pinxixi.controller.admin.param.GoodsUpdateParam;
 import com.pinxixi.controller.admin.vo.GoodsVO;
 import com.pinxixi.entity.AdminUser;
 import com.pinxixi.entity.Goods;
@@ -36,7 +37,7 @@ public class GoodsController {
      * @return
      */
     @ApiOperation("商品列表")
-    @GetMapping("/goods-list")
+    @GetMapping("/goods/list")
     public Result<PageResult<GoodsVO>> goodsList(@RequestParam @ApiParam("页码") Integer pageNum,
                                                  @RequestParam @ApiParam("条数") Integer pageSize,
                                                  @RequestParam(required = false) @ApiParam("商品描述") String goodsDesc) {
@@ -57,11 +58,32 @@ public class GoodsController {
      */
     @ApiOperation("商品新增")
     @PostMapping("/goods")
-    public Result goods(@RequestBody @Valid GoodsAddParam goodsAddParam, @AdminUserArgument AdminUser adminUser) {
+    public Result addGoods(@RequestBody @Valid GoodsAddParam goodsAddParam, @AdminUserArgument AdminUser adminUser) {
         Goods goods = new Goods();
         BeanUtils.copyProperties(goodsAddParam, goods);
+        String result = goodsService.addGoods(goods, adminUser);
+        return Result.success(result);
+    }
+
+    /**
+     * 商品修改
+     * @param goodsUpdateParam
+     * @return
+     */
+    @ApiOperation("商品修改")
+    @PutMapping ("/goods")
+    public Result updateGoods(@RequestBody @Valid GoodsUpdateParam goodsUpdateParam, @AdminUserArgument AdminUser adminUser) {
+        Goods goods = new Goods();
+        BeanUtils.copyProperties(goodsUpdateParam, goods);
         String result = goodsService.updateGoods(goods, adminUser);
         return Result.success(result);
+    }
+
+
+    @ApiOperation("商品上下架")
+    @PutMapping("/goods/status")
+    public Result goodsStatus() {
+        return null;
     }
 
     /**

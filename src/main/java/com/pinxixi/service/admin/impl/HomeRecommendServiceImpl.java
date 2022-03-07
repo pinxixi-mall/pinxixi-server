@@ -2,6 +2,7 @@ package com.pinxixi.service.admin.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.pinxixi.controller.admin.param.GoodsAddParam;
+import com.pinxixi.controller.admin.param.GoodsQueryParam;
 import com.pinxixi.dao.GoodsMapper;
 import com.pinxixi.entity.Goods;
 import com.pinxixi.service.admin.GoodsService;
@@ -26,7 +27,8 @@ public class HomeRecommendServiceImpl implements HomeRecommendService {
     @Override
     public List<Goods> getGoodsPage(Integer pageNum, Integer pageSize) {
         PageHelper.startPage(pageNum, pageSize);
-        List<Goods> goods = goodsMapper.selectPage();
+        GoodsQueryParam goodsQueryParam = new GoodsQueryParam();
+        List<Goods> goods = goodsMapper.selectPage(goodsQueryParam);
         return goods;
     }
 

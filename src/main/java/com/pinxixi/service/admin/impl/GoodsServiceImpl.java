@@ -40,19 +40,28 @@ public class GoodsServiceImpl implements GoodsService {
      * @return
      */
     @Override
+    public String addGoods(Goods goods, AdminUser adminUser) {
+        goods.setCreateUser(adminUser.getUserId());
+        goods.setCreateTime(new Date());
+        int rows = goodsMapper.insertGoods(goods);
+        if (rows > 0) {
+            return ServiceResultEnum.SUCCESS.getResult();
+        } else {
+            return ServiceResultEnum.ERROR.getResult();
+        }
+    }
+
+    /**
+     * 商品修改
+     * @param goods
+     * @param adminUser
+     * @return
+     */
+    @Override
     public String updateGoods(Goods goods, AdminUser adminUser) {
         goods.setUpdateUser(adminUser.getUserId());
         goods.setUpdateTime(new Date());
-        int rows = 0;
-        if (goods.getGoodsId() != null) {
-            //修改
-            rows = goodsMapper.updateGoods(goods);
-        } else {
-            //新增
-            goods.setCreateUser(adminUser.getUserId());
-            goods.setCreateTime(new Date());
-            rows = goodsMapper.insertGoods(goods);
-        }
+        int rows = goodsMapper.updateGoods(goods);
         if (rows > 0) {
             return ServiceResultEnum.SUCCESS.getResult();
         } else {
