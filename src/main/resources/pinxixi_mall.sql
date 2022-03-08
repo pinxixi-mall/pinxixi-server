@@ -76,6 +76,7 @@ CREATE TABLE `tb_goods` (
     `goods_status` tinyint NOT NULL DEFAULT 1 COMMENT '商品状态（0-下架，1-上架）',
     `goods_type` tinyint NOT NULL DEFAULT 0 COMMENT '商品类型（0-普通，1-推荐）',
     `goods_detail` text NOT NULL COMMENT '商品详情',
+    `is_deleted` tinyint NOT NULL DEFAULT 0 COMMENT '删除标识（0-未删除，1-已删除）',
     `create_user` int NOT NULL DEFAULT 0 COMMENT '创建人id',
     `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_user` int NOT NULL DEFAULT 0 COMMENT '更新人id',
