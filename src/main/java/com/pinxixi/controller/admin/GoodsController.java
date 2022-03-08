@@ -1,12 +1,11 @@
 package com.pinxixi.controller.admin;
 
-import com.pinxixi.common.GoodsTypeEnum;
 import com.pinxixi.common.PageResult;
 import com.pinxixi.common.Result;
-import com.pinxixi.common.ServiceResultEnum;
 import com.pinxixi.config.annotation.AdminUserArgument;
 import com.pinxixi.controller.admin.param.GoodsAddParam;
 import com.pinxixi.controller.admin.param.GoodsQueryParam;
+import com.pinxixi.controller.admin.param.GoodsStatusUpdateParam;
 import com.pinxixi.controller.admin.param.GoodsUpdateParam;
 import com.pinxixi.controller.admin.vo.GoodsVO;
 import com.pinxixi.entity.AdminUser;
@@ -14,7 +13,6 @@ import com.pinxixi.entity.Goods;
 import com.pinxixi.service.admin.GoodsService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -32,21 +30,13 @@ public class GoodsController {
 
     /**
      * 商品列表
-     * @param pageNum
-     * @param pageSize
+     * @param goodsQueryParam
      * @return
      */
     @ApiOperation("商品列表")
     @GetMapping("/goods/list")
-    public Result<PageResult<GoodsVO>> goodsList(@RequestParam @ApiParam("页码") Integer pageNum,
-                                                 @RequestParam @ApiParam("条数") Integer pageSize,
-                                                 @RequestParam(required = false) @ApiParam("商品描述") String goodsDesc) {
-        if (pageNum < 1 || pageSize < 0) {
-            return Result.fail(ServiceResultEnum.PAGE_PARAM_ERROR.getResult());
-        }
-        GoodsQueryParam goodsQueryParam = new GoodsQueryParam();
-        goodsQueryParam.setGoodsDesc(goodsDesc);
-        List<Goods> goodsPage = goodsService.getGoodsPage(pageNum, pageSize, goodsQueryParam);
+    public Result<PageResult<GoodsVO>> goodsList(@Valid GoodsQueryParam goodsQueryParam) {
+        List<Goods> goodsPage = goodsService.getGoodsPage(goodsQueryParam);
         PageResult<GoodsVO> result = new PageResult<>(goodsPage);
         return Result.success(result);
     }
@@ -62,7 +52,7 @@ public class GoodsController {
         Goods goods = new Goods();
         BeanUtils.copyProperties(goodsAddParam, goods);
         String result = goodsService.addGoods(goods, adminUser);
-        return Result.success(result);
+        return Result.common(result);
     }
 
     /**
@@ -76,14 +66,32 @@ public class GoodsController {
         Goods goods = new Goods();
         BeanUtils.copyProperties(goodsUpdateParam, goods);
         String result = goodsService.updateGoods(goods, adminUser);
-        return Result.success(result);
+        return Result.common(result);
     }
 
-
+    /**
+     * 商品上下架
+     * @param updateParam
+     * @return
+     */
     @ApiOperation("商品上下架")
     @PutMapping("/goods/status")
-    public Result goodsStatus() {
-        return null;
+    public Result goodsStatus(@RequestBody @Valid GoodsStatusUpdateParam updateParam, @AdminUserArgument AdminUser adminUser) {
+        String result = goodsService.updateStatus(updateParam, adminUser);
+        return Result.common(result);
+    }
+
+    /**
+     * 删除商品
+     * @param goodsId
+     * @param adminUser
+     * @return
+     */
+    @ApiOperation("删除商品")
+    @DeleteMapping("/goods/{goodsId}")
+    public Result deleteGoods(@PathVariable Long goodsId, @AdminUserArgument AdminUser adminUser) {
+        String result = goodsService.deleteGoods(goodsId, adminUser);
+        return Result.common(result);
     }
 
     /**

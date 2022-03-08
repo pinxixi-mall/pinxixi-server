@@ -59,11 +59,7 @@ public class HomeCarouselController {
         homeCarousel.setUpdateUser(adminUser.getUserId());
         BeanUtils.copyProperties(addParam, homeCarousel);
         String result = homeCarouselService.addCarousel(homeCarousel);
-        if (result != null) {
-            return Result.success(result);
-        } else {
-            return Result.fail(ServiceResultEnum.ERROR.getResult());
-        }
+        return Result.common(result);
     }
 
     /**
@@ -79,10 +75,6 @@ public class HomeCarouselController {
         homeCarousel.setUpdateUser(adminUser.getUserId());
         BeanUtils.copyProperties(updateParam, homeCarousel);
         String result = homeCarouselService.updateCarousel(homeCarousel);
-        if (result != null) {
-            return Result.success(result);
-        } else {
-            return Result.fail(ServiceResultEnum.ERROR.getResult());
-        }
+        return Result.common(result);
     }
 }

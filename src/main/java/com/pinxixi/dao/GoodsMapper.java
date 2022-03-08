@@ -1,6 +1,5 @@
 package com.pinxixi.dao;
 
-import com.pinxixi.controller.admin.param.GoodsAddParam;
 import com.pinxixi.controller.admin.param.GoodsQueryParam;
 import com.pinxixi.entity.Goods;
 

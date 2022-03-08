@@ -7,6 +7,7 @@ import com.pinxixi.controller.admin.vo.HomeCarouselVO;
 import com.pinxixi.dao.HomeCarouselMapper;
 import com.pinxixi.entity.HomeCarousel;
 import com.pinxixi.service.admin.HomeCarouselService;
+import com.pinxixi.utils.PinXiXiUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -50,11 +51,7 @@ public class HomeCarouselServiceImpl implements HomeCarouselService {
     @Override
     public String addCarousel(HomeCarousel homeCarousel) {
         int rows = homeCarouselMapper.insertHomeCarousel(homeCarousel);
-        if (rows > 0) {
-            return ServiceResultEnum.SUCCESS.getResult();
-        } else {
-            return null;
-        }
+        return PinXiXiUtils.genSqlResultByRows(rows);
     }
 
     /**
@@ -66,11 +63,7 @@ public class HomeCarouselServiceImpl implements HomeCarouselService {
     public String updateCarousel(HomeCarousel homeCarousel) {
         homeCarousel.setUpdateTime(new Date());
         int rows = homeCarouselMapper.updateCarousel(homeCarousel);
-        if (rows > 0) {
-            return ServiceResultEnum.SUCCESS.getResult();
-        } else {
-            return null;
-        }
+        return PinXiXiUtils.genSqlResultByRows(rows);
     }
 
 }

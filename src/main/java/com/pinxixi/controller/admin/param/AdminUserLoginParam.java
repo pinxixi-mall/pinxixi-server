@@ -5,6 +5,9 @@ import lombok.Data;
 
 import javax.validation.constraints.NotEmpty;
 
+/**
+ * 管理员登录接口参数
+ */
 @Data
 public class AdminUserLoginParam {
 

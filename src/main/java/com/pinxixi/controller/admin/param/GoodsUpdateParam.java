@@ -7,6 +7,9 @@ import org.hibernate.validator.constraints.Length;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
+/**
+ * 商品修改接口参数
+ */
 @Data
 public class GoodsUpdateParam {
 

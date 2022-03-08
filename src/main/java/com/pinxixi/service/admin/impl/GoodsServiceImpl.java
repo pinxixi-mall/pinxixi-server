@@ -1,12 +1,14 @@
 package com.pinxixi.service.admin.impl;
 
 import com.github.pagehelper.PageHelper;
-import com.pinxixi.common.ServiceResultEnum;
 import com.pinxixi.controller.admin.param.GoodsQueryParam;
+import com.pinxixi.controller.admin.param.GoodsStatusUpdateParam;
 import com.pinxixi.dao.GoodsMapper;
 import com.pinxixi.entity.AdminUser;
 import com.pinxixi.entity.Goods;
 import com.pinxixi.service.admin.GoodsService;
+import com.pinxixi.utils.PinXiXiUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -21,14 +23,12 @@ public class GoodsServiceImpl implements GoodsService {
 
     /**
      * 商品分页列表
-     * @param pageNum
-     * @param pageSize
      * @param goodsQueryParam
      * @return
      */
     @Override
-    public List<Goods> getGoodsPage(Integer pageNum, Integer pageSize, GoodsQueryParam goodsQueryParam) {
-        PageHelper.startPage(pageNum, pageSize);
+    public List<Goods> getGoodsPage(GoodsQueryParam goodsQueryParam) {
+        PageHelper.startPage(goodsQueryParam.getPageNum(), goodsQueryParam.getPageSize());
         List<Goods> goods = goodsMapper.selectPage(goodsQueryParam);
         return goods;
     }
@@ -44,11 +44,7 @@ public class GoodsServiceImpl implements GoodsService {
         goods.setCreateUser(adminUser.getUserId());
         goods.setCreateTime(new Date());
         int rows = goodsMapper.insertGoods(goods);
-        if (rows > 0) {
-            return ServiceResultEnum.SUCCESS.getResult();
-        } else {
-            return ServiceResultEnum.ERROR.getResult();
-        }
+        return PinXiXiUtils.genSqlResultByRows(rows);
     }
 
     /**
@@ -62,11 +58,40 @@ public class GoodsServiceImpl implements GoodsService {
         goods.setUpdateUser(adminUser.getUserId());
         goods.setUpdateTime(new Date());
         int rows = goodsMapper.updateGoods(goods);
-        if (rows > 0) {
-            return ServiceResultEnum.SUCCESS.getResult();
-        } else {
-            return ServiceResultEnum.ERROR.getResult();
-        }
+        return PinXiXiUtils.genSqlResultByRows(rows);
+    }
+
+    /**
+     * 上下架
+     * @param updateParam
+     * @param adminUser
+     * @return
+     */
+    @Override
+    public String updateStatus(GoodsStatusUpdateParam updateParam, AdminUser adminUser) {
+        Goods goods = new Goods();
+        goods.setUpdateUser(adminUser.getUserId());
+        goods.setUpdateTime(new Date());
+        BeanUtils.copyProperties(updateParam, goods);
+        int rows = goodsMapper.updateGoods(goods);
+        return PinXiXiUtils.genSqlResultByRows(rows);
+    }
+
+    /**
+     * 删除商品
+     * @param goodsId
+     * @param adminUser
+     * @return
+     */
+    @Override
+    public String deleteGoods(Long goodsId, AdminUser adminUser) {
+        Goods goods = new Goods();
+        goods.setUpdateUser(adminUser.getUserId());
+        goods.setUpdateTime(new Date());
+        goods.setGoodsId(goodsId);
+        goods.setIsDeleted((byte) 1);
+        int rows = goodsMapper.updateGoods(goods);
+        return PinXiXiUtils.genSqlResultByRows(rows);
     }
 
     /**

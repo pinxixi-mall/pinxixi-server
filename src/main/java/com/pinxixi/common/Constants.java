@@ -16,4 +16,8 @@ public class Constants {
 
     //文件上传保存路径文件夹
     public static final String UPLOAD_DIR = "upload";
+
+    public static final Integer PAGE_NUM = 1;
+
+    public static final Integer PAGE_SIZE = 5;
 }

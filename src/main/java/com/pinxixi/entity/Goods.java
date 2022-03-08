@@ -27,6 +27,8 @@ public class Goods {
 
     private String goodsDetail;
 
+    private Byte isDeleted;
+
     private Integer createUser;
 
     private Date createTime;

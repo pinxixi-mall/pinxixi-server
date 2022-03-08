@@ -29,11 +29,18 @@ public class Result<T> {
         this.data = data;
     }
 
-    //public Result(int code, String msg, T data) {
-    //    //super.put("code", code);
-    //    //super.put("msg", msg);
-    //    //super.put("data", data);
-    //}
+
+    /***************** 通用 ******************/
+
+    /**
+     * 有结果返回成功结果信息，否则返回默认失败信息
+     * @param result
+     * @return
+     */
+    public static Result common(String result) {
+        return result != null ? Result.success(result) : Result.fail(ServiceResultEnum.ERROR.getResult());
+    }
+
 
     /***************** 成功 ******************/
 
@@ -83,6 +90,7 @@ public class Result<T> {
     public static Result success(int code, String msg, Object data) {
         return new Result(code, msg, data);
     }
+
 
     /***************** 失败 ******************/
 
@@ -152,4 +160,6 @@ public class Result<T> {
     public static Result error(int code, String msg, Object data) {
         return new Result(code, msg, data);
     }
+
+
 }

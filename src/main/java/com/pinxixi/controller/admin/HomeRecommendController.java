@@ -3,10 +3,9 @@ package com.pinxixi.controller.admin;
 import com.pinxixi.common.PageResult;
 import com.pinxixi.common.Result;
 import com.pinxixi.common.ServiceResultEnum;
-import com.pinxixi.controller.admin.param.GoodsQueryParam;
 import com.pinxixi.controller.admin.vo.GoodsVO;
 import com.pinxixi.entity.Goods;
-import com.pinxixi.service.admin.GoodsService;
+import com.pinxixi.service.admin.HomeRecommendService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -24,7 +23,7 @@ import java.util.List;
 public class HomeRecommendController {
 
     @Autowired
-    private GoodsService goodsService;
+    private HomeRecommendService homeRecommendService;
 
     /**
      * 首页推荐列表
@@ -39,8 +38,7 @@ public class HomeRecommendController {
         if (pageNum == null || pageSize == null || pageNum < 1 || pageSize < 0) {
             return Result.fail(ServiceResultEnum.PAGE_PARAM_ERROR.getResult());
         }
-        GoodsQueryParam goodsQueryParam = new GoodsQueryParam();
-        List<Goods> goodsPage = goodsService.getGoodsPage(pageNum, pageSize, goodsQueryParam);
+        List<Goods> goodsPage = homeRecommendService.getGoodsPage(pageNum, pageSize);
         PageResult<GoodsVO> result = new PageResult<>(goodsPage);
         return Result.success(result);
     }

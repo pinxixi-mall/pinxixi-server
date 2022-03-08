@@ -5,6 +5,9 @@ import lombok.Data;
 
 import javax.validation.constraints.NotNull;
 
+/**
+ * 更新推荐商品接口参数
+ */
 @Data
 public class HomeCarouselUpdateParam {
 

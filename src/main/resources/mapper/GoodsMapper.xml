@@ -14,6 +14,7 @@
         <id property="goodsStatus" column="goods_status" />
         <id property="goodsType" column="goods_type" />
         <id property="goodsDetail" column="goods_detail" />
+        <id property="isDeleted" column="is_deleted" />
         <id property="createUser" column="create_user" />
         <id property="createTime" column="create_time" />
         <id property="updateUser" column="update_user" />
@@ -25,12 +26,13 @@
     </select>
 
     <select id="selectAll" resultMap="GoodsMap">
-        SELECT * FROM tb_goods
+        SELECT * FROM tb_goods WHERE is_deleted = 0
     </select>
 
     <select id="selectPage" resultMap="GoodsMap">
         SELECT * FROM tb_goods
         <where>
+            is_deleted = 0
             <if test="goodsId != null">
                 and goods_id = #{goodsId}
             </if>
@@ -107,6 +109,9 @@
             </if>
             <if test="goodsDetail != null">
                 goods_detail = #{goodsDetail},
+            </if>
+            <if test="isDeleted != null">
+                is_deleted = #{isDeleted},
             </if>
             update_user = #{updateUser},
             update_time = #{updateTime}
