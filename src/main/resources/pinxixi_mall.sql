@@ -71,7 +71,7 @@ CREATE TABLE `tb_goods` (
     `goods_image` varchar(150) NOT NULL DEFAULT '' COMMENT '商品主图',
     `goods_category_id` bigint NOT NULL DEFAULT 0 COMMENT '商品分类id',
     `goods_desc` varchar(200) NOT NULL DEFAULT '' COMMENT '商品简介',
-    `goods_price` float NOT NULL DEFAULT '6.6' COMMENT '商品价格',
+    `goods_price` float NOT NULL DEFAULT 0 COMMENT '商品价格',
     `goods_stock` int unsigned NOT NULL DEFAULT 0 COMMENT '商品库存',
     `goods_status` tinyint NOT NULL DEFAULT 1 COMMENT '商品状态（0-下架，1-上架）',
     `goods_type` tinyint NOT NULL DEFAULT 0 COMMENT '商品类型（0-普通，1-推荐）',
@@ -90,6 +90,29 @@ VALUES
     (100, '(Haier)海尔冰箱', 'https://img10.360buyimg.com/mobilecms/s360x360_jfs/t1/147916/20/22334/454208/620f6729E5f8c2608/e77478cdc8928a7e.jpg', 1, '三门两门\/风冷无霜\/直冷超薄小型家用家电智能节能电冰箱 218升三门直冷冰箱218STPS', 1999, 999, 1, 0, '无', 1, '2022-03-01 17:01:01', 1, '2022-03-01 17:01:01'),
     (101, '(Haier)海尔冰箱', 'https://img10.360buyimg.com/mobilecms/s360x360_jfs/t1/147916/20/22334/454208/620f6729E5f8c2608/e77478cdc8928a7e.jpg', 1, '三门两门\/风冷无霜\/直冷超薄小型家用家电智能节能电冰箱 218升三门直冷冰箱218STPS', 1999, 999, 1, 0, '无', 1, '2022-03-01 17:01:01', 1, '2022-03-01 17:01:01'),
     (102, '(Haier)海尔冰箱', 'https://img10.360buyimg.com/mobilecms/s360x360_jfs/t1/147916/20/22334/454208/620f6729E5f8c2608/e77478cdc8928a7e.jpg', 1, '三门两门\/风冷无霜\/直冷超薄小型家用家电智能节能电冰箱 218升三门直冷冰箱218STPS', 1999, 999, 1, 0, '无', 1, '2022-03-01 17:01:01', 1, '2022-03-01 17:01:01');
+
+-- ----------------------------
+-- 推荐商品表
+-- ----------------------------
+DROP TABLE IF EXISTS `tb_recommend_goods`;
+CREATE TABLE `tb_recommend_goods` (
+    `recommend_id` bigint unsigned NOT NULL AUTO_INCREMENT COMMENT '推荐商品id',
+    `goods_id` bigint unsigned NOT NULL COMMENT '商品id',
+    `goods_name` varchar(150) NOT NULL DEFAULT '' COMMENT '商品名称',
+    `goods_image` varchar(150) NOT NULL DEFAULT '' COMMENT '商品主图',
+    `goods_category_id` bigint NOT NULL DEFAULT 0 COMMENT '商品分类id',
+    `goods_desc` varchar(200) NOT NULL DEFAULT '' COMMENT '商品简介',
+    `goods_price` float NOT NULL DEFAULT 0 COMMENT '商品价格',
+    `goods_stock` int unsigned NOT NULL DEFAULT 0 COMMENT '商品库存',
+    `goods_status` tinyint NOT NULL DEFAULT 1 COMMENT '商品状态（0-下架，1-上架）',
+    `goods_detail` text NOT NULL COMMENT '商品详情',
+    `is_deleted` tinyint NOT NULL DEFAULT 0 COMMENT '删除标识（0-未删除，1-已删除）',
+    `create_user` int NOT NULL DEFAULT 0 COMMENT '创建人id',
+    `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_user` int NOT NULL DEFAULT 0 COMMENT '更新人id',
+    `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
+    PRIMARY KEY (`recommend_id`) USING BTREE
+) ENGINE=InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic COMMENT='推荐商品表';
 
 -- ----------------------------
 -- 商品分类

@@ -1,6 +1,5 @@
 package com.pinxixi.service.admin;
 
-import com.pinxixi.common.PageQuery;
 import com.pinxixi.controller.admin.param.GoodsQueryParam;
 import com.pinxixi.controller.admin.param.GoodsStatusUpdateParam;
 import com.pinxixi.entity.AdminUser;
