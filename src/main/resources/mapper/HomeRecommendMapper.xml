@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pinxixi.dao.HomeRecommendMapper">
+    <resultMap id="recommendMap" type="com.pinxixi.entity.RecommendGoods">
+        <id property="goodsId" column="goods_id" />
+        <id property="recommendId" column="recommend_id" />
+        <id property="recommendName" column="recommend_name" />
+        <id property="recommendSort" column="recommend_sort" />
+        <id property="isDeleted" column="is_deleted" />
+        <id property="createUser" column="create_user" />
+        <id property="createTime" column="create_time" />
+        <id property="updateUser" column="update_user" />
+        <id property="updateTime" column="update_time" />
+    </resultMap>
+
+    <select id="selectRecommend" resultMap="recommendMap">
+        SELECT * FROM tb_recommend_goods WHERE recommend_id = #{recommendId}
+    </select>
+
+    <select id="selectPage" resultMap="recommendMap">
+        SELECT * FROM tb_recommend_goods
+        <where>
+            is_deleted = 0
+            <if test="goodsId != null">
+                and goods_id = #{goodsId}
+            </if>
+            <if test="recommendName != null">
+                and recommend_name LIKE CONCAT('%', #{recommendName}, '%')
+            </if>
+        </where>
+        ORDER BY create_time DESC
+    </select>
+
+    <insert id="insertRecommend" parameterType="com.pinxixi.entity.RecommendGoods">
+        INSERT INTO tb_recommend_goods
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="recommendId != null">recommend_id,</if>
+            <if test="goodsId != null">goods_id,</if>
+            <if test="recommendName != null">recommend_name,</if>
+            <if test="recommendSort != null">recommend_sort,</if>
+            <if test="createUser != null">create_user,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateUser != null">update_user,</if>
+            <if test="updateTime != null">update_time,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="recommendId != null">#{recommendId},</if>
+            <if test="goodsId != null">#{goodsId},</if>
+            <if test="recommendName != null">#{recommendName},</if>
+            <if test="recommendSort != null">#{recommendSort},</if>
+            <if test="createUser != null">#{createUser},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateUser != null">#{updateUser},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+        </trim>
+    </insert>
+
+    <update id="updateRecommend" parameterType="com.pinxixi.entity.RecommendGoods">
+        UPDATE tb_recommend_goods
+        SET <if test="recommendName != null">
+                recommend_name = #{recommendName},
+            </if>
+            <if test="recommendSort != null">
+                recommend_sort = #{recommendSort},
+            </if>
+            <if test="isDeleted != null">
+                is_deleted = #{isDeleted},
+            </if>
+            update_user = #{updateUser},
+            update_time = #{updateTime}
+        WHERE recommend_id = #{recommendId}
+    </update>
+</mapper>

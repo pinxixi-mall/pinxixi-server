@@ -1,24 +1,32 @@
 package com.pinxixi.service.admin;
 
-import com.pinxixi.controller.admin.param.GoodsAddParam;
-import com.pinxixi.entity.Goods;
+import com.pinxixi.controller.admin.param.RecommendAddParam;
+import com.pinxixi.controller.admin.param.RecommendQueryParam;
+import com.pinxixi.controller.admin.param.RecommendUpdateParam;
+import com.pinxixi.entity.RecommendGoods;
 
 import java.util.List;
 
 public interface HomeRecommendService {
 
     /**
-     * 商品列表（分页）
-     * @param pageNum
-     * @param pageSize
+     * 推荐列表（分页）
+     * @param queryParam
      * @return
      */
-    List<Goods> getGoodsPage(Integer pageNum, Integer pageSize);
+    List<RecommendGoods> getRecommendPage(RecommendQueryParam queryParam);
 
     /**
-     * 商品新增
-     * @param goods
+     * 新增推荐
+     * @param addParam
      * @return
      */
-    String updateGoods(Goods goods);
+    String addRecommend(RecommendAddParam addParam);
+
+    /**
+     * 推荐修改
+     * @param updateParam
+     * @return
+     */
+    String updateRecommend(RecommendUpdateParam updateParam);
 }

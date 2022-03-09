@@ -2,19 +2,20 @@ package com.pinxixi.controller.admin;
 
 import com.pinxixi.common.PageResult;
 import com.pinxixi.common.Result;
-import com.pinxixi.common.ServiceResultEnum;
+import com.pinxixi.controller.admin.param.RecommendAddParam;
+import com.pinxixi.controller.admin.param.RecommendQueryParam;
+import com.pinxixi.controller.admin.param.RecommendUpdateParam;
 import com.pinxixi.controller.admin.vo.GoodsVO;
+import com.pinxixi.controller.admin.vo.RecommendGoodsVO;
 import com.pinxixi.entity.Goods;
+import com.pinxixi.entity.RecommendGoods;
 import com.pinxixi.service.admin.HomeRecommendService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -27,20 +28,39 @@ public class HomeRecommendController {
 
     /**
      * 首页推荐列表
-     * @param pageNum
-     * @param pageSize
+     * @param queryParam
      * @return
      */
     @ApiOperation("首页推荐列表")
-    @GetMapping("/recommends")
-    public Result<PageResult<GoodsVO>> recommends(@RequestParam @ApiParam("页码") Integer pageNum,
-                                                  @RequestParam @ApiParam("条数") Integer pageSize) {
-        if (pageNum == null || pageSize == null || pageNum < 1 || pageSize < 0) {
-            return Result.fail(ServiceResultEnum.PAGE_PARAM_ERROR.getResult());
-        }
-        List<Goods> goodsPage = homeRecommendService.getGoodsPage(pageNum, pageSize);
-        PageResult<GoodsVO> result = new PageResult<>(goodsPage);
+    @GetMapping("/recommend")
+    public Result<PageResult<RecommendGoodsVO>> recommends(@Valid RecommendQueryParam queryParam) {
+        List<RecommendGoods> goodsPage = homeRecommendService.getRecommendPage(queryParam);
+        PageResult<RecommendGoodsVO> result = new PageResult<>(goodsPage);
         return Result.success(result);
+    }
+
+    /**
+     * 新增推荐商品
+     * @param addParam
+     * @return
+     */
+    @ApiOperation("新增推荐商品")
+    @PostMapping("/recommend")
+    public Result addRecommend(@RequestBody @Valid RecommendAddParam addParam) {
+        String result = homeRecommendService.addRecommend(addParam);
+        return Result.common(result);
+    }
+
+    /**
+     * 推荐商品修改
+     * @param updateParam
+     * @return
+     */
+    @ApiOperation("修改推荐商品")
+    @PutMapping("/recommend")
+    public Result updateRecommend(@RequestBody @Valid RecommendUpdateParam updateParam) {
+        String result = homeRecommendService.updateRecommend(updateParam);
+        return Result.common(result);
     }
 
 }

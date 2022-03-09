@@ -43,6 +43,7 @@
                 and goods_status = #{goodsStatus}
             </if>
         </where>
+        ORDER BY create_time DESC
     </select>
 
     <insert id="insertGoods" parameterType="com.pinxixi.entity.Goods">

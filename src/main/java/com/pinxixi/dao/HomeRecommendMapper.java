@@ -1,19 +1,18 @@
 package com.pinxixi.dao;
 
-import com.pinxixi.controller.admin.param.GoodsQueryParam;
-import com.pinxixi.entity.Goods;
+import com.pinxixi.controller.admin.param.RecommendQueryParam;
+import com.pinxixi.entity.RecommendGoods;
 
 import java.util.List;
 
 public interface HomeRecommendMapper {
 
+    List<RecommendGoods> selectPage(RecommendQueryParam queryParam);
 
-    List<Goods> selectPage(GoodsQueryParam goodsQueryParam);
+    int insertRecommend(RecommendGoods goods);
 
-    int insertGoods(Goods goodsAddParam);
+    int updateRecommend(RecommendGoods goods);
 
-    int updateGoods(Goods goods);
-
-    Goods selectGoods(Integer goodsId);
+    RecommendGoods selectRecommend(Integer goodsId);
 
 }

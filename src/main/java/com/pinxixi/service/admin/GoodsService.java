@@ -18,12 +18,17 @@ public interface GoodsService {
 
     /**
      * 商品新增
-     * @param goodsAddParam
+     * @param goods
      * @param adminUser
      * @return
      */
-    String updateGoods(Goods goodsAddParam, AdminUser adminUser);
+    String updateGoods(Goods goods, AdminUser adminUser);
 
+    /**
+     * 商品详情
+     * @param goodsId
+     * @return
+     */
     Goods getGoodsDetail(Integer goodsId);
 
     /**
