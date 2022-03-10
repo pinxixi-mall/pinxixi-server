@@ -3,6 +3,7 @@ package com.pinxixi.controller.admin;
 import com.pinxixi.common.Result;
 import com.pinxixi.controller.admin.vo.FileVO;
 import com.pinxixi.service.admin.UploadService;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 
 @RestController
+@Api(tags = "公共上传")
 @RequestMapping("/admin/upload")
 public class UploadController {
 

@@ -38,16 +38,4 @@ public class GoodsVO {
     @ApiModelProperty("商品详情")
     private String goodsDetail;
 
-    //@ApiModelProperty("创建人ID")
-    //private Integer createUser;
-    //
-    //@ApiModelProperty("创建时间")
-    //private Date createTime;
-    //
-    //@ApiModelProperty("更新人ID")
-    //private Integer updateUser;
-    //
-    //@ApiModelProperty("更新人时间")
-    //private Date updateTime;
-
 }
