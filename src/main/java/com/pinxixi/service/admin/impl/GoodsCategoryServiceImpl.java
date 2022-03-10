@@ -8,6 +8,7 @@ import com.pinxixi.service.admin.GoodsCategoryService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -19,7 +20,26 @@ public class GoodsCategoryServiceImpl implements GoodsCategoryService {
     @Override
     public List<GoodsCategory> selectCategoryPage(GoodsCategoryQueryParam queryParam) {
         PageHelper.startPage(queryParam.getPageNum(), queryParam.getPageSize());
-        return categoryMapper.selectPage(queryParam);
+        List<GoodsCategory> goodsCategories = categoryMapper.selectPage(queryParam);
+        genTreeData(goodsCategories);
+        return goodsCategories;
+    }
+
+    /**
+     * 生成树形分类
+     * @param list
+     * @param <T>
+     * @return
+     */
+    public static <T> List genTreeData(List<T> list) {
+        ArrayList<Object> newList = new ArrayList<>();
+        //list.stream().filter((GoodsCategory category) -> newList.contains(category.getCategoryLevel()));
+        for (T t : list) {
+            System.out.println(t);
+
+        }
+
+        return list;
     }
 
 }
