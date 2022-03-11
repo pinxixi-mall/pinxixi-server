@@ -1,6 +1,7 @@
 package com.pinxixi.service.admin;
 
 import com.pinxixi.controller.admin.param.GoodsCategoryQueryParam;
+import com.pinxixi.controller.admin.vo.GoodsCategoryTreeVO;
 import com.pinxixi.entity.GoodsCategory;
 import org.springframework.stereotype.Service;
 
@@ -11,5 +12,7 @@ import java.util.List;
  */
 public interface GoodsCategoryService {
 
-    List<GoodsCategory> selectCategoryPage(GoodsCategoryQueryParam queryParam);
+    List<GoodsCategoryTreeVO> selectCategoryPage(GoodsCategoryQueryParam queryParam);
+
+    List<GoodsCategoryTreeVO> selectCategoryAll(GoodsCategoryQueryParam queryParam);
 }

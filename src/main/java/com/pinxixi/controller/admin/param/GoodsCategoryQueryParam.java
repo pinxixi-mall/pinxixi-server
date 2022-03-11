@@ -18,7 +18,7 @@ public class GoodsCategoryQueryParam {
     private Integer pageNum;
 
     @ApiModelProperty("每页条数")
-    @NotNull(message = "每页条数不能为空")
+    @Min(value = 1, message = "每页条数不能小于1")
     private Integer pageSize;
 
     @ApiModelProperty("分类id")

@@ -9,4 +9,5 @@ public interface GoodsCategoryMapper {
 
     List<GoodsCategory> selectPage(GoodsCategoryQueryParam queryParam);
 
+    List<GoodsCategory> selectAll();
 }
