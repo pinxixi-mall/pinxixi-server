@@ -2,10 +2,13 @@ package com.pinxixi.controller.admin;
 
 import com.pinxixi.common.PageResult;
 import com.pinxixi.common.Result;
+import com.pinxixi.config.annotation.AdminUserArgument;
 import com.pinxixi.controller.admin.param.GoodsCategoryAddParam;
 import com.pinxixi.controller.admin.param.GoodsCategoryQueryParam;
+import com.pinxixi.controller.admin.param.GoodsCategoryUpdateParam;
 import com.pinxixi.controller.admin.vo.GoodsCategoryTreeVO;
 import com.pinxixi.controller.admin.vo.GoodsCategoryVO;
+import com.pinxixi.entity.AdminUser;
 import com.pinxixi.entity.GoodsCategory;
 import com.pinxixi.service.admin.GoodsCategoryService;
 import io.swagger.annotations.Api;
@@ -58,6 +61,34 @@ public class GoodsCategoryController {
     @PostMapping("/category")
     public Result addCategory(@RequestBody @Valid GoodsCategoryAddParam addParam) {
         String result = goodsCategoryService.addCategory(addParam);
+        return Result.common(result);
+    }
+
+    /**
+     * 修改商品分类
+     * @param updateParam
+     * @param adminUser
+     * @return
+     */
+    @ApiOperation("修改商品分类")
+    @PutMapping("/category")
+    public Result updateCategory(@RequestBody @Valid GoodsCategoryUpdateParam updateParam, @AdminUserArgument AdminUser adminUser) {
+        String result = goodsCategoryService.updateCategory(updateParam, adminUser);
+        return Result.common(result);
+    }
+
+    /**
+     * 删除商品分类
+     * @param categoryId
+     * @return
+     */
+    @ApiOperation("删除商品分类")
+    @DeleteMapping("/category/{categoryId}")
+    public Result deleteCategory(@PathVariable Long categoryId, @AdminUserArgument AdminUser adminUser) {
+        GoodsCategoryUpdateParam updateParam = new GoodsCategoryUpdateParam();
+        updateParam.setCategoryId(categoryId);
+        updateParam.setIsDeleted((byte)1);
+        String result = goodsCategoryService.updateCategory(updateParam, adminUser);
         return Result.common(result);
     }
 

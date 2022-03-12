@@ -3,9 +3,11 @@ package com.pinxixi.service.admin.impl;
 import com.github.pagehelper.PageHelper;
 import com.pinxixi.controller.admin.param.GoodsCategoryAddParam;
 import com.pinxixi.controller.admin.param.GoodsCategoryQueryParam;
+import com.pinxixi.controller.admin.param.GoodsCategoryUpdateParam;
 import com.pinxixi.controller.admin.vo.GoodsCategoryTreeVO;
 import com.pinxixi.controller.admin.vo.GoodsCategoryVO;
 import com.pinxixi.dao.GoodsCategoryMapper;
+import com.pinxixi.entity.AdminUser;
 import com.pinxixi.entity.GoodsCategory;
 import com.pinxixi.service.admin.GoodsCategoryService;
 import com.pinxixi.utils.PinXiXiUtils;
@@ -72,6 +74,20 @@ public class GoodsCategoryServiceImpl implements GoodsCategoryService {
         GoodsCategory goodsCategory = new GoodsCategory();
         BeanUtils.copyProperties(addParam, goodsCategory);
         int rows = categoryMapper.insertGoodsCategory(goodsCategory);
+        return PinXiXiUtils.genSqlResultByRows(rows);
+    }
+
+    /**
+     * 修改商品分类
+     * @param updateParam
+     * @return
+     */
+    @Override
+    public String updateCategory(GoodsCategoryUpdateParam updateParam, AdminUser adminUser) {
+        GoodsCategory goodsCategory = new GoodsCategory();
+        goodsCategory.setUpdateUser(adminUser.getUserId());
+        BeanUtils.copyProperties(updateParam, goodsCategory);
+        int rows = categoryMapper.updateGoodsCategory(goodsCategory);
         return PinXiXiUtils.genSqlResultByRows(rows);
     }
 

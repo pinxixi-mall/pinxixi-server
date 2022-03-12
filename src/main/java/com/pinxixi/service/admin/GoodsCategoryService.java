@@ -2,8 +2,10 @@ package com.pinxixi.service.admin;
 
 import com.pinxixi.controller.admin.param.GoodsCategoryAddParam;
 import com.pinxixi.controller.admin.param.GoodsCategoryQueryParam;
+import com.pinxixi.controller.admin.param.GoodsCategoryUpdateParam;
 import com.pinxixi.controller.admin.vo.GoodsCategoryTreeVO;
 import com.pinxixi.controller.admin.vo.GoodsCategoryVO;
+import com.pinxixi.entity.AdminUser;
 import com.pinxixi.entity.GoodsCategory;
 import org.springframework.stereotype.Service;
 
@@ -21,4 +23,6 @@ public interface GoodsCategoryService {
     List<GoodsCategory> selectCategoryByLevel(GoodsCategoryQueryParam queryParam);
 
     String addCategory(GoodsCategoryAddParam addParam);
+
+    String updateCategory(GoodsCategoryUpdateParam updateParam, AdminUser adminUser);
 }
