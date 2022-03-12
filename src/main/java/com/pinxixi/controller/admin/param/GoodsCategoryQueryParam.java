@@ -24,6 +24,12 @@ public class GoodsCategoryQueryParam {
     @ApiModelProperty("分类id")
     private Long categoryId;
 
+    @ApiModelProperty("分类父级id")
+    private Long parentId;
+
+    @ApiModelProperty("分类级别")
+    private Long categoryLevel;
+
     @ApiModelProperty("分类名称")
     private String categoryName;
 

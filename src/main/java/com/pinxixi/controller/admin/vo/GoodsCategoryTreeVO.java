@@ -3,6 +3,7 @@ package com.pinxixi.controller.admin.vo;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import java.util.Date;
 import java.util.List;
 
 @Data
@@ -22,6 +23,9 @@ public class GoodsCategoryTreeVO {
 
     @ApiModelProperty("分类排序")
     private Integer categorySort;
+
+    @ApiModelProperty("创建时间")
+    private Date createTime;
 
     @ApiModelProperty("分类子集")
     private List<GoodsCategoryTreeVO> children;

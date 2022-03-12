@@ -1,12 +1,14 @@
 package com.pinxixi.service.admin.impl;
 
 import com.github.pagehelper.PageHelper;
+import com.pinxixi.controller.admin.param.GoodsCategoryAddParam;
 import com.pinxixi.controller.admin.param.GoodsCategoryQueryParam;
 import com.pinxixi.controller.admin.vo.GoodsCategoryTreeVO;
 import com.pinxixi.controller.admin.vo.GoodsCategoryVO;
 import com.pinxixi.dao.GoodsCategoryMapper;
 import com.pinxixi.entity.GoodsCategory;
 import com.pinxixi.service.admin.GoodsCategoryService;
+import com.pinxixi.utils.PinXiXiUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
@@ -50,6 +52,30 @@ public class GoodsCategoryServiceImpl implements GoodsCategoryService {
     }
 
     /**
+     * 根据类别查询商品分类
+     * @param queryParam
+     * @return
+     */
+    @Override
+    public List<GoodsCategory> selectCategoryByLevel(GoodsCategoryQueryParam queryParam) {
+        List<GoodsCategory> goodsCategoryList = categoryMapper.selectPage(queryParam);
+        return goodsCategoryList;
+    }
+
+    /**
+     * 新增商品分类
+     * @param addParam
+     * @return
+     */
+    @Override
+    public String addCategory(GoodsCategoryAddParam addParam) {
+        GoodsCategory goodsCategory = new GoodsCategory();
+        BeanUtils.copyProperties(addParam, goodsCategory);
+        int rows = categoryMapper.insertGoodsCategory(goodsCategory);
+        return PinXiXiUtils.genSqlResultByRows(rows);
+    }
+
+    /**
      * 生成树形分类
      * @param list
      * @return
@@ -65,6 +91,10 @@ public class GoodsCategoryServiceImpl implements GoodsCategoryService {
         if ((level1List.size() > 0 && level2List.size() > 0) ||
             (level2List.size() > 0 && level3List.size() > 0)) {
             //有级别连续的列表才生成树状结构
+            if (level1List.size() == 0) {
+                //如果一级列表是0，则从二级开始处理
+                return genTree(level2List, level3List);
+            }
             return genTree(level1List, level2List, level3List);
         } else {
             //否则直接转换成VO返回
@@ -85,8 +115,6 @@ public class GoodsCategoryServiceImpl implements GoodsCategoryService {
     public static List<GoodsCategoryTreeVO> genTree(List<GoodsCategory>... lists) {
         int len = lists.length;
         if (len < 2) return null;
-
-        //TODO 从第一个不是0的集合开始
 
         List<GoodsCategoryTreeVO> treeList = new ArrayList();
         lists[0].stream().forEach((GoodsCategory level1Item) -> {

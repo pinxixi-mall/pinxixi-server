@@ -31,6 +31,12 @@
             <if test="categoryId != null">
                 and category_id = #{categoryId}
             </if>
+            <if test="parentId != null">
+                and parent_id = #{parentId}
+            </if>
+            <if test="categoryLevel != null">
+                and category_level = #{categoryLevel}
+            </if>
             <if test="categoryName != null">
                 and category_name LIKE CONCAT('%', #{categoryName}, '%')
             </if>
@@ -38,7 +44,11 @@
         ORDER BY create_time DESC
     </select>
 
-    <insert id="insertCategory" parameterType="com.pinxixi.entity.GoodsCategory">
+    <select id="selectByLevel" resultMap="CategoryMap">
+        SELECT * FROM tb_goods_category WHERE is_deleted = 0 AND category_level = #{level}
+    </select>
+
+    <insert id="insertGoodsCategory" parameterType="com.pinxixi.entity.GoodsCategory">
         INSERT INTO tb_goods_category
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="categoryId != null">category_id,</if>
@@ -62,7 +72,7 @@
         </trim>
     </insert>
 
-    <update id="updateCategory" parameterType="com.pinxixi.entity.GoodsCategory">
+    <update id="updateGoodsCategory" parameterType="com.pinxixi.entity.GoodsCategory">
         UPDATE tb_goods_category
         SET <if test="categoryName != null">
                 category_name = #{categoryName},
