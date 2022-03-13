@@ -27,6 +27,9 @@ public class GoodsCategoryTreeVO {
     @ApiModelProperty("创建时间")
     private Date createTime;
 
+    @ApiModelProperty("更新时间")
+    private Date updateTime;
+
     @ApiModelProperty("分类子集")
     private List<GoodsCategoryTreeVO> children;
 
