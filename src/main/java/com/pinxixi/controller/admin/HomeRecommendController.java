@@ -2,12 +2,13 @@ package com.pinxixi.controller.admin;
 
 import com.pinxixi.common.PageResult;
 import com.pinxixi.common.Result;
+import com.pinxixi.common.ServiceResultEnum;
+import com.pinxixi.config.annotation.AdminUserArgument;
 import com.pinxixi.controller.admin.param.RecommendAddParam;
 import com.pinxixi.controller.admin.param.RecommendQueryParam;
 import com.pinxixi.controller.admin.param.RecommendUpdateParam;
-import com.pinxixi.controller.admin.vo.GoodsVO;
 import com.pinxixi.controller.admin.vo.RecommendGoodsVO;
-import com.pinxixi.entity.Goods;
+import com.pinxixi.entity.AdminUser;
 import com.pinxixi.entity.RecommendGoods;
 import com.pinxixi.service.admin.HomeRecommendService;
 import io.swagger.annotations.Api;
@@ -48,6 +49,9 @@ public class HomeRecommendController {
     @PostMapping("/recommend")
     public Result addRecommend(@RequestBody @Valid RecommendAddParam addParam) {
         String result = homeRecommendService.addRecommend(addParam);
+        if (result == ServiceResultEnum.GOODS_EXISTS.getResult()) {
+            return Result.fail(result);
+        }
         return Result.common(result);
     }
 
@@ -60,6 +64,18 @@ public class HomeRecommendController {
     @PutMapping("/recommend")
     public Result updateRecommend(@RequestBody @Valid RecommendUpdateParam updateParam) {
         String result = homeRecommendService.updateRecommend(updateParam);
+        return Result.common(result);
+    }
+
+    /**
+     * 推荐商品删除
+     * @param recommendId
+     * @return
+     */
+    @ApiOperation("删除推荐商品")
+    @DeleteMapping("/recommend/{recommendId}")
+    public Result updateRecommend(@PathVariable Long recommendId, @AdminUserArgument AdminUser adminUser) {
+        String result = homeRecommendService.deleteRecommend(recommendId, adminUser);
         return Result.common(result);
     }
 

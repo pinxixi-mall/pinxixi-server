@@ -9,17 +9,23 @@ public class RecommendGoodsVO {
     @ApiModelProperty("推荐ID")
     private Long RecommendId;
 
+    @ApiModelProperty("推荐商品描述")
+    private String recommendDesc;
+
     @ApiModelProperty("商品ID")
     private Long goodsId;
+
+    @ApiModelProperty("商品图片")
+    private String goodsImage;
 
     @ApiModelProperty("推荐商品名称")
     private String goodsName;
 
+    @ApiModelProperty("商品价格")
+    private Float goodsPrice;
+
     @ApiModelProperty("推荐商品排序")
     private int recommendSort;
-
-    @ApiModelProperty("商品图片")
-    private String goodsImage;
 
     //@ApiModelProperty("创建人ID")
     //private Integer createUser;

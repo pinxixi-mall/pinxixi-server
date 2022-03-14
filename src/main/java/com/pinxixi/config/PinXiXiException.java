@@ -16,6 +16,4 @@ public class PinXiXiException extends RuntimeException{
 
     private String errorMsg;
 
-
-
 }

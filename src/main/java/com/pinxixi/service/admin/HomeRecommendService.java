@@ -3,6 +3,7 @@ package com.pinxixi.service.admin;
 import com.pinxixi.controller.admin.param.RecommendAddParam;
 import com.pinxixi.controller.admin.param.RecommendQueryParam;
 import com.pinxixi.controller.admin.param.RecommendUpdateParam;
+import com.pinxixi.entity.AdminUser;
 import com.pinxixi.entity.RecommendGoods;
 
 import java.util.List;
@@ -29,4 +30,12 @@ public interface HomeRecommendService {
      * @return
      */
     String updateRecommend(RecommendUpdateParam updateParam);
+
+    /**
+     * 推荐删除
+     * @param recommendId
+     * @return
+     */
+    String deleteRecommend(Long recommendId, AdminUser adminUser);
+
 }

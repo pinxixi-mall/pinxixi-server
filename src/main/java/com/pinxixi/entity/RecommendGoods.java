@@ -11,7 +11,13 @@ public class RecommendGoods {
 
     private Long goodsId;
 
-    private String recommendName;
+    private String goodsName;
+
+    private String goodsImage;
+
+    private Float goodsPrice;
+
+    private String recommendDesc;
 
     private int recommendSort;
 

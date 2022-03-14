@@ -19,7 +19,9 @@ public enum ServiceResultEnum {
 
     USER_NOT_FOUND("没找到用户"),
 
-    PAGE_PARAM_ERROR("分页参数有误");
+    PAGE_PARAM_ERROR("分页参数有误"),
+
+    GOODS_EXISTS("商品已存在");
 
     private String result;
 

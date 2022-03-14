@@ -13,6 +13,8 @@ public interface HomeRecommendMapper {
 
     int updateRecommend(RecommendGoods goods);
 
-    RecommendGoods selectRecommend(Integer goodsId);
+    RecommendGoods selectByRecommend(Long recommendId);
+
+    RecommendGoods selectByGoodsId(Long goodsId);
 
 }

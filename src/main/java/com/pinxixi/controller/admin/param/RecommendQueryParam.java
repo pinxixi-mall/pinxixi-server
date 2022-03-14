@@ -22,9 +22,10 @@ public class RecommendQueryParam {
     private Integer pageSize;
 
     @ApiModelProperty("商品编号")
+    @Min(value = 0, message = "商品编号为数字值")
     private Long goodsId;
 
-    @ApiModelProperty("推荐商品名称")
-    private String recommendName;
+    @ApiModelProperty("推荐描述")
+    private String recommendDesc;
 
 }

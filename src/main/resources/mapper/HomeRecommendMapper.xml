@@ -5,8 +5,11 @@
 <mapper namespace="com.pinxixi.dao.HomeRecommendMapper">
     <resultMap id="recommendMap" type="com.pinxixi.entity.RecommendGoods">
         <id property="goodsId" column="goods_id" />
+        <id property="goodsName" column="goods_name" />
+        <id property="goodsImage" column="goods_image" />
+        <id property="goodsPrice" column="goods_price" />
         <id property="recommendId" column="recommend_id" />
-        <id property="recommendName" column="recommend_name" />
+        <id property="recommendDesc" column="recommend_desc" />
         <id property="recommendSort" column="recommend_sort" />
         <id property="isDeleted" column="is_deleted" />
         <id property="createUser" column="create_user" />
@@ -15,22 +18,27 @@
         <id property="updateTime" column="update_time" />
     </resultMap>
 
-    <select id="selectRecommend" resultMap="recommendMap">
-        SELECT * FROM tb_recommend_goods WHERE recommend_id = #{recommendId}
+    <select id="selectByRecommend" resultMap="recommendMap">
+        SELECT * FROM tb_recommend_goods WHERE recommend_id = #{recommendId} and is_deleted = 0
     </select>
 
+    <select id="selectByGoodsId" resultMap="recommendMap">
+        SELECT * FROM tb_recommend_goods WHERE goods_id = #{goodsId} and is_deleted = 0
+    </select>
+
+    <!--联表查询-->
     <select id="selectPage" resultMap="recommendMap">
-        SELECT * FROM tb_recommend_goods
+        SELECT * FROM tb_recommend_goods as recommend INNER JOIN tb_goods as goods ON recommend.goods_id = goods.goods_id
         <where>
-            is_deleted = 0
+            recommend.is_deleted = 0
             <if test="goodsId != null">
-                and goods_id = #{goodsId}
+                and goods.goods_id = #{goodsId}
             </if>
-            <if test="recommendName != null">
-                and recommend_name LIKE CONCAT('%', #{recommendName}, '%')
+            <if test="recommendDesc != null">
+                and recommend.recommend_desc LIKE CONCAT('%', #{recommendDesc}, '%')
             </if>
         </where>
-        ORDER BY create_time DESC
+        ORDER BY recommend.create_time DESC
     </select>
 
     <insert id="insertRecommend" parameterType="com.pinxixi.entity.RecommendGoods">
@@ -38,7 +46,7 @@
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="recommendId != null">recommend_id,</if>
             <if test="goodsId != null">goods_id,</if>
-            <if test="recommendName != null">recommend_name,</if>
+            <if test="recommendDesc != null">recommend_desc,</if>
             <if test="recommendSort != null">recommend_sort,</if>
             <if test="createUser != null">create_user,</if>
             <if test="createTime != null">create_time,</if>
@@ -48,7 +56,7 @@
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="recommendId != null">#{recommendId},</if>
             <if test="goodsId != null">#{goodsId},</if>
-            <if test="recommendName != null">#{recommendName},</if>
+            <if test="recommendDesc != null">#{recommendDesc},</if>
             <if test="recommendSort != null">#{recommendSort},</if>
             <if test="createUser != null">#{createUser},</if>
             <if test="createTime != null">#{createTime},</if>
@@ -59,8 +67,8 @@
 
     <update id="updateRecommend" parameterType="com.pinxixi.entity.RecommendGoods">
         UPDATE tb_recommend_goods
-        SET <if test="recommendName != null">
-                recommend_name = #{recommendName},
+        SET <if test="recommendDesc != null">
+                recommend_desc = #{recommendDesc},
             </if>
             <if test="recommendSort != null">
                 recommend_sort = #{recommendSort},
@@ -68,8 +76,7 @@
             <if test="isDeleted != null">
                 is_deleted = #{isDeleted},
             </if>
-            update_user = #{updateUser},
-            update_time = #{updateTime}
+            update_user = #{updateUser}
         WHERE recommend_id = #{recommendId}
     </update>
 </mapper>
