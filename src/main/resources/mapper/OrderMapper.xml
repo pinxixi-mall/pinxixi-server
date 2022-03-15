@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pinxixi.dao.OrderMapper">
+    <resultMap id="OrderMap" type="com.pinxixi.entity.Order">
+        <id property="orderId" column="category_id" />
+        <id property="orderNo" column="category_name" />
+        <id property="orderPrice" column="category_level" />
+        <id property="orderStatus" column="parent_id" />
+        <id property="paymentStatus" column="category_sort" />
+        <id property="paymentType" column="is_deleted" />
+        <id property="paymentTime" column="create_user" />
+        <id property="createTime" column="create_time" />
+        <id property="updateUser" column="update_user" />
+        <id property="updateTime" column="update_time" />
+    </resultMap>
+
+    <select id="selectCategory" resultMap="OrderMap">
+        SELECT * FROM tb_goods_category WHERE category_id = #{categoryId}
+    </select>
+
+    <select id="selectAll" resultMap="OrderMap">
+        SELECT * FROM tb_goods_category WHERE is_deleted = 0
+    </select>
+
+    <select id="selectPage" resultMap="OrderMap">
+        SELECT * FROM tb_goods_category
+        <where>
+            is_deleted = 0
+            <if test="categoryId != null">
+                and category_id = #{categoryId}
+            </if>
+            <if test="parentId != null">
+                and parent_id = #{parentId}
+            </if>
+            <if test="categoryLevel != null">
+                and category_level = #{categoryLevel}
+            </if>
+            <if test="categoryName != null">
+                and category_name LIKE CONCAT('%', #{categoryName}, '%')
+            </if>
+        </where>
+        ORDER BY create_time DESC
+    </select>
+
+    <select id="selectByLevel" resultMap="OrderMap">
+        SELECT * FROM tb_goods_category WHERE is_deleted = 0 AND category_level = #{level}
+    </select>
+
+    <insert id="insertGoodsCategory" parameterType="com.pinxixi.entity.GoodsCategory">
+        INSERT INTO tb_goods_category
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="categoryId != null">category_id,</if>
+            <if test="categoryLevel != null">category_level,</if>
+            <if test="categoryName != null">category_name,</if>
+            <if test="parentId != null">parent_id,</if>
+            <if test="categorySort != null">category_sort,</if>
+            <if test="createUser != null">create_user,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateUser != null">update_user,</if>
+            <if test="updateTime != null">update_time,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="categoryId != null">#{categoryId},</if>
+            <if test="categoryLevel != null">#{categoryLevel},</if>
+            <if test="categoryName != null">#{categoryName},</if>
+            <if test="parentId != null">#{parentId},</if>
+            <if test="categorySort != null">#{categorySort},</if>
+            <if test="createUser != null">#{createUser},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateUser != null">#{updateUser},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+        </trim>
+    </insert>
+
+    <update id="updateGoodsCategory" parameterType="com.pinxixi.entity.GoodsCategory">
+        UPDATE tb_goods_category
+        SET <if test="categoryName != null">
+                category_name = #{categoryName},
+            </if>
+            <if test="categorySort != null">
+                category_sort = #{categorySort},
+            </if>
+            <if test="isDeleted != null">
+                is_deleted = #{isDeleted},
+            </if>
+            update_user = #{updateUser}
+        WHERE category_id = #{categoryId}
+    </update>
+</mapper>
