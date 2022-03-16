@@ -1,10 +1,7 @@
 package com.pinxixi.dao;
 
 import com.pinxixi.entity.AdminUser;
-import org.apache.ibatis.annotations.Result;
-import org.apache.ibatis.annotations.ResultMap;
-import org.apache.ibatis.annotations.Results;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 public interface AdminUserMapper {
 
@@ -39,4 +36,29 @@ public interface AdminUserMapper {
     @ResultMap(value = "adminUserMap")
     @Select("SELECT * FROM tb_admin_user WHERE user_name = #{userName}")
     AdminUser selectUserByName(String userName);
+
+    /**
+     * 更新用户信息
+     * @param adminUser
+     * @return
+     */
+    @Update({
+            "<script>",
+            "UPDATE tb_admn_user SET ",
+            "<if (test = \"nickName != null\")",
+            "nick_name = #{nickName},",
+            "</if>",
+            "<if (test = \"phone != null\")",
+            "phone = #{phone},",
+            "</if>",
+            "<if (test = \"email != null\")",
+            "email = #{email},",
+            "</if>",
+            "<if (test = \"password != null\")",
+            "password = #{password}",
+            "</if>",
+            "WHERE user_id = #{userId}",
+            "</script>"
+    })
+    Integer updateUser(AdminUser adminUser);
 }

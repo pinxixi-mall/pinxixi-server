@@ -12,15 +12,17 @@ CREATE TABLE `tb_admin_user` (
     `password` varchar(50) NOT NULL COMMENT '管理员密码',
     `nick_name` varchar(50) NOT NULL COMMENT '管理员昵称',
     `avatar` varchar(200) COMMENT '管理员头像',
+    `phone` varchar(11) COMMENT '手机号',
+    `email` varchar(50) COMMENT '邮箱',
     `locked` tinyint DEFAULT '0' COMMENT '是否锁定（0-未锁定，1-已锁定）',
     PRIMARY KEY (`user_id`) USING BTREE
 ) ENGINE=InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic COMMENT='管理员表';
 
 INSERT INTO `tb_admin_user`
-    (`user_id`, `user_name`, `password`, `nick_name`, `locked`)
+    (`user_id`, `user_name`, `password`, `nick_name`, `avatar`, `phone`, `email`, `locked`)
 VALUES
-	(1, 'admin', '123','pxx1', 0),
-	(2, 'admin1', '123','pxx2', 0);
+	(1, 'admin', '123','pxx1', 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png', '16666666666', '123456@qq.com', 0),
+	(2, 'admin1', '123','pxx2', 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png', '17777777777', '789456@qq.com', 0);
 
 -- ----------------------------
 -- 管理员token(deprecated)
@@ -85,11 +87,11 @@ CREATE TABLE `tb_goods` (
 ) ENGINE=InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic COMMENT='商品表';
 
 INSERT INTO `tb_goods`
-    (`goods_id`, `goods_name`, `goods_image`, `goods_category_id`, `goods_desc`, `goods_price`, `goods_stock`, `goods_status`, `goods_type`, `goods_detail`, `create_user`, `create_time`, `update_user`, `update_time`)
+    (`goods_id`, `goods_name`, `goods_image`, `goods_category_id`, `goods_desc`, `goods_price`, `goods_stock`, `goods_status`, `goods_detail`, `create_user`, `create_time`, `update_user`, `update_time`)
 VALUES
-    (100, '(Haier)海尔冰箱', 'https://img10.360buyimg.com/mobilecms/s360x360_jfs/t1/147916/20/22334/454208/620f6729E5f8c2608/e77478cdc8928a7e.jpg', 1, '三门两门\/风冷无霜\/直冷超薄小型家用家电智能节能电冰箱 218升三门直冷冰箱218STPS', 1999, 999, 1, 0, '无', 1, '2022-03-01 17:01:01', 1, '2022-03-01 17:01:01'),
-    (101, '(Haier)海尔冰箱', 'https://img10.360buyimg.com/mobilecms/s360x360_jfs/t1/147916/20/22334/454208/620f6729E5f8c2608/e77478cdc8928a7e.jpg', 1, '三门两门\/风冷无霜\/直冷超薄小型家用家电智能节能电冰箱 218升三门直冷冰箱218STPS', 1999, 999, 1, 0, '无', 1, '2022-03-01 17:01:01', 1, '2022-03-01 17:01:01'),
-    (102, '(Haier)海尔冰箱', 'https://img10.360buyimg.com/mobilecms/s360x360_jfs/t1/147916/20/22334/454208/620f6729E5f8c2608/e77478cdc8928a7e.jpg', 1, '三门两门\/风冷无霜\/直冷超薄小型家用家电智能节能电冰箱 218升三门直冷冰箱218STPS', 1999, 999, 1, 0, '无', 1, '2022-03-01 17:01:01', 1, '2022-03-01 17:01:01');
+    (100, '(Haier)海尔冰箱', 'https://img10.360buyimg.com/mobilecms/s360x360_jfs/t1/147916/20/22334/454208/620f6729E5f8c2608/e77478cdc8928a7e.jpg', 1, '三门两门\/风冷无霜\/直冷超薄小型家用家电智能节能电冰箱 218升三门直冷冰箱218STPS', 1999, 999, 1, '无', 1, '2022-03-01 17:01:01', 1, '2022-03-01 17:01:01'),
+    (101, '(Haier)海尔冰箱', 'https://img10.360buyimg.com/mobilecms/s360x360_jfs/t1/147916/20/22334/454208/620f6729E5f8c2608/e77478cdc8928a7e.jpg', 1, '三门两门\/风冷无霜\/直冷超薄小型家用家电智能节能电冰箱 218升三门直冷冰箱218STPS', 1999, 999, 1, '无', 1, '2022-03-01 17:01:01', 1, '2022-03-01 17:01:01'),
+    (102, '(Haier)海尔冰箱', 'https://img10.360buyimg.com/mobilecms/s360x360_jfs/t1/147916/20/22334/454208/620f6729E5f8c2608/e77478cdc8928a7e.jpg', 1, '三门两门\/风冷无霜\/直冷超薄小型家用家电智能节能电冰箱 218升三门直冷冰箱218STPS', 1999, 999, 1, '无', 1, '2022-03-01 17:01:01', 1, '2022-03-01 17:01:01');
 
 -- ----------------------------
 -- 推荐商品表

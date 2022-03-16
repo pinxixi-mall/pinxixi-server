@@ -15,6 +15,10 @@ public class AdminUser {
 
     private String avatar;
 
+    private String phone;
+
+    private String email;
+
     private Byte locked;
 
 }

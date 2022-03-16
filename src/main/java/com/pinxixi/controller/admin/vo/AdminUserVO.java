@@ -20,6 +20,12 @@ public class AdminUserVO implements Serializable {
     @ApiModelProperty("用户头像")
     private String avatar;
 
+    @ApiModelProperty("手机号")
+    private String phone;
+
+    @ApiModelProperty("邮箱")
+    private String email;
+
     @ApiModelProperty("是否锁定：0-否，1-是")
     private Byte locked;
 }
