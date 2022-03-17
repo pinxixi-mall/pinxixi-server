@@ -21,7 +21,12 @@
     </select>
 
     <select id="selectPage" resultMap="CarouselMap">
-        SELECT * FROM tb_carousel WHERE is_deleted = 0 ORDER BY create_time DESC
+        SELECT * FROM tb_carousel
+        WHERE is_deleted = 0
+        <if test="status != null">
+            and carousel_status = #{carouselStatus}
+        </if>
+        ORDER BY create_time DESC
     </select>
 
     <insert id="insertHomeCarousel" parameterType="com.pinxixi.entity.HomeCarousel">

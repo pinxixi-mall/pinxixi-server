@@ -2,9 +2,9 @@ package com.pinxixi.config.handler;
 
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.pinxixi.config.JWTConfig;
-import com.pinxixi.config.annotation.AdminUserArgument;
-import com.pinxixi.dao.AdminUserMapper;
-import com.pinxixi.entity.AdminUser;
+import com.pinxixi.config.annotation.ClientUserArgument;
+import com.pinxixi.dao.ClientUserMapper;
+import com.pinxixi.entity.ClientUser;
 import com.pinxixi.utils.JWTUtils;
 import org.springframework.core.MethodParameter;
 import org.springframework.stereotype.Component;
@@ -16,18 +16,18 @@ import org.springframework.web.method.support.ModelAndViewContainer;
 import javax.annotation.Resource;
 
 /**
- * 注解@AdminUserArgument处理
+ * 注解@ClientUserArgument处理
  */
 @Component
-public class AdminUserArgumentResolver implements HandlerMethodArgumentResolver {
+public class ClientUserArgumentResolver implements HandlerMethodArgumentResolver {
 
     @Resource
-    private AdminUserMapper adminUserMapper;
+    private ClientUserMapper userMapper;
 
     @Override
     public boolean supportsParameter(MethodParameter parameter) {
-        //有AdminUserArgument注解才解析
-        return parameter.hasParameterAnnotation(AdminUserArgument.class);
+        //有ClientUserArgument注解才解析
+        return parameter.hasParameterAnnotation(ClientUserArgument.class);
     }
 
     @Override
@@ -35,7 +35,7 @@ public class AdminUserArgumentResolver implements HandlerMethodArgumentResolver 
         String token = JWTUtils.splitTokenPrefix(webRequest.getHeader(JWTConfig.tokenHeader));
         DecodedJWT jwt = JWTUtils.verifyToken(token);
         String userName = jwt.getClaim("userName").asString();
-        AdminUser adminUser = adminUserMapper.selectUserByName(userName);
-        return adminUser;
+        ClientUser clientUser = userMapper.selectUserByName(userName);
+        return clientUser;
     }
 }

@@ -265,6 +265,28 @@ CREATE TABLE `tb_client_cart` (
 ) ENGINE=InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic COMMENT='客户购物车表';
 
 -- ----------------------------
+-- 用户表
+-- ----------------------------
+DROP TABLE IF EXISTS `tb_client_user`;
+CREATE TABLE `tb_client_user` (
+    `user_id` bigint NOT NULL AUTO_INCREMENT COMMENT '用户id',
+    `user_name` varchar(50) NOT NULL COMMENT '用户名称',
+    `password` varchar(50) NOT NULL COMMENT '用户密码',
+    `nick_name` varchar(50) NOT NULL COMMENT '用户昵称',
+    `avatar` varchar(200) COMMENT '用户头像',
+    `phone` varchar(11) COMMENT '手机号',
+    `email` varchar(50) COMMENT '邮箱',
+    `locked` tinyint DEFAULT '0' COMMENT '是否锁定（0-未锁定，1-已锁定）',
+    PRIMARY KEY (`user_id`) USING BTREE
+) ENGINE=InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic COMMENT='用户表';
+
+INSERT INTO `tb_client_user`
+(`user_id`, `user_name`, `password`, `nick_name`, `avatar`, `phone`, `email`, `locked`)
+VALUES
+(1, 'client1', '123','xx1', 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png', '16666666666', '123456@qq.com', 0),
+(2, 'client2', '123','xx2', 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png', '17777777777', '789456@qq.com', 0);
+
+-- ----------------------------
 -- 用户地址表
 -- ----------------------------
 DROP TABLE IF EXISTS `tb_client_address`;

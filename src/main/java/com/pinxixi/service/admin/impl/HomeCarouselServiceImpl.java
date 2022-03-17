@@ -38,7 +38,7 @@ public class HomeCarouselServiceImpl implements HomeCarouselService {
     @Override
     public PageResult<HomeCarouselVO> getCarouselPage(Integer pageNum, Integer pageSize) {
         PageHelper.startPage(pageNum, pageSize);
-        List<HomeCarouselVO> list = homeCarouselMapper.selectPage();
+        List<HomeCarouselVO> list = homeCarouselMapper.selectPage(null);
         PageResult<HomeCarouselVO> pageResult = new PageResult<>(list);
         return pageResult;
     }

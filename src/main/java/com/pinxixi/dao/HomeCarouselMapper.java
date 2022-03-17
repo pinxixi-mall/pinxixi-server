@@ -3,6 +3,7 @@ package com.pinxixi.dao;
 import com.pinxixi.controller.admin.vo.HomeCarouselVO;
 import com.pinxixi.entity.HomeCarousel;
 import org.springframework.stereotype.Repository;
+import reactor.util.annotation.Nullable;
 
 import java.util.List;
 
@@ -20,7 +21,7 @@ public interface HomeCarouselMapper {
      * 分页查询
      * @return
      */
-    List<HomeCarouselVO> selectPage();
+    List<HomeCarouselVO> selectPage(@Nullable Byte carouselStatus);
 
     /**
      * 轮播图新增
