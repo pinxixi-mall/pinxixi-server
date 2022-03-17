@@ -21,7 +21,11 @@ public enum ServiceResultEnum {
 
     PAGE_PARAM_ERROR("分页参数有误"),
 
-    GOODS_EXISTS("商品已存在");
+    GOODS_EXISTS("商品已存在"),
+
+    WRONG_OLD_PASSWORD("原密码错误"),
+
+    PASSWORD_INCONSISTENT("两次密码不一致");
 
     private String result;
 

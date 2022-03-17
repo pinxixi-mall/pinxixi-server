@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class AdminUser {
 
-    private int userId;
+    private Integer userId;
 
     private String userName;
 

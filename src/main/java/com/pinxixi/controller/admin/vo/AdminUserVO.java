@@ -9,7 +9,7 @@ import java.io.Serializable;
 public class AdminUserVO implements Serializable {
 
     @ApiModelProperty("用户id")
-    private int userId;
+    private Integer userId;
 
     @ApiModelProperty("用户名")
     private String userName;

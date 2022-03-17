@@ -3,6 +3,8 @@ package com.pinxixi.controller.admin;
 import com.pinxixi.common.ServiceResultEnum;
 import com.pinxixi.config.annotation.AdminUserArgument;
 import com.pinxixi.controller.admin.param.AdminUserLoginParam;
+import com.pinxixi.controller.admin.param.AdminUserPwdResetParam;
+import com.pinxixi.controller.admin.param.AdminUserUpdateParam;
 import com.pinxixi.controller.admin.vo.AdminUserVO;
 import com.pinxixi.entity.AdminUser;
 import com.pinxixi.entity.AdminUserToken;
@@ -85,10 +87,44 @@ public class AdminUserController {
      * @return
      */
     @ApiOperation("管理员信息")
-    @GetMapping("/userInfo")
+    @GetMapping("/user")
     public Result<AdminUserVO> userInfo(@AdminUserArgument AdminUser adminUser) {
         AdminUserVO adminUserVO = new AdminUserVO();
         BeanUtils.copyProperties(adminUser, adminUserVO);
         return Result.success(adminUserVO);
     }
+
+    /**
+     * 修改用户信息
+     * @param updateParam
+     * @param adminUser
+     * @return
+     */
+    @ApiOperation("修改用户信息")
+    @PutMapping("/user")
+    public Result updateUserInfo(@RequestBody @Valid AdminUserUpdateParam updateParam, @AdminUserArgument AdminUser adminUser) {
+        AdminUser user = new AdminUser();
+        user.setUserId(adminUser.getUserId());
+        BeanUtils.copyProperties(updateParam, user);
+
+        String result = adminUserService.updateUserInfo(user);
+        return Result.common(result);
+    }
+
+    /**
+     * 重置密码
+     * @param resetParam
+     * @param adminUser
+     * @return
+     */
+    @ApiOperation("重置密码")
+    @PutMapping("/user/reset")
+    public Result resetPassword(@RequestBody @Valid AdminUserPwdResetParam resetParam, @AdminUserArgument AdminUser adminUser) {
+        String result = adminUserService.restPassword(resetParam, adminUser);
+        if (result.equals(ServiceResultEnum.WRONG_OLD_PASSWORD.getResult()) || result.equals(ServiceResultEnum.PASSWORD_INCONSISTENT.getResult())) {
+            return Result.fail(result);
+        }
+        return Result.success(result);
+    }
+
 }

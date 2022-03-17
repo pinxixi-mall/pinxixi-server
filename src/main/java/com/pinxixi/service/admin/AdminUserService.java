@@ -1,6 +1,6 @@
 package com.pinxixi.service.admin;
 
-import com.pinxixi.controller.admin.vo.AdminUserVO;
+import com.pinxixi.controller.admin.param.AdminUserPwdResetParam;
 import com.pinxixi.entity.AdminUser;
 import com.pinxixi.entity.AdminUserToken;
 
@@ -37,4 +37,19 @@ public interface AdminUserService {
      * @param httpServletRequest
      */
     Boolean logout(HttpServletRequest httpServletRequest);
+
+    /**
+     * 更新用户信息
+     * @param adminUser
+     * @return
+     */
+    String updateUserInfo(AdminUser adminUser);
+
+    /**
+     * 重置密码
+     * @param resetParam
+     * @param adminUser
+     * @return
+     */
+    String restPassword(AdminUserPwdResetParam resetParam, AdminUser adminUser);
 }

@@ -1,13 +1,16 @@
 package com.pinxixi.service.admin.impl;
 
 import com.pinxixi.common.Constants;
+import com.pinxixi.common.ServiceResultEnum;
 import com.pinxixi.config.JWTConfig;
+import com.pinxixi.controller.admin.param.AdminUserPwdResetParam;
 import com.pinxixi.dao.AdminUserMapper;
 import com.pinxixi.dao.AdminUserTokenMapper;
 import com.pinxixi.entity.AdminUser;
 import com.pinxixi.entity.AdminUserToken;
 import com.pinxixi.entity.TokenObj;
 import com.pinxixi.service.admin.AdminUserService;
+import com.pinxixi.utils.PinXiXiUtils;
 import com.pinxixi.utils.RedisUtils;
 import com.pinxixi.utils.JWTUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -124,6 +127,39 @@ public class AdminUserServiceImpl implements AdminUserService {
         token = JWTUtils.splitTokenPrefix(token);
         //删除token缓存
         return redisUtils.del(Constants.ADMIN_TOKEN_CACHE_KEY + token);
+    }
+
+    /**
+     * 更新用户信息
+     * @param adminUser
+     * @return
+     */
+    @Override
+    public String updateUserInfo(AdminUser adminUser) {
+        Integer rows = adminUserMapper.updateUser(adminUser);
+        return PinXiXiUtils.genSqlResultByRows(rows);
+    }
+
+    /***
+     * 重置密码
+     * @param resetParam
+     * @param adminUser
+     * @return
+     */
+    @Override
+    public String restPassword(AdminUserPwdResetParam resetParam, AdminUser adminUser) {
+        AdminUser user = adminUserMapper.selectUserById(adminUser.getUserId());
+        if (!user.getPassword().equals(resetParam.getOldPassword())) {
+            return ServiceResultEnum.WRONG_OLD_PASSWORD.getResult();
+        } else if (!resetParam.getNewPassword().equals(resetParam.getConfirmPassword())) {
+            return ServiceResultEnum.PASSWORD_INCONSISTENT.getResult();
+        }
+
+        AdminUser newUser= new AdminUser();
+        newUser.setUserId(adminUser.getUserId());
+        newUser.setPassword(resetParam.getNewPassword());
+        Integer rows = adminUserMapper.updateUser(newUser);
+        return PinXiXiUtils.genSqlResultByRows(rows);
     }
 
 }

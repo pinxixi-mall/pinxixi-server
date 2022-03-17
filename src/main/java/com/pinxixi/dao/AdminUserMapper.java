@@ -42,23 +42,16 @@ public interface AdminUserMapper {
      * @param adminUser
      * @return
      */
-    @Update({
-            "<script>",
-            "UPDATE tb_admn_user SET ",
-            "<if (test = \"nickName != null\")",
-            "nick_name = #{nickName},",
-            "</if>",
-            "<if (test = \"phone != null\")",
-            "phone = #{phone},",
-            "</if>",
-            "<if (test = \"email != null\")",
-            "email = #{email},",
-            "</if>",
-            "<if (test = \"password != null\")",
-            "password = #{password}",
-            "</if>",
-            "WHERE user_id = #{userId}",
-            "</script>"
-    })
+    @Update({"<script>",
+        "UPDATE tb_admin_user",
+        "  <set>",
+        "    <if test='nickName != null'>nick_name=#{nickName},</if>",
+        "    <if test='avatar != null'>avatar=#{avatar},</if>",
+        "    <if test='phone != null'>phone=#{phone},</if>",
+        "    <if test='email != null'>email=#{email},</if>",
+        "    <if test='password != null'>password=#{password}</if>",
+        "  </set>",
+        "WHERE user_id=#{userId}",
+        "</script>"})
     Integer updateUser(AdminUser adminUser);
 }

@@ -86,5 +86,4 @@ public class HomeRecommendServiceImpl implements HomeRecommendService {
         return PinXiXiUtils.genSqlResultByRows(rows);
     }
 
-
 }
