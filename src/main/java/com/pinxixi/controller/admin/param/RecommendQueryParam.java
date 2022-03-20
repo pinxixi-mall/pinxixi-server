@@ -28,4 +28,7 @@ public class RecommendQueryParam {
     @ApiModelProperty("推荐描述")
     private String recommendDesc;
 
+    @ApiModelProperty("删除标识：0-未删除，1-已删除")
+    private Byte isDeleted;
+
 }

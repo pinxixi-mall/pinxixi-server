@@ -24,6 +24,9 @@ public class GoodsCategoryTreeVO {
     @ApiModelProperty("分类排序")
     private Integer categorySort;
 
+    @ApiModelProperty("分类图标")
+    private String categoryImage;
+
     @ApiModelProperty("创建时间")
     private Date createTime;
 

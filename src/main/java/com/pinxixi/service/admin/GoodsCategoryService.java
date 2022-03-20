@@ -18,7 +18,7 @@ public interface GoodsCategoryService {
 
     List<GoodsCategoryTreeVO> selectCategoryPage(GoodsCategoryQueryParam queryParam);
 
-    List<GoodsCategoryTreeVO> selectCategoryAll(GoodsCategoryQueryParam queryParam);
+    List<GoodsCategoryTreeVO> selectCategoryTree(GoodsCategoryQueryParam queryParam);
 
     List<GoodsCategory> selectCategoryByLevel(GoodsCategoryQueryParam queryParam);
 

@@ -48,7 +48,7 @@ public class GoodsCategoryController {
     @ApiOperation("商品分类列表")
     @GetMapping("/category/list")
     public Result<GoodsCategoryTreeVO> categoryList(GoodsCategoryQueryParam queryParam) {
-        List<GoodsCategoryTreeVO> goodsCategories = goodsCategoryService.selectCategoryAll(queryParam);
+        List<GoodsCategoryTreeVO> goodsCategories = goodsCategoryService.selectCategoryTree(queryParam);
         return Result.success(goodsCategories);
     }
 

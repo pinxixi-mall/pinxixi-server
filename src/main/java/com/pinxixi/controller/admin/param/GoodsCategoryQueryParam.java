@@ -33,4 +33,7 @@ public class GoodsCategoryQueryParam {
     @ApiModelProperty("分类名称")
     private String categoryName;
 
+    @ApiModelProperty("树形分类开始级别：1-一级，2-二级，3-三级")
+    private Long startLevel;
+
 }

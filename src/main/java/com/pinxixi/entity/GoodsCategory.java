@@ -17,6 +17,8 @@ public class GoodsCategory {
 
     private Integer categorySort;
 
+    private String  categoryImage;
+
     private Byte isDeleted;
 
     private Integer createUser;

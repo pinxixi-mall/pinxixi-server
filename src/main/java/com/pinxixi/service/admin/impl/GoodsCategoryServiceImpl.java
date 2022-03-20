@@ -11,8 +11,10 @@ import com.pinxixi.entity.AdminUser;
 import com.pinxixi.entity.GoodsCategory;
 import com.pinxixi.service.admin.GoodsCategoryService;
 import com.pinxixi.utils.PinXiXiUtils;
+import io.swagger.models.auth.In;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+import reactor.util.annotation.Nullable;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -36,20 +38,20 @@ public class GoodsCategoryServiceImpl implements GoodsCategoryService {
         PageHelper.startPage(queryParam.getPageNum(), queryParam.getPageSize());
         List<GoodsCategory> goodsCategories = categoryMapper.selectPage(queryParam);
 
-        List<GoodsCategoryTreeVO> categoryTree = genCategoryTree(goodsCategories);
+        List<GoodsCategoryTreeVO> categoryTree = genCategoryTree(goodsCategories, queryParam.getStartLevel());
 
         return categoryTree;
     }
 
     /**
-     * 商品分类（不分页）
+     * 商品分类（树形，不分页）
      * @param queryParam
      * @return
      */
     @Override
-    public List<GoodsCategoryTreeVO> selectCategoryAll(GoodsCategoryQueryParam queryParam) {
+    public List<GoodsCategoryTreeVO> selectCategoryTree(GoodsCategoryQueryParam queryParam) {
         List<GoodsCategory> goodsCategories = categoryMapper.selectPage(queryParam);
-        List<GoodsCategoryTreeVO> categoryTree = genCategoryTree(goodsCategories);
+        List<GoodsCategoryTreeVO> categoryTree = genCategoryTree(goodsCategories, queryParam.getStartLevel());
         return categoryTree;
     }
 
@@ -96,13 +98,19 @@ public class GoodsCategoryServiceImpl implements GoodsCategoryService {
      * @param list
      * @return
      */
-    public static List<GoodsCategoryTreeVO> genCategoryTree(List<GoodsCategory> list) {
+    public static List<GoodsCategoryTreeVO> genCategoryTree(List<GoodsCategory> list, @Nullable Long startLevel) {
         //一级
-        List<GoodsCategory> level1List = list.stream().filter((GoodsCategory category) -> category.getCategoryLevel() == 1).collect(Collectors.toList());
+        List<GoodsCategory> level1List = null;
         //二级
-        List<GoodsCategory> level2List = list.stream().filter((GoodsCategory category) -> category.getCategoryLevel() == 2).collect(Collectors.toList());
+        List<GoodsCategory> level2List;
         //三级
-        List<GoodsCategory> level3List = list.stream().filter((GoodsCategory category) -> category.getCategoryLevel() == 3).collect(Collectors.toList());
+        List<GoodsCategory> level3List;
+
+        if (startLevel == null || startLevel == 1) {
+            level1List = list.stream().filter((GoodsCategory category) -> category.getCategoryLevel() == 1).collect(Collectors.toList());
+        }
+        level2List = list.stream().filter((GoodsCategory category) -> category.getCategoryLevel() == 2).collect(Collectors.toList());
+        level3List = list.stream().filter((GoodsCategory category) -> category.getCategoryLevel() == 3).collect(Collectors.toList());
 
         if ((level1List.size() > 0 && level2List.size() > 0) ||
             (level2List.size() > 0 && level3List.size() > 0)) {

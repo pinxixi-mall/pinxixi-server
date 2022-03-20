@@ -20,6 +20,9 @@ public class GoodsCategoryVO {
     @ApiModelProperty("父级id")
     private Long parentId;
 
+    @ApiModelProperty("分类图标")
+    private String categoryImage;
+
     @ApiModelProperty("分类排序")
     private Integer categorySort;
 
