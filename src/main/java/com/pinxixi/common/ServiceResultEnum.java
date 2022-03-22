@@ -23,6 +23,8 @@ public enum ServiceResultEnum {
 
     GOODS_EXISTS("商品已存在"),
 
+    GOODS_NOT_EXISTS("商品不存在"),
+
     WRONG_OLD_PASSWORD("原密码错误"),
 
     PASSWORD_INCONSISTENT("两次密码不一致");

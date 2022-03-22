@@ -1,6 +1,7 @@
 package com.pinxixi.controller.client;
 
 import com.pinxixi.common.Result;
+import com.pinxixi.common.ServiceResultEnum;
 import com.pinxixi.controller.admin.vo.GoodsVO;
 import com.pinxixi.entity.Goods;
 import com.pinxixi.service.admin.GoodsService;
@@ -18,12 +19,17 @@ public class GoodsController {
     @Autowired
     private GoodsService goodsService;
 
+    /**
+     * 商品详情
+     * @param goodsId
+     * @return
+     */
     @ApiOperation("商品详情")
     @GetMapping("/detail/{goodsId}")
     Result<GoodsVO> goodsDetail(@PathVariable Integer goodsId) {
         Goods goods = goodsService.getGoodsDetail(goodsId);
         if (goods == null) {
-
+            return Result.fail(ServiceResultEnum.GOODS_NOT_EXISTS.getResult());
         }
         return Result.success(goods);
     }
