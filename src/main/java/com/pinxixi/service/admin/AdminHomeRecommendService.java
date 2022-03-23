@@ -8,7 +8,7 @@ import com.pinxixi.entity.RecommendGoods;
 
 import java.util.List;
 
-public interface HomeRecommendService {
+public interface AdminHomeRecommendService {
 
     /**
      * 推荐列表（分页）

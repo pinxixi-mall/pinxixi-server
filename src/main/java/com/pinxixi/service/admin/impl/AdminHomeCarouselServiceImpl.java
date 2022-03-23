@@ -2,11 +2,10 @@ package com.pinxixi.service.admin.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.pinxixi.common.PageResult;
-import com.pinxixi.common.ServiceResultEnum;
 import com.pinxixi.controller.admin.vo.HomeCarouselVO;
 import com.pinxixi.dao.HomeCarouselMapper;
 import com.pinxixi.entity.HomeCarousel;
-import com.pinxixi.service.admin.HomeCarouselService;
+import com.pinxixi.service.admin.AdminHomeCarouselService;
 import com.pinxixi.utils.PinXiXiUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,7 +14,7 @@ import java.util.Date;
 import java.util.List;
 
 @Service
-public class HomeCarouselServiceImpl implements HomeCarouselService {
+public class AdminHomeCarouselServiceImpl implements AdminHomeCarouselService {
 
     @Autowired
     private HomeCarouselMapper homeCarouselMapper;

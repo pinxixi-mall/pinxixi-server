@@ -5,14 +5,12 @@ import com.pinxixi.common.Result;
 import com.pinxixi.controller.admin.param.RecommendQueryParam;
 import com.pinxixi.controller.admin.vo.HomeCarouselVO;
 import com.pinxixi.controller.admin.vo.RecommendGoodsVO;
-import com.pinxixi.entity.HomeCarousel;
 import com.pinxixi.entity.RecommendGoods;
-import com.pinxixi.service.client.HomeService;
+import com.pinxixi.service.client.ClientHomeService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
@@ -23,15 +21,15 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/client/home")
-public class HomeController {
+public class ClientHomeController {
 
     @Autowired
-    private HomeService homeService;
+    private ClientHomeService clientHomeService;
 
     @ApiOperation("首页轮播图")
     @GetMapping("/carousel")
     public Result<PageResult<HomeCarouselVO>> carousel() {
-        List<HomeCarouselVO> homeCarousels = homeService.carouselList();
+        List<HomeCarouselVO> homeCarousels = clientHomeService.carouselList();
         PageResult<Object> pageResult = new PageResult<>(homeCarousels);
         return Result.success(pageResult);
     }
@@ -39,7 +37,7 @@ public class HomeController {
     @ApiOperation("首页推荐")
     @GetMapping("/recommend")
     public Result<PageResult<RecommendGoodsVO>> recommend(@Valid RecommendQueryParam queryParam) {
-        List<RecommendGoods> recommendGoods = homeService.recommendList(queryParam);
+        List<RecommendGoods> recommendGoods = clientHomeService.recommendList(queryParam);
         PageResult<Object> pageResult = new PageResult<>(recommendGoods);
         return Result.success(pageResult);
     }

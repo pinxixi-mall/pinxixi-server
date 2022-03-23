@@ -4,14 +4,14 @@ import com.github.pagehelper.PageHelper;
 import com.pinxixi.dao.OrderMapper;
 import com.pinxixi.entity.AdminUser;
 import com.pinxixi.entity.Order;
-import com.pinxixi.service.admin.OrderService;
+import com.pinxixi.service.admin.AdminOrderService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
 
 @Service
-public class OrderServiceImpl implements OrderService {
+public class AdminOrderServiceImpl implements AdminOrderService {
 
     @Resource
     private OrderMapper orderMapper;

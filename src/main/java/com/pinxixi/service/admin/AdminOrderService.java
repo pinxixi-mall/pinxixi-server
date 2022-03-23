@@ -5,7 +5,7 @@ import com.pinxixi.entity.Order;
 
 import java.util.List;
 
-public interface OrderService {
+public interface AdminOrderService {
 
     List<Order> orderList(Integer pageNum, Integer pageSize, AdminUser adminUser);
 

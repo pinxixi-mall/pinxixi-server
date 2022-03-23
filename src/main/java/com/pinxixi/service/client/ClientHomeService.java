@@ -6,7 +6,7 @@ import com.pinxixi.entity.RecommendGoods;
 
 import java.util.List;
 
-public interface HomeService {
+public interface ClientHomeService {
 
     List<HomeCarouselVO> carouselList();
 

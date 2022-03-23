@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * 商品分类
  */
-public interface GoodsCategoryService {
+public interface AdminGoodsCategoryService {
 
     List<GoodsCategoryTreeVO> selectCategoryPage(GoodsCategoryQueryParam queryParam);
 

@@ -6,7 +6,7 @@ import com.pinxixi.controller.admin.param.GoodsStatusUpdateParam;
 import com.pinxixi.dao.GoodsMapper;
 import com.pinxixi.entity.AdminUser;
 import com.pinxixi.entity.Goods;
-import com.pinxixi.service.admin.GoodsService;
+import com.pinxixi.service.admin.AdminGoodsService;
 import com.pinxixi.utils.PinXiXiUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
@@ -16,7 +16,7 @@ import java.util.Date;
 import java.util.List;
 
 @Service
-public class GoodsServiceImpl implements GoodsService {
+public class GoodsServiceImpl implements AdminGoodsService {
 
     @Resource
     private GoodsMapper goodsMapper;

@@ -5,25 +5,22 @@ import com.pinxixi.controller.admin.param.GoodsCategoryAddParam;
 import com.pinxixi.controller.admin.param.GoodsCategoryQueryParam;
 import com.pinxixi.controller.admin.param.GoodsCategoryUpdateParam;
 import com.pinxixi.controller.admin.vo.GoodsCategoryTreeVO;
-import com.pinxixi.controller.admin.vo.GoodsCategoryVO;
 import com.pinxixi.dao.GoodsCategoryMapper;
 import com.pinxixi.entity.AdminUser;
 import com.pinxixi.entity.GoodsCategory;
-import com.pinxixi.service.admin.GoodsCategoryService;
+import com.pinxixi.service.admin.AdminGoodsCategoryService;
 import com.pinxixi.utils.PinXiXiUtils;
-import io.swagger.models.auth.In;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import reactor.util.annotation.Nullable;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class GoodsCategoryServiceImpl implements GoodsCategoryService {
+public class GoodsCategoryServiceImpl implements AdminGoodsCategoryService {
 
     @Resource
     private GoodsCategoryMapper categoryMapper;

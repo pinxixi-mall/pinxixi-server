@@ -5,11 +5,15 @@
 <mapper namespace="com.pinxixi.dao.ClientUserMapper">
     <resultMap id="ClientUserMap" type="com.pinxixi.entity.ClientUser">
         <id column="user_id" property="userId" />
+        <id column="user_name" property="userName" />
     </resultMap>
 
     <select id="selectUser" resultMap="ClientUserMap">
         SELECT * FROM tb_client_user WHERE user_name = #{userName} and password = #{password}
     </select>
 
+    <select id="selectUserByName" resultMap="ClientUserMap">
+        SELECT * FROM tb_client_user WHERE user_name = #{userName} AND locked = 0
+    </select>
 
 </mapper>

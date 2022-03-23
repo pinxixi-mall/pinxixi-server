@@ -10,7 +10,7 @@ import com.pinxixi.controller.admin.vo.GoodsCategoryTreeVO;
 import com.pinxixi.controller.admin.vo.GoodsCategoryVO;
 import com.pinxixi.entity.AdminUser;
 import com.pinxixi.entity.GoodsCategory;
-import com.pinxixi.service.admin.GoodsCategoryService;
+import com.pinxixi.service.admin.AdminGoodsCategoryService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,10 +22,10 @@ import java.util.List;
 @RestController
 @Api(tags = "商品分类")
 @RequestMapping("/admin/goods-manage")
-public class GoodsCategoryController {
+public class AdminGoodsCategoryController {
 
     @Autowired
-    private GoodsCategoryService goodsCategoryService;
+    private AdminGoodsCategoryService adminGoodsCategoryService;
 
     /**
      * 商品分类列表（分页）
@@ -35,7 +35,7 @@ public class GoodsCategoryController {
     @ApiOperation("商品分类列表")
     @GetMapping("/category/page")
     public Result<PageResult<GoodsCategoryTreeVO>> categoryPage(@Valid GoodsCategoryQueryParam queryParam) {
-        List<GoodsCategoryTreeVO> goodsCategories = goodsCategoryService.selectCategoryPage(queryParam);
+        List<GoodsCategoryTreeVO> goodsCategories = adminGoodsCategoryService.selectCategoryPage(queryParam);
         PageResult<GoodsCategoryVO> pageResult = new PageResult<>(goodsCategories);
         return Result.success(pageResult);
     }
@@ -47,7 +47,7 @@ public class GoodsCategoryController {
     @ApiOperation("商品分类列表")
     @GetMapping("/category/list")
     public Result<GoodsCategoryTreeVO> categoryList(GoodsCategoryQueryParam queryParam) {
-        List<GoodsCategoryTreeVO> goodsCategories = goodsCategoryService.selectCategoryTree(queryParam);
+        List<GoodsCategoryTreeVO> goodsCategories = adminGoodsCategoryService.selectCategoryTree(queryParam);
         return Result.success(goodsCategories);
     }
 
@@ -59,7 +59,7 @@ public class GoodsCategoryController {
     @ApiOperation("新增商品分类")
     @PostMapping("/category")
     public Result addCategory(@RequestBody @Valid GoodsCategoryAddParam addParam) {
-        String result = goodsCategoryService.addCategory(addParam);
+        String result = adminGoodsCategoryService.addCategory(addParam);
         return Result.common(result);
     }
 
@@ -72,7 +72,7 @@ public class GoodsCategoryController {
     @ApiOperation("修改商品分类")
     @PutMapping("/category")
     public Result updateCategory(@RequestBody @Valid GoodsCategoryUpdateParam updateParam, @AdminUserArgument AdminUser adminUser) {
-        String result = goodsCategoryService.updateCategory(updateParam, adminUser);
+        String result = adminGoodsCategoryService.updateCategory(updateParam, adminUser);
         return Result.common(result);
     }
 
@@ -87,7 +87,7 @@ public class GoodsCategoryController {
         GoodsCategoryUpdateParam updateParam = new GoodsCategoryUpdateParam();
         updateParam.setCategoryId(categoryId);
         updateParam.setIsDeleted((byte)1);
-        String result = goodsCategoryService.updateCategory(updateParam, adminUser);
+        String result = adminGoodsCategoryService.updateCategory(updateParam, adminUser);
         return Result.common(result);
     }
 
@@ -98,7 +98,7 @@ public class GoodsCategoryController {
     @ApiOperation("商品分类级别")
     @GetMapping("/category/level")
     public Result<GoodsCategory> categoryLevel(GoodsCategoryQueryParam queryParam) {
-        List<GoodsCategory> goodsCategories = goodsCategoryService.selectCategoryByLevel(queryParam);
+        List<GoodsCategory> goodsCategories = adminGoodsCategoryService.selectCategoryByLevel(queryParam);
         return Result.success(goodsCategories);
     }
 

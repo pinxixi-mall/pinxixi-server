@@ -5,10 +5,9 @@ import com.pinxixi.common.Result;
 import com.pinxixi.config.annotation.AdminUserArgument;
 import com.pinxixi.entity.AdminUser;
 import com.pinxixi.entity.Order;
-import com.pinxixi.service.admin.OrderService;
+import com.pinxixi.service.admin.AdminOrderService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,10 +16,10 @@ import java.util.List;
 @RestController
 @Api(tags = "订单管理")
 @RequestMapping("/order-manage")
-public class OrderController {
+public class AdminOrderController {
 
     @Autowired
-    private OrderService orderService;
+    private AdminOrderService adminOrderService;
 
     /**
      * 订单列表
@@ -34,7 +33,7 @@ public class OrderController {
     public Result<PageResult<Order>> orderList(@RequestParam Integer pageNum,
                                                @RequestParam Integer pageSize,
                                                @AdminUserArgument AdminUser adminUser) {
-        List<Order> orders = orderService.orderList(pageNum, pageSize, adminUser);
+        List<Order> orders = adminOrderService.orderList(pageNum, pageSize, adminUser);
         PageResult<Object> pageResult = new PageResult<>(orders);
         return Result.success(pageResult);
     }

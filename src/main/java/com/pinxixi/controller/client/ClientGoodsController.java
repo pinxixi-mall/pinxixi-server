@@ -4,7 +4,7 @@ import com.pinxixi.common.Result;
 import com.pinxixi.common.ServiceResultEnum;
 import com.pinxixi.controller.admin.vo.GoodsVO;
 import com.pinxixi.entity.Goods;
-import com.pinxixi.service.admin.GoodsService;
+import com.pinxixi.service.admin.AdminGoodsService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,10 +14,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/client/goods")
-public class GoodsController {
+public class ClientGoodsController {
 
     @Autowired
-    private GoodsService goodsService;
+    private AdminGoodsService adminGoodsService;
 
     /**
      * 商品详情
@@ -27,7 +27,7 @@ public class GoodsController {
     @ApiOperation("商品详情")
     @GetMapping("/detail/{goodsId}")
     Result<GoodsVO> goodsDetail(@PathVariable Integer goodsId) {
-        Goods goods = goodsService.getGoodsDetail(goodsId);
+        Goods goods = adminGoodsService.getGoodsDetail(goodsId);
         if (goods == null) {
             return Result.fail(ServiceResultEnum.GOODS_NOT_EXISTS.getResult());
         }

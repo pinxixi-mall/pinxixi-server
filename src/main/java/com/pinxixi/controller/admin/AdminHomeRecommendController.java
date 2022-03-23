@@ -10,7 +10,7 @@ import com.pinxixi.controller.admin.param.RecommendUpdateParam;
 import com.pinxixi.controller.admin.vo.RecommendGoodsVO;
 import com.pinxixi.entity.AdminUser;
 import com.pinxixi.entity.RecommendGoods;
-import com.pinxixi.service.admin.HomeRecommendService;
+import com.pinxixi.service.admin.AdminHomeRecommendService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,10 +22,10 @@ import java.util.List;
 @RestController
 @Api(tags = "首页推荐管理")
 @RequestMapping("/admin/home-manage")
-public class HomeRecommendController {
+public class AdminHomeRecommendController {
 
     @Autowired
-    private HomeRecommendService homeRecommendService;
+    private AdminHomeRecommendService adminHomeRecommendService;
 
     /**
      * 首页推荐列表
@@ -35,7 +35,7 @@ public class HomeRecommendController {
     @ApiOperation("首页推荐列表")
     @GetMapping("/recommend")
     public Result<PageResult<RecommendGoodsVO>> recommends(@Valid RecommendQueryParam queryParam) {
-        List<RecommendGoods> goodsPage = homeRecommendService.getRecommendPage(queryParam);
+        List<RecommendGoods> goodsPage = adminHomeRecommendService.getRecommendPage(queryParam);
         PageResult<RecommendGoodsVO> result = new PageResult<>(goodsPage);
         return Result.success(result);
     }
@@ -48,7 +48,7 @@ public class HomeRecommendController {
     @ApiOperation("新增推荐商品")
     @PostMapping("/recommend")
     public Result addRecommend(@RequestBody @Valid RecommendAddParam addParam) {
-        String result = homeRecommendService.addRecommend(addParam);
+        String result = adminHomeRecommendService.addRecommend(addParam);
         if (result == ServiceResultEnum.GOODS_EXISTS.getResult()) {
             return Result.fail(result);
         }
@@ -63,7 +63,7 @@ public class HomeRecommendController {
     @ApiOperation("修改推荐商品")
     @PutMapping("/recommend")
     public Result updateRecommend(@RequestBody @Valid RecommendUpdateParam updateParam) {
-        String result = homeRecommendService.updateRecommend(updateParam);
+        String result = adminHomeRecommendService.updateRecommend(updateParam);
         return Result.common(result);
     }
 
@@ -75,7 +75,7 @@ public class HomeRecommendController {
     @ApiOperation("删除推荐商品")
     @DeleteMapping("/recommend/{recommendId}")
     public Result updateRecommend(@PathVariable Long recommendId, @AdminUserArgument AdminUser adminUser) {
-        String result = homeRecommendService.deleteRecommend(recommendId, adminUser);
+        String result = adminHomeRecommendService.deleteRecommend(recommendId, adminUser);
         return Result.common(result);
     }
 

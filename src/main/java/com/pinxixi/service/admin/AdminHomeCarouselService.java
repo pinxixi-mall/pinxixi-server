@@ -7,7 +7,7 @@ import com.pinxixi.entity.HomeCarousel;
 
 import java.util.List;
 
-public interface HomeCarouselService {
+public interface AdminHomeCarouselService {
 
     /**
      * 所有轮播图

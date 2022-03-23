@@ -8,7 +8,7 @@ import com.pinxixi.controller.admin.param.RecommendUpdateParam;
 import com.pinxixi.dao.HomeRecommendMapper;
 import com.pinxixi.entity.AdminUser;
 import com.pinxixi.entity.RecommendGoods;
-import com.pinxixi.service.admin.HomeRecommendService;
+import com.pinxixi.service.admin.AdminHomeRecommendService;
 import com.pinxixi.utils.PinXiXiUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
@@ -17,7 +17,7 @@ import javax.annotation.Resource;
 import java.util.List;
 
 @Service
-public class HomeRecommendServiceImpl implements HomeRecommendService {
+public class AdminHomeRecommendServiceImpl implements AdminHomeRecommendService {
 
     @Resource
     private HomeRecommendMapper recommendMapper;

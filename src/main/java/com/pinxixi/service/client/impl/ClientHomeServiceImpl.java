@@ -7,14 +7,14 @@ import com.pinxixi.controller.admin.vo.HomeCarouselVO;
 import com.pinxixi.dao.HomeCarouselMapper;
 import com.pinxixi.dao.HomeRecommendMapper;
 import com.pinxixi.entity.RecommendGoods;
-import com.pinxixi.service.client.HomeService;
+import com.pinxixi.service.client.ClientHomeService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
 
 @Service
-public class HomeServiceImpl implements HomeService {
+public class ClientHomeServiceImpl implements ClientHomeService {
 
     @Resource
     private HomeCarouselMapper carouselMapper;

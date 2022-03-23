@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pinxixi.dao.ClientCartMapper">
+    <resultMap id="CartMap" type="com.pinxixi.entity.ClientCart">
+        <id property="cartId" column="cart_id" />
+        <id property="goodsId" column="goods_id" />
+        <id property="userId" column="user_id" />
+        <id property="goodsCount" column="goods_count" />
+        <id property="isDeleted" column="is_deleted" />
+        <id property="createTime" column="create_time" />
+        <id property="updateTime" column="update_time" />
+    </resultMap>
+
+    <!--联表查询-->
+    <select id="selectPageByUserId" resultMap="CartMap">
+        SELECT * FROM tb_client_cart as cart INNER JOIN tb_goods as goods ON cart.goods_id = goods.goods_id
+        <where>
+            cart.is_deleted = 0 AND user_id = #{userId}
+        </where>
+        ORDER BY cart.create_time DESC
+    </select>
+
+    <insert id="insertCart" parameterType="com.pinxixi.entity.ClientCart">
+        INSERT INTO tb_client_cart
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="cartId != null">cart_id,</if>
+            <if test="goodsId != null">goods_id,</if>
+            <if test="userId != null">user_id,</if>
+            <if test="goodsCount != null">goods_count,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="cartId != null">#{cartId},</if>
+            <if test="goodsId != null">#{goodsId},</if>
+            <if test="userId != null">#{userId},</if>
+            <if test="goodsCount != null">#{goodsCount},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+        </trim>
+    </insert>
+
+    <update id="updateCartByCartId" parameterType="com.pinxixi.entity.ClientCart">
+        UPDATE tb_client_cart
+        SET <if test="isDeleted != null">
+                is_deleted = #{isDeleted},
+            </if>
+            <if test="goodsCount != null">
+                goods_count = #{goodsCount},
+            </if>
+            update_user = #{updateUser}
+        WHERE cart_id = #{cartId}
+    </update>
+</mapper>

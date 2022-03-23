@@ -9,7 +9,7 @@ import com.pinxixi.controller.admin.param.HomeCarouselUpdateParam;
 import com.pinxixi.controller.admin.vo.HomeCarouselVO;
 import com.pinxixi.entity.AdminUser;
 import com.pinxixi.entity.HomeCarousel;
-import com.pinxixi.service.admin.HomeCarouselService;
+import com.pinxixi.service.admin.AdminHomeCarouselService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -22,10 +22,10 @@ import javax.validation.Valid;
 @RestController
 @Api(value = "v1.0", tags = "首页配置")
 @RequestMapping("/admin/home-manage")
-public class HomeCarouselController {
+public class AdminHomeCarouselController {
 
     @Autowired
-    private HomeCarouselService homeCarouselService;
+    private AdminHomeCarouselService adminHomeCarouselService;
 
     /**
      * 轮播图列表
@@ -41,7 +41,7 @@ public class HomeCarouselController {
         }
 
         //分页查询
-        PageResult<HomeCarouselVO> carousels = homeCarouselService.getCarouselPage(pageNum, pageSize);
+        PageResult<HomeCarouselVO> carousels = adminHomeCarouselService.getCarouselPage(pageNum, pageSize);
 
         return Result.success(carousels);
     }
@@ -58,7 +58,7 @@ public class HomeCarouselController {
         homeCarousel.setCreateUser(adminUser.getUserId());
         homeCarousel.setUpdateUser(adminUser.getUserId());
         BeanUtils.copyProperties(addParam, homeCarousel);
-        String result = homeCarouselService.addCarousel(homeCarousel);
+        String result = adminHomeCarouselService.addCarousel(homeCarousel);
         return Result.common(result);
     }
 
@@ -74,7 +74,7 @@ public class HomeCarouselController {
         HomeCarousel homeCarousel = new HomeCarousel();
         homeCarousel.setUpdateUser(adminUser.getUserId());
         BeanUtils.copyProperties(updateParam, homeCarousel);
-        String result = homeCarouselService.updateCarousel(homeCarousel);
+        String result = adminHomeCarouselService.updateCarousel(homeCarousel);
         return Result.common(result);
     }
 }

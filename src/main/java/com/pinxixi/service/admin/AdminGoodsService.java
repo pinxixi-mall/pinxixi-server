@@ -7,7 +7,7 @@ import com.pinxixi.entity.Goods;
 
 import java.util.List;
 
-public interface GoodsService {
+public interface AdminGoodsService {
 
     /**
      * 商品列表（分页）
