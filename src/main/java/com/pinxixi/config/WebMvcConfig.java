@@ -2,6 +2,7 @@ package com.pinxixi.config;
 
 import com.pinxixi.common.Constants;
 import com.pinxixi.config.handler.AdminUserArgumentResolver;
+import com.pinxixi.config.handler.ClientUserArgumentResolver;
 import com.pinxixi.config.interceptor.TokenInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -21,6 +22,9 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
     @Autowired
     private AdminUserArgumentResolver adminUserArgumentResolver;
+
+    @Autowired
+    private ClientUserArgumentResolver clientUserArgumentResolver;
 
     @Bean
     public TokenInterceptor tokenInterceptor() {
@@ -44,8 +48,10 @@ public class WebMvcConfig implements WebMvcConfigurer {
      */
     @Override
     public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
-        //管理员信息注解
+        //管理员参数注解
         resolvers.add(adminUserArgumentResolver);
+        //客户参数注解
+        resolvers.add(clientUserArgumentResolver);
     }
 
     /**

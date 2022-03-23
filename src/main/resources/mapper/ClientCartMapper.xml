@@ -8,6 +8,10 @@
         <id property="goodsId" column="goods_id" />
         <id property="userId" column="user_id" />
         <id property="goodsCount" column="goods_count" />
+        <id property="goodsName" column="goods_name" />
+        <id property="goodsDesc" column="goods_desc" />
+        <id property="goodsPrice" column="goods_price" />
+        <id property="goodsImage" column="goods_image" />
         <id property="isDeleted" column="is_deleted" />
         <id property="createTime" column="create_time" />
         <id property="updateTime" column="update_time" />
