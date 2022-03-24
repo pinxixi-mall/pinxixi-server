@@ -23,4 +23,7 @@ public class ClientCartUpdateParam {
     @Max(value = 99, message = "商品数量不能大于99")
     private Integer goodsCount;
 
+    @ApiModelProperty("删除标识：0-未删除，1-已删除")
+    private Byte isDeleted;
+
 }

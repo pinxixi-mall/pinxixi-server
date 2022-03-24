@@ -10,6 +10,7 @@
         <id property="goodsCount" column="goods_count" />
         <id property="goodsName" column="goods_name" />
         <id property="goodsDesc" column="goods_desc" />
+        <id property="goodsStock" column="goods_stock" />
         <id property="goodsPrice" column="goods_price" />
         <id property="goodsImage" column="goods_image" />
         <id property="isDeleted" column="is_deleted" />
@@ -24,6 +25,11 @@
             cart.is_deleted = 0 AND user_id = #{userId}
         </where>
         ORDER BY cart.create_time DESC
+    </select>
+
+    <!--联表查询-->
+    <select id="selectCartByCartId" resultMap="CartMap">
+        SELECT * FROM tb_client_cart as cart INNER JOIN tb_goods as goods ON cart.goods_id = goods.goods_id WHERE cart_id = #{cartId}
     </select>
 
     <insert id="insertCart" parameterType="com.pinxixi.entity.ClientCart">
@@ -54,7 +60,21 @@
             <if test="goodsCount != null">
                 goods_count = #{goodsCount},
             </if>
-            update_user = #{updateUser}
+            <if test="userId != null">
+                user_id = #{userId}
+            </if>
         WHERE cart_id = #{cartId}
     </update>
+
+    <update id="deleteCartByCartIds" parameterType="com.pinxixi.entity.ClientCart">
+        UPDATE tb_client_cart
+        SET <if test="isDeleted != null">
+                is_deleted = #{isDeleted}
+            </if>
+        WHERE cart_id in
+        <foreach index="index" item="item" collection="list" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </update>
+
 </mapper>

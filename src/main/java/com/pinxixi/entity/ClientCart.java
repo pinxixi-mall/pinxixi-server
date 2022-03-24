@@ -27,6 +27,9 @@ public class ClientCart {
     //关联tb_goods的商品描述
     private String goodsDesc;
 
+    //关联tb_goods的商品库存
+    private Integer goodsStock;
+
     private Byte isDeleted;
 
     private Date createTime;

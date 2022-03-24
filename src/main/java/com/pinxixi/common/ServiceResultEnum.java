@@ -25,6 +25,8 @@ public enum ServiceResultEnum {
 
     GOODS_NOT_EXISTS("商品不存在"),
 
+    GOODS_INVENTORY_SHORTAGE("商品库存不足"),
+
     WRONG_OLD_PASSWORD("原密码错误"),
 
     PASSWORD_INCONSISTENT("两次密码不一致");
