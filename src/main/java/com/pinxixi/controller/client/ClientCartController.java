@@ -47,10 +47,9 @@ public class ClientCartController {
      */
     @ApiOperation("查询购物车列表")
     @GetMapping
-    Result<PageResult<ClientCartItemVO>> cartList(@ClientUserArgument ClientUser user) {
+    Result<ClientCartItemVO> cartList(@ClientUserArgument ClientUser user) {
         List<ClientCart> clientCarts = clientCartService.cartList(user);
-        PageResult<ClientCartItemVO> pageResult = new PageResult<>(clientCarts);
-        return Result.success(pageResult);
+        return Result.success(clientCarts);
     }
 
     /**
