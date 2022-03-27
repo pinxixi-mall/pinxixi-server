@@ -32,6 +32,14 @@
         SELECT * FROM tb_client_cart as cart INNER JOIN tb_goods as goods ON cart.goods_id = goods.goods_id WHERE cart_id = #{cartId}
     </select>
 
+    <select id="selectCartByCartIds" resultMap="CartMap">
+        SELECT * FROM  tb_client_cart as cart INNER JOIN tb_goods as goods ON goods.goods_id = cart.goods_id
+        WHERE cart_id in
+        <foreach collection="ids" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
     <insert id="insertCart" parameterType="com.pinxixi.entity.ClientCart">
         INSERT INTO tb_client_cart
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -68,11 +76,9 @@
 
     <update id="deleteCartByCartIds" parameterType="com.pinxixi.entity.ClientCart">
         UPDATE tb_client_cart
-        SET <if test="isDeleted != null">
-                is_deleted = #{isDeleted}
-            </if>
+        SET is_deleted = 1
         WHERE cart_id in
-        <foreach index="index" item="item" collection="list" open="(" separator="," close=")">
+        <foreach index="index" item="item" collection="ids" open="(" separator="," close=")">
             #{item}
         </foreach>
     </update>

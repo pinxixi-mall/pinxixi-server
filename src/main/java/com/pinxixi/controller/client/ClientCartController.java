@@ -1,6 +1,5 @@
 package com.pinxixi.controller.client;
 
-import com.pinxixi.common.PageResult;
 import com.pinxixi.common.Result;
 import com.pinxixi.common.ServiceResultEnum;
 import com.pinxixi.config.annotation.ClientUserArgument;
@@ -12,12 +11,14 @@ import com.pinxixi.entity.ClientUser;
 import com.pinxixi.service.client.ClientCartService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @RestController
 @Api(tags = "客户端购物车")
@@ -41,14 +42,28 @@ public class ClientCartController {
     }
 
     /**
-     * 查询购物车列表
+     * 查询用户购物车列表
      * @param user
      * @return
      */
-    @ApiOperation("查询购物车列表")
+    @ApiOperation("用户购物车列表")
     @GetMapping
     Result<ClientCartItemVO> cartList(@ClientUserArgument ClientUser user) {
         List<ClientCart> clientCarts = clientCartService.cartList(user);
+        return Result.success(clientCarts);
+    }
+
+    /**
+     * 根据购物车ids查询
+     * @param cartIds
+     * @return
+     */
+    @ApiOperation("根据购物车ids查询购物车列表")
+    @GetMapping("/select")
+    Result<ClientCartItemVO> cartListByIds(@RequestParam String cartIds) {
+        List<String> strIds = Arrays.asList(cartIds.split(","));
+        List<Long> ids = strIds.stream().map(id -> Long.parseLong(id)).collect(Collectors.toList());
+        List<ClientCart> clientCarts = clientCartService.cartListByIds(ids);
         return Result.success(clientCarts);
     }
 
@@ -69,13 +84,13 @@ public class ClientCartController {
 
     /**
      * 删除购物车项
-     * @param cartIds
+     * @param map
      * @return
      */
     @ApiOperation("删除购物车项")
     @DeleteMapping
-    Result deleteCart(@RequestBody Integer[] cartIds) {
-        String result = clientCartService.deleteCart(cartIds);
+    Result deleteCart(@RequestBody Map<String, Long[]> map) {
+        String result = clientCartService.deleteCart(map.get("cartIds"));
         return Result.common(result);
     }
 

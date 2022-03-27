@@ -16,7 +16,7 @@ import java.util.Date;
 import java.util.List;
 
 @Service
-public class GoodsServiceImpl implements AdminGoodsService {
+public class AdminGoodsServiceImpl implements AdminGoodsService {
 
     @Resource
     private GoodsMapper goodsMapper;

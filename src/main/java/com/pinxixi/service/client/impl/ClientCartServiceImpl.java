@@ -71,8 +71,19 @@ public class ClientCartServiceImpl implements ClientCartService {
      * @return
      */
     @Override
-    public String deleteCart(Integer[] ids) {
+    public String deleteCart(Long[] ids) {
         Integer rows = clientCartMapper.deleteCartByCartIds(ids);
         return PinXiXiUtils.genSqlResultByRows(rows);
+    }
+
+    /**
+     * 根据ids查询购物车
+     * @param ids
+     * @return
+     */
+    @Override
+    public List<ClientCart> cartListByIds(List<Long> ids) {
+        List<ClientCart> clientCarts = clientCartMapper.selectCartByCartIds(ids);
+        return clientCarts;
     }
 }

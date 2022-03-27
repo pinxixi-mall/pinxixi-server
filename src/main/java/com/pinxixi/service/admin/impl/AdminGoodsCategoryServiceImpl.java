@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class GoodsCategoryServiceImpl implements AdminGoodsCategoryService {
+public class AdminGoodsCategoryServiceImpl implements AdminGoodsCategoryService {
 
     @Resource
     private GoodsCategoryMapper categoryMapper;

@@ -15,5 +15,7 @@ public interface ClientCartMapper {
 
     ClientCart selectCartByCartId(Long cartId);
 
-    Integer deleteCartByCartIds(Integer[] ids);
+    Integer deleteCartByCartIds(Long[] ids);
+
+    List<ClientCart> selectCartByCartIds(List<Long> ids);
 }

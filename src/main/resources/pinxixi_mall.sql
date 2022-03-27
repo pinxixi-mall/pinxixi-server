@@ -252,7 +252,7 @@ CREATE TABLE `tb_client_order` (
     `user_id` bigint NOT NULL DEFAULT '0' COMMENT '用户id',
     `order_price` float NOT NULL DEFAULT '0' COMMENT '订单价格',
     `payment_status` tinyint NOT NULL DEFAULT '0' COMMENT '支付状态（0-未支付，1-支付成功，2-支付失败）',
-    `order_status` tinyint NOT NULL DEFAULT '0' COMMENT '订单状态（0-待支付，1-已支付，2-已发货，3-交易成功，4-手动关闭，5-超时关闭，6-商家关闭，99-已删除）',
+    `order_status` tinyint NOT NULL DEFAULT '0' COMMENT '订单状态（0-待支付，1-待收货，2-交易成功，3-手动关闭，4-超时关闭，5-商家关闭，99-已删除）',
     `payment_type` tinyint NOT NULL DEFAULT '0' COMMENT '支付方式（1-支付宝，2-微信）',
     `payment_time` datetime DEFAULT NULL COMMENT '支付时间',
     `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
