@@ -10,7 +10,9 @@ public interface OrderMapper {
 
     Integer insertOrder(Order order);
 
-    Order selectOrder(Long orderId);
+    Order selectOrderByOrderId(Long orderId);
+
+    Order selectOrderByOrderNo(String orderNo);
 
     Integer updateOrder(Long orderId);
 

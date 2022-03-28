@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pinxixi.dao.OrderGoodsMapper">
+    <resultMap id="OrderGoodsMap" type="com.pinxixi.entity.OrderGoods">
+        <id property="orderId" column="order_id" />
+        <id property="goodsId" column="goods_id" />
+        <id property="goodsName" column="goods_name" />
+        <id property="goodsImage" column="goods_image" />
+        <id property="goodsCount" column="goods_count" />
+        <id property="goodsDesc" column="goods_desc" />
+        <id property="goodsPrice" column="goods_price" />
+        <id property="createTime" column="create_time" />
+        <id property="updateTime" column="update_time" />
+    </resultMap>
+
+    <select id="selectOrderGoods" resultMap="OrderGoodsMap">
+        SELECT * FROM tb_order_goods WHERE order_goods_id = #{orderGoodsId}
+    </select>
+
+    <select id="selectAll" resultMap="OrderGoodsMap">
+        SELECT * FROM tb_order_goods WHERE is_deleted = 0
+    </select>
+
+    <insert id="insertOrderGoods" parameterType="com.pinxixi.entity.OrderGoods">
+        INSERT INTO tb_order_goods
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="orderId != null">order_id,</if>
+            <if test="goodsId != null">goods_id,</if>
+            <if test="goodsName != null">goods_name,</if>
+            <if test="goodsImage != null">goods_image,</if>
+            <if test="goodsDesc != null">goods_desc,</if>
+            <if test="goodsCount != null">goods_count,</if>
+            <if test="goodsPrice != null">goods_price,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="orderId != null">#{orderId},</if>
+            <if test="goodsId != null">#{goodsId},</if>
+            <if test="goodsName != null">#{goodsName},</if>
+            <if test="goodsImage != null">#{goodsImage},</if>
+            <if test="goodsDesc != null">#{goodsDesc},</if>
+            <if test="goodsPrice != null">#{goodsPrice},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+        </trim>
+    </insert>
+
+    <!--批量插入-->
+    <insert id="insertOrderGoodsList" parameterType="java.util.List">
+        INSERT INTO tb_order_goods
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="orderId != null">order_id,</if>
+            <if test="goodsId != null">goods_id,</if>
+            <if test="goodsName != null">goods_name,</if>
+            <if test="goodsImage != null">goods_image,</if>
+            <if test="goodsDesc != null">goods_desc,</if>
+            <if test="goodsCount != null">goods_count,</if>
+            <if test="goodsPrice != null">goods_price,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+        </trim>
+        <foreach collection="orderGoodsList" item="item" index="index" separator=",">
+            <trim prefix="values (" suffix=")" suffixOverrides=",">
+                <if test="orderId != null">#{orderId},</if>
+                <if test="goodsId != null">#{goodsId},</if>
+                <if test="goodsName != null">#{goodsName},</if>
+                <if test="goodsImage != null">#{goodsImage},</if>
+                <if test="goodsCount != null">#{goodsCount},</if>
+                <if test="goodsDesc != null">#{goodsDesc},</if>
+                <if test="goodsPrice != null">#{goodsPrice},</if>
+                <if test="createTime != null">#{createTime},</if>
+                <if test="updateTime != null">#{updateTime},</if>
+            </trim>
+        </foreach>
+    </insert>
+
+</mapper>

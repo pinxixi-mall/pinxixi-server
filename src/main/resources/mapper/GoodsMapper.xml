@@ -23,7 +23,7 @@
     
     <sql id="GoodsColumnList">
         goods_id, goods_name, goods_image, goods_category_id, goods_desc, goods_price, goods_stock,
-        goods_status, goods_type, goods_detail, is_deleted, create_user, create_time, update_user, update_time
+        goods_status, goods_detail, is_deleted, create_user, create_time, update_user, update_time
     </sql>
 
     <select id="selectGoods" resultMap="GoodsMap">

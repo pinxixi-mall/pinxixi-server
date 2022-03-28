@@ -15,5 +15,5 @@ public interface GoodsMapper {
 
     Goods selectGoods(Long goodsId);
 
-    List<Goods> selectGoodsByIds(List<Long> goodsIds);
+    List<Goods> selectGoodsByIds(List<Long> ids);
 }

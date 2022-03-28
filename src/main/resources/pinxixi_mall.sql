@@ -272,7 +272,6 @@ CREATE TABLE `tb_client_order` (
     `goods_name` varchar(150) NOT NULL DEFAULT '' COMMENT '商品名称',
     `goods_image` varchar(150) NOT NULL DEFAULT '' COMMENT '商品主图',
     `goods_count` int NOT NULL DEFAULT '1' COMMENT '商品数量',
-    `goods_category_id` bigint NOT NULL DEFAULT 0 COMMENT '商品分类id',
     `goods_desc` varchar(200) NOT NULL DEFAULT '' COMMENT '商品简介',
     `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',

@@ -16,16 +16,20 @@
         <id property="updateTime" column="update_time" />
     </resultMap>
 
-    <select id="selectOrder" resultMap="OrderMap">
-        SELECT * FROM tb_order WHERE order_id = #{orderId}
+    <select id="selectOrderByOrderId" resultMap="OrderMap">
+        SELECT * FROM tb_client_order WHERE order_id = #{orderId}
+    </select>
+
+    <select id="selectOrderByOrderNo" resultMap="OrderMap">
+        SELECT * FROM tb_client_order WHERE order_no = #{orderNo}
     </select>
 
     <select id="selectAll" resultMap="OrderMap">
-        SELECT * FROM tb_order WHERE is_deleted = 0
+        SELECT * FROM tb_client_order WHERE is_deleted = 0
     </select>
 
     <select id="selectOrderPage" resultMap="OrderMap">
-        SELECT * FROM tb_order
+        SELECT * FROM tb_client_order
         <where>
             is_deleted = 0
             <if test="orderId != null">
@@ -36,7 +40,7 @@
     </select>
 
     <insert id="insertOrder" parameterType="com.pinxixi.entity.Order">
-        INSERT INTO tb_order
+        INSERT INTO tb_client_order
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="orderId != null">order_id,</if>
             <if test="orderNo != null">order_no,</if>
@@ -64,7 +68,7 @@
     </insert>
 
     <update id="updateOrder" parameterType="com.pinxixi.entity.Order">
-        UPDATE tb_order
+        UPDATE tb_client_order
         SET <if test="orderStatus != null">
                 order_status = #{orderStatus},
             </if>

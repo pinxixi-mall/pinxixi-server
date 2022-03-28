@@ -7,16 +7,17 @@ import com.pinxixi.config.PinXiXiException;
 import com.pinxixi.controller.client.param.ClientOrderCreateParam;
 import com.pinxixi.dao.ClientCartMapper;
 import com.pinxixi.dao.GoodsMapper;
+import com.pinxixi.dao.OrderGoodsMapper;
 import com.pinxixi.dao.OrderMapper;
-import com.pinxixi.entity.ClientCart;
-import com.pinxixi.entity.ClientUser;
-import com.pinxixi.entity.Goods;
-import com.pinxixi.entity.Order;
+import com.pinxixi.entity.*;
 import com.pinxixi.service.client.ClientOrderService;
+import com.pinxixi.utils.PinXiXiUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -32,6 +33,9 @@ public class ClientOrderServiceImpl implements ClientOrderService {
 
     @Resource
     private GoodsMapper goodsMapper;
+
+    @Resource
+    private OrderGoodsMapper orderGoodsMapper;
 
     /**
      * 订单生成
@@ -50,7 +54,7 @@ public class ClientOrderServiceImpl implements ClientOrderService {
         List<Goods> goodsList = goodsMapper.selectGoodsByIds(goodsIds);
         //已下架商品
         List<Goods> offShelfGoods = goodsList.stream().filter(goods -> goods.getGoodsStatus() == GoodsEnum.GOODS_OFF_SHELF.getCode()).collect(Collectors.toList());
-        if (offShelfGoods != null) {
+        if (offShelfGoods.size() > 0) {
             PinXiXiException.error(HttpStatusEnum.FAIL.getCode(), offShelfGoods.get(0).getGoodsName() + "已下架");
         }
         //判断库存
@@ -69,12 +73,37 @@ public class ClientOrderServiceImpl implements ClientOrderService {
         //生成订单号
         String orderNo = System.currentTimeMillis() + RandomUtil.randomNumbers(4);
         //计算订单总额
+        Float totalPrice = 0f;
+        for (ClientCart cart : carts) {
+            totalPrice += cart.getGoodsCount() * cart.getGoodsPrice();
+        }
+        //减去优惠金额
+        totalPrice -= createParam.getOrderCoupon();
 
+        //保存到订单表
+        Order order = new Order();
+        order.setOrderNo(orderNo);
+        order.setOrderPrice(totalPrice);
+        order.setOrderCoupon(createParam.getOrderCoupon());
+        Integer orderRows = orderMapper.insertOrder(order);
+        if (orderRows <= 0) {
+            PinXiXiException.fail();
+        }
 
-        //将订单购物车商品存在订单商品表
+        //取出刚存的订单
+        Order orderSaved = orderMapper.selectOrderByOrderNo(orderNo);
+        //关联到订单商品表
+        OrderGoods orderGoods = new OrderGoods();
+        List<OrderGoods> orderGoodsList = new ArrayList<>();
+        for (Goods goods : goodsList) {
+            BeanUtils.copyProperties(goods, orderGoods);
+            orderGoods.setOrderId(orderSaved.getOrderId());
+            orderGoodsList.add(orderGoods);
+        }
 
+        Integer orderGoodsRows = orderGoodsMapper.insertOrderGoodsList(orderGoodsList);
 
-        return null;
+        return PinXiXiUtils.genSqlResultByRows(orderGoodsRows);
     }
 
 }

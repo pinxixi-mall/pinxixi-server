@@ -32,8 +32,8 @@ public class ClientOrderController {
     @ApiOperation("用户订单生成")
     @PostMapping
     Result createOrder(@RequestBody @Valid ClientOrderCreateParam createParam, @ClientUserArgument ClientUser user) {
-        clientOrderService.createOrder(createParam, user);
-        return Result.success();
+        String result = clientOrderService.createOrder(createParam, user);
+        return Result.common(result);
     }
 
 }

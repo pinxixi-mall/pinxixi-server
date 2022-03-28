@@ -2,6 +2,8 @@ package com.pinxixi.entity;
 
 import lombok.Data;
 
+import java.util.Date;
+
 /**
  * 订单商品
  */
@@ -23,5 +25,9 @@ public class OrderGoods {
     private Integer goodsCount;
 
     private String goodsDesc;
+
+    private Date createTime;
+
+    private Date updateTime;
 
 }
