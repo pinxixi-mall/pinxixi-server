@@ -11,7 +11,11 @@ public enum GoodsEnum {
 
     CAROUSEL_ON_SHELF(1, "轮播图已上架"),
 
-    CAROUSEL_OFF_SHELF(0, "轮播图已下架");
+    CAROUSEL_OFF_SHELF(0, "轮播图已下架"),
+
+    GOODS_ON_SHELF(1, "商品销售中"),
+
+    GOODS_OFF_SHELF(0, "商品已下架");
 
     private int code;
 

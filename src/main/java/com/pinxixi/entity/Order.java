@@ -15,6 +15,8 @@ public class Order {
 
     private Float orderPrice;
 
+    private Float orderCoupon;
+
     private Byte orderStatus;
 
     private Byte paymentStatus;

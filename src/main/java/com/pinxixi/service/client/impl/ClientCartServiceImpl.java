@@ -82,7 +82,7 @@ public class ClientCartServiceImpl implements ClientCartService {
      * @return
      */
     @Override
-    public List<ClientCart> cartListByIds(List<Long> ids) {
+    public List<ClientCart> cartListByIds(Long[] ids) {
         List<ClientCart> clientCarts = clientCartMapper.selectCartByCartIds(ids);
         return clientCarts;
     }

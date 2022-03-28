@@ -19,7 +19,7 @@ public class AdminOrderServiceImpl implements AdminOrderService {
     @Override
     public List<Order> orderList(Integer pageNum, Integer pageSize, AdminUser adminUser) {
         PageHelper.startPage(pageNum, pageSize);
-        List<Order> orders = orderMapper.selectPage();
+        List<Order> orders = orderMapper.selectOrderPage();
         return orders;
     }
 }

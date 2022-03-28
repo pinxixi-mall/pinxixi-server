@@ -20,6 +20,11 @@
         <id property="updateUser" column="update_user" />
         <id property="updateTime" column="update_time" />
     </resultMap>
+    
+    <sql id="GoodsColumnList">
+        goods_id, goods_name, goods_image, goods_category_id, goods_desc, goods_price, goods_stock,
+        goods_status, goods_type, goods_detail, is_deleted, create_user, create_time, update_user, update_time
+    </sql>
 
     <select id="selectGoods" resultMap="GoodsMap">
         SELECT * FROM tb_goods WHERE goods_id = #{goodsId}
@@ -44,6 +49,16 @@
             </if>
         </where>
         ORDER BY create_time DESC
+    </select>
+
+    <select id="selectGoodsByIds" resultMap="GoodsMap">
+        SELECT
+        <include refid="GoodsColumnList"/>
+        FROM tb_goods
+        WHERE goods_id in
+        <foreach collection="ids" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
     </select>
 
     <insert id="insertGoods" parameterType="com.pinxixi.entity.Goods">

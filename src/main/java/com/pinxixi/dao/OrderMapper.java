@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface OrderMapper {
 
-    List<Order> selectPage();
+    List<Order> selectOrderPage();
 
     Integer insertOrder(Order order);
 

@@ -100,7 +100,7 @@ public class AdminGoodsController {
      * @return
      */
     @GetMapping("/goods/{goodsId}")
-    public Result<GoodsVO> goodsDetail(@PathVariable("goodsId") Integer goodsId) {
+    public Result<GoodsVO> goodsDetail(@PathVariable("goodsId") Long goodsId) {
         Goods goods = adminGoodsService.getGoodsDetail(goodsId);
         GoodsVO goodsVO = new GoodsVO();
         BeanUtils.copyProperties(goods, goodsVO);

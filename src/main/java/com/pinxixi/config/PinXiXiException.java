@@ -1,5 +1,6 @@
 package com.pinxixi.config;
 
+import com.pinxixi.common.HttpStatusEnum;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -15,5 +16,13 @@ public class PinXiXiException extends RuntimeException{
     private int errorCode;
 
     private String errorMsg;
+
+    public static void error(int errorCode, String errorMsg) {
+        throw new PinXiXiException(errorCode, errorMsg);
+    }
+
+    public static void fail() {
+        throw new PinXiXiException(HttpStatusEnum.FAIL.getCode(), HttpStatusEnum.FAIL.getMsg());
+    }
 
 }

@@ -4,31 +4,32 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.pinxixi.dao.OrderMapper">
     <resultMap id="OrderMap" type="com.pinxixi.entity.Order">
-        <id property="orderId" column="Order_id" />
-        <id property="orderNo" column="Order_name" />
-        <id property="orderPrice" column="Order_level" />
-        <id property="orderStatus" column="parent_id" />
-        <id property="paymentStatus" column="Order_sort" />
-        <id property="paymentType" column="is_deleted" />
-        <id property="paymentTime" column="create_user" />
+        <id property="orderId" column="order_id" />
+        <id property="orderNo" column="order_no" />
+        <id property="orderPrice" column="order_price" />
+        <id property="orderCoupon" column="order_coupon" />
+        <id property="orderStatus" column="order_status" />
+        <id property="paymentStatus" column="payment_status" />
+        <id property="paymentType" column="payment_type" />
+        <id property="paymentTime" column="payment_time" />
         <id property="createTime" column="create_time" />
         <id property="updateTime" column="update_time" />
     </resultMap>
 
     <select id="selectOrder" resultMap="OrderMap">
-        SELECT * FROM tb_order WHERE Order_id = #{OrderId}
+        SELECT * FROM tb_order WHERE order_id = #{orderId}
     </select>
 
     <select id="selectAll" resultMap="OrderMap">
         SELECT * FROM tb_order WHERE is_deleted = 0
     </select>
 
-    <select id="selectPage" resultMap="OrderMap">
+    <select id="selectOrderPage" resultMap="OrderMap">
         SELECT * FROM tb_order
         <where>
             is_deleted = 0
-            <if test="OrderId != null">
-                and Order_id = #{OrderId}
+            <if test="orderId != null">
+                and order_id = #{orderId}
             </if>
         </where>
         ORDER BY create_time DESC
@@ -40,6 +41,7 @@
             <if test="orderId != null">order_id,</if>
             <if test="orderNo != null">order_no,</if>
             <if test="orderPrice != null">order_price,</if>
+            <if test="orderCoupon != null">order_coupon,</if>
             <if test="orderStatus != null">order_status,</if>
             <if test="paymentStatus != null">payment_status,</if>
             <if test="paymentType != null">payment_type,</if>
@@ -51,6 +53,7 @@
             <if test="orderId != null">#{orderId},</if>
             <if test="orderNo != null">#{orderNo},</if>
             <if test="orderPrice != null">#{orderPrice},</if>
+            <if test="orderCoupon != null">#{orderCoupon},</if>
             <if test="orderStatus != null">#{orderStatus},</if>
             <if test="paymentStatus != null">#{paymentStatus},</if>
             <if test="paymentType != null">#{paymentType},</if>

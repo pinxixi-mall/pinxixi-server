@@ -251,6 +251,7 @@ CREATE TABLE `tb_client_order` (
     `order_no` varchar(20) NOT NULL DEFAULT '' COMMENT '订单号',
     `user_id` bigint NOT NULL DEFAULT '0' COMMENT '用户id',
     `order_price` float NOT NULL DEFAULT '0' COMMENT '订单价格',
+    `order_coupon` float DEFAULT '0' COMMENT '优惠金额',
     `payment_status` tinyint NOT NULL DEFAULT '0' COMMENT '支付状态（0-未支付，1-支付成功，2-支付失败）',
     `order_status` tinyint NOT NULL DEFAULT '0' COMMENT '订单状态（0-待支付，1-待收货，2-交易成功，3-手动关闭，4-超时关闭，5-商家关闭，99-已删除）',
     `payment_type` tinyint NOT NULL DEFAULT '0' COMMENT '支付方式（1-支付宝，2-微信）',
@@ -259,6 +260,24 @@ CREATE TABLE `tb_client_order` (
     `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
     PRIMARY KEY (`order_id`)
 ) ENGINE=InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic COMMENT='客户订单表';
+
+-- ----------------------------
+-- 订单商品表
+-- ----------------------------
+DROP TABLE IF EXISTS `tb_client_order_goods`;
+CREATE TABLE `tb_client_order` (
+    `order_goods_id` bigint NOT NULL AUTO_INCREMENT COMMENT '订单商品id',
+    `order_id` bigint NOT NULL AUTO_INCREMENT COMMENT '关联订单id',
+    `goods_id` bigint unsigned NOT NULL COMMENT '商品id',
+    `goods_name` varchar(150) NOT NULL DEFAULT '' COMMENT '商品名称',
+    `goods_image` varchar(150) NOT NULL DEFAULT '' COMMENT '商品主图',
+    `goods_count` int NOT NULL DEFAULT '1' COMMENT '商品数量',
+    `goods_category_id` bigint NOT NULL DEFAULT 0 COMMENT '商品分类id',
+    `goods_desc` varchar(200) NOT NULL DEFAULT '' COMMENT '商品简介',
+    `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
+    PRIMARY KEY (`order_goods_id`)
+) ENGINE=InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic COMMENT='客户订单商品表';
 
 -- ----------------------------
 -- 购物车表

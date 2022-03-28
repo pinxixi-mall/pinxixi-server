@@ -26,7 +26,7 @@ public class ClientGoodsController {
      */
     @ApiOperation("商品详情")
     @GetMapping("/detail/{goodsId}")
-    Result<GoodsVO> goodsDetail(@PathVariable Integer goodsId) {
+    Result<GoodsVO> goodsDetail(@PathVariable Long goodsId) {
         Goods goods = adminGoodsService.getGoodsDetail(goodsId);
         if (goods == null) {
             return Result.fail(ServiceResultEnum.GOODS_NOT_EXISTS.getResult());

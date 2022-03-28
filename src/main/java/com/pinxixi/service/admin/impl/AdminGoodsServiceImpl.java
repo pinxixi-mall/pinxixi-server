@@ -100,7 +100,7 @@ public class AdminGoodsServiceImpl implements AdminGoodsService {
      * @return
      */
     @Override
-    public Goods getGoodsDetail(Integer goodsId) {
+    public Goods getGoodsDetail(Long goodsId) {
         Goods goods = goodsMapper.selectGoods(goodsId);
         return goods;
     }

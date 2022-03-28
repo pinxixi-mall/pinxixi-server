@@ -63,7 +63,7 @@ public class ClientCartController {
     Result<ClientCartItemVO> cartListByIds(@RequestParam String cartIds) {
         List<String> strIds = Arrays.asList(cartIds.split(","));
         List<Long> ids = strIds.stream().map(id -> Long.parseLong(id)).collect(Collectors.toList());
-        List<ClientCart> clientCarts = clientCartService.cartListByIds(ids);
+        List<ClientCart> clientCarts = clientCartService.cartListByIds(ids.toArray(new Long[ids.size()]));
         return Result.success(clientCarts);
     }
 

@@ -29,7 +29,7 @@ public interface AdminGoodsService {
      * @param goodsId
      * @return
      */
-    Goods getGoodsDetail(Integer goodsId);
+    Goods getGoodsDetail(Long goodsId);
 
     /**
      * 商品修改

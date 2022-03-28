@@ -13,5 +13,7 @@ public interface GoodsMapper {
 
     int updateGoods(Goods goods);
 
-    Goods selectGoods(Integer goodsId);
+    Goods selectGoods(Long goodsId);
+
+    List<Goods> selectGoodsByIds(List<Long> goodsIds);
 }
