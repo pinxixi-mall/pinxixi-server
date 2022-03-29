@@ -18,5 +18,5 @@ public interface ClientCartService {
 
     String deleteCart(Long[] ids);
 
-    List<ClientCartGoods> cartListByIds(Long[] ids);
+    List<ClientCartGoods> cartListByIds(Long[] ids, ClientUser user);
 }

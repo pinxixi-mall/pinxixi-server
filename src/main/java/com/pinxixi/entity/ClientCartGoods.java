@@ -5,7 +5,7 @@ import lombok.Data;
 import java.util.Date;
 
 /**
- * 购物车&商品联合实体
+ * 购物车&商品联表实体
  */
 @Data
 public class ClientCartGoods {

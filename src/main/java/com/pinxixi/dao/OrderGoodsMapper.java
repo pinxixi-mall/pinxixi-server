@@ -9,7 +9,9 @@ public interface OrderGoodsMapper {
 
     Integer insertOrderGoods(OrderGoods orderGoods);
 
-    Order selectOrderGoods(Long orderId);
+    Order selectByOrderGoodsId(Long orderGoodsId);
+
+    List<OrderGoods> selectByOrderId(Long orderGoodsId);
 
     Integer insertOrderGoodsList(List<OrderGoods> orderGoodsList);
 }

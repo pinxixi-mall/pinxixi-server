@@ -5,6 +5,7 @@
 <mapper namespace="com.pinxixi.dao.OrderMapper">
     <resultMap id="OrderMap" type="com.pinxixi.entity.Order">
         <id property="orderId" column="order_id" />
+        <id property="userId" column="user_id" />
         <id property="orderNo" column="order_no" />
         <id property="orderPrice" column="order_price" />
         <id property="orderCoupon" column="order_coupon" />
@@ -16,16 +17,26 @@
         <id property="updateTime" column="update_time" />
     </resultMap>
 
+    <sql id="Base_Column_List">
+        order_id, order_no, user_id, order_price, order_coupon, order_status, payment_status, payment_type, payment_time, create_time, update_time
+    </sql>
+
     <select id="selectOrderByOrderId" resultMap="OrderMap">
-        SELECT * FROM tb_client_order WHERE order_id = #{orderId}
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM tb_client_order WHERE order_id = #{orderId}
     </select>
 
     <select id="selectOrderByOrderNo" resultMap="OrderMap">
-        SELECT * FROM tb_client_order WHERE order_no = #{orderNo}
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM tb_client_order WHERE order_no = #{orderNo}
     </select>
 
-    <select id="selectAll" resultMap="OrderMap">
-        SELECT * FROM tb_client_order WHERE is_deleted = 0
+    <select id="selectOrderAll" resultMap="OrderMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM tb_client_order WHERE is_deleted = 0
     </select>
 
     <select id="selectOrderPage" resultMap="OrderMap">

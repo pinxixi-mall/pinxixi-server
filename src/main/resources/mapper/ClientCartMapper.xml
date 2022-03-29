@@ -26,8 +26,16 @@
         <id property="isDeleted" column="is_deleted" />
     </resultMap>
 
+    <sql id="Cart_Column_List">
+        cart_id, goods_id, user_id, goods_count, is_deleted, create_time, update_time
+    </sql>
+
+    <sql id="Cart_Goods_Column_List">
+        cart_id, goods_id, user_id, goods_count, goods_name, goods_desc, goods_stock, goods_price, goods_image, is_deleted
+    </sql>
+
     <!--联表查询-->
-    <select id="selectPageByUserId" resultMap="CartGoodsMap">
+    <select id="selectCartGoodsByUserId" resultMap="CartGoodsMap">
         SELECT * FROM tb_client_cart as cart INNER JOIN tb_goods as goods ON cart.goods_id = goods.goods_id
         <where>
             cart.is_deleted = 0 AND user_id = #{userId}
@@ -43,18 +51,28 @@
     <!--联表查询-->
     <select id="selectCartGoodsByCartIds" resultMap="CartGoodsMap">
         SELECT * FROM  tb_client_cart as cart INNER JOIN tb_goods as goods ON goods.goods_id = cart.goods_id
-        WHERE cart_id in
+        WHERE cart.is_deleted = 0
+        and cart_id in
         <foreach collection="ids" index="index" item="item" open="(" separator="," close=")">
             #{item}
         </foreach>
     </select>
 
     <select id="selectCartByCartIds" resultMap="CartMap">
-        SELECT * FROM tb_client_cart
-        WHERE cart_id in
+        SELECT
+        <include refid="Cart_Column_List"/>
+        FROM tb_client_cart
+        WHERE is_deleted = 0
+        and cart_id in
         <foreach collection="ids" index="index" item="item" open="(" separator="," close=")">
             #{item}
         </foreach>
+    </select>
+
+    <select id="selectCartByGoodsIdAndUserId" resultMap="CartMap">
+        SELECT
+        <include refid="Cart_Column_List"/>
+        FROM tb_client_cart WHERE goods_id = #{goodsId} and user_id = #{userId} and is_deleted = 0
     </select>
 
     <insert id="insertCart" parameterType="com.pinxixi.entity.ClientCart">
@@ -77,7 +95,7 @@
         </trim>
     </insert>
 
-    <update id="updateCartByCartId" parameterType="com.pinxixi.entity.ClientCart">
+    <update id="updateCart" parameterType="com.pinxixi.entity.ClientCart">
         UPDATE tb_client_cart
         SET <if test="isDeleted != null">
                 is_deleted = #{isDeleted},

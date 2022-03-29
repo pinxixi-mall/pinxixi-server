@@ -29,6 +29,17 @@ public class ClientCartServiceImpl implements ClientCartService {
      */
     @Override
     public String addCart(ClientCartAddParam addParam, ClientUser user) {
+        //判断是否已存在相同商品
+        ClientCart exitsCart = clientCartMapper.selectCartByGoodsIdAndUserId(addParam.getGoodsId(), user.getUserId());
+        if (exitsCart != null) {
+            //已存在，更新数量
+            ClientCartUpdateParam updateParam = new ClientCartUpdateParam();
+            BeanUtils.copyProperties(exitsCart, updateParam);
+            //追加数量
+            updateParam.setGoodsCount(addParam.getGoodsCount() + exitsCart.getGoodsCount());
+            updateCart(updateParam, user);
+            return PinXiXiUtils.genSqlResultByRows(1);
+        }
         ClientCart clientCart = new ClientCart();
         BeanUtils.copyProperties(addParam, clientCart);
         clientCart.setUserId(user.getUserId());
@@ -43,7 +54,7 @@ public class ClientCartServiceImpl implements ClientCartService {
      */
     @Override
     public List<ClientCartGoods> cartList(ClientUser user) {
-        List<ClientCartGoods> clientCarts = clientCartMapper.selectPageByUserId(user.getUserId());
+        List<ClientCartGoods> clientCarts = clientCartMapper.selectCartGoodsByUserId(user.getUserId());
         return clientCarts;
     }
 
@@ -56,13 +67,14 @@ public class ClientCartServiceImpl implements ClientCartService {
     @Override
     public String updateCart(ClientCartUpdateParam updateParam, ClientUser user) {
         Long cartId = updateParam.getCartId();
+        //TODO 应取tb_goods表的库存来判断
         ClientCartGoods cartItem = clientCartMapper.selectCartGoodsByCartId(cartId);
         if (cartItem.getGoodsStock() < updateParam.getGoodsCount()) {
             // 库存不足
             return ServiceResultEnum.GOODS_INVENTORY_SHORTAGE.getResult();
         }
         updateParam.setUserId(user.getUserId());
-        Integer rows = clientCartMapper.updateCartByCartId(updateParam);
+        Integer rows = clientCartMapper.updateCart(updateParam);
         return PinXiXiUtils.genSqlResultByRows(rows);
     }
 
@@ -83,8 +95,8 @@ public class ClientCartServiceImpl implements ClientCartService {
      * @return
      */
     @Override
-    public List<ClientCartGoods> cartListByIds(Long[] ids) {
-        List<ClientCartGoods> clientCarts = clientCartMapper.selectCartGoodsByCartIds(ids);
+    public List<ClientCartGoods> cartListByIds(Long[] ids, ClientUser user) {
+        List<ClientCartGoods> clientCarts = clientCartMapper.selectCartGoodsByCartIds(ids, user.getUserId());
         return clientCarts;
     }
 }

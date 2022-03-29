@@ -61,10 +61,10 @@ public class ClientCartController {
      */
     @ApiOperation("根据购物车ids查询购物车列表")
     @GetMapping("/select")
-    Result<ClientCartItemVO> cartListByIds(@RequestParam String cartIds) {
+    Result<ClientCartItemVO> cartListByIds(@RequestParam String cartIds, @ClientUserArgument ClientUser user) {
         List<String> strIds = Arrays.asList(cartIds.split(","));
         List<Long> ids = strIds.stream().map(id -> Long.parseLong(id)).collect(Collectors.toList());
-        List<ClientCartGoods> clientCarts = clientCartService.cartListByIds(ids.toArray(new Long[ids.size()]));
+        List<ClientCartGoods> clientCarts = clientCartService.cartListByIds(ids.toArray(new Long[ids.size()]), user);
         return Result.success(clientCarts);
     }
 
