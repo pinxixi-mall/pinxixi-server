@@ -57,34 +57,39 @@ public class ClientOrderServiceImpl implements ClientOrderService {
         if (offShelfGoods.size() > 0) {
             PinXiXiException.error(HttpStatusEnum.FAIL.getCode(), offShelfGoods.get(0).getGoodsName() + "已下架");
         }
-        //判断库存
+
+        //生成订单号
+        String orderNo = System.currentTimeMillis() + RandomUtil.randomNumbers(4);
+
+        //订单总额
+        Float totalPrice = 0f;
+
         for (ClientCart cart : carts) {
             //购物车商品
             Goods cartGoods = goodsMapper.selectGoods(cart.getGoodsId());
             //商品表商品
             List<Goods> collect = goodsList.stream().filter(goods -> goods.getGoodsId().equals(cartGoods.getGoodsId())).collect(Collectors.toList());
             if (collect != null) {
+                //判断库存
                 if (cartGoods.getGoodsStock() > collect.get(0).getGoodsStock()) {
                     PinXiXiException.error(HttpStatusEnum.FAIL.getCode(), cartGoods.getGoodsName() + "库存不足");
                 }
             }
-        }
 
-        //生成订单号
-        String orderNo = System.currentTimeMillis() + RandomUtil.randomNumbers(4);
-        //计算订单总额
-        Float totalPrice = 0f;
-        for (ClientCart cart : carts) {
-            totalPrice += cart.getGoodsCount() * cart.getGoodsPrice();
+            //计算总金额
+            List<Goods> goodsInCart = goodsList.stream().filter(goods -> goods.getGoodsId() == cart.getGoodsId()).collect(Collectors.toList());
+            totalPrice += cart.getGoodsCount() * goodsInCart.get(0).getGoodsPrice();
         }
         //减去优惠金额
         totalPrice -= createParam.getOrderCoupon();
+
 
         //保存到订单表
         Order order = new Order();
         order.setOrderNo(orderNo);
         order.setOrderPrice(totalPrice);
         order.setOrderCoupon(createParam.getOrderCoupon());
+        order.setUserId(user.getUserId());
         Integer orderRows = orderMapper.insertOrder(order);
         if (orderRows <= 0) {
             PinXiXiException.fail();
@@ -92,11 +97,14 @@ public class ClientOrderServiceImpl implements ClientOrderService {
 
         //取出刚存的订单
         Order orderSaved = orderMapper.selectOrderByOrderNo(orderNo);
-        //关联到订单商品表
-        OrderGoods orderGoods = new OrderGoods();
+
         List<OrderGoods> orderGoodsList = new ArrayList<>();
-        for (Goods goods : goodsList) {
-            BeanUtils.copyProperties(goods, orderGoods);
+        //关联到订单商品表
+        for (ClientCart cart : carts) {
+            List<Goods> goodsItem = goodsList.stream().filter(goods -> goods.getGoodsId().equals(cart.getGoodsId())).collect(Collectors.toList());
+            OrderGoods orderGoods = new OrderGoods();
+            BeanUtils.copyProperties(goodsItem.get(0), orderGoods);
+            BeanUtils.copyProperties(cart, orderGoods);
             orderGoods.setOrderId(orderSaved.getOrderId());
             orderGoodsList.add(orderGoods);
         }

@@ -8,18 +8,26 @@
         <id property="goodsId" column="goods_id" />
         <id property="userId" column="user_id" />
         <id property="goodsCount" column="goods_count" />
+        <id property="isDeleted" column="is_deleted" />
+        <id property="createTime" column="create_time" />
+        <id property="updateTime" column="update_time" />
+    </resultMap>
+
+    <resultMap id="CartGoodsMap" type="com.pinxixi.entity.ClientCartGoods">
+        <id property="cartId" column="cart_id" />
+        <id property="goodsId" column="goods_id" />
+        <id property="userId" column="user_id" />
+        <id property="goodsCount" column="goods_count" />
         <id property="goodsName" column="goods_name" />
         <id property="goodsDesc" column="goods_desc" />
         <id property="goodsStock" column="goods_stock" />
         <id property="goodsPrice" column="goods_price" />
         <id property="goodsImage" column="goods_image" />
         <id property="isDeleted" column="is_deleted" />
-        <id property="createTime" column="create_time" />
-        <id property="updateTime" column="update_time" />
     </resultMap>
 
     <!--联表查询-->
-    <select id="selectPageByUserId" resultMap="CartMap">
+    <select id="selectPageByUserId" resultMap="CartGoodsMap">
         SELECT * FROM tb_client_cart as cart INNER JOIN tb_goods as goods ON cart.goods_id = goods.goods_id
         <where>
             cart.is_deleted = 0 AND user_id = #{userId}
@@ -28,12 +36,21 @@
     </select>
 
     <!--联表查询-->
-    <select id="selectCartByCartId" resultMap="CartMap">
+    <select id="selectCartGoodsByCartId" resultMap="CartGoodsMap">
         SELECT * FROM tb_client_cart as cart INNER JOIN tb_goods as goods ON cart.goods_id = goods.goods_id WHERE cart_id = #{cartId}
     </select>
 
-    <select id="selectCartByCartIds" resultMap="CartMap">
+    <!--联表查询-->
+    <select id="selectCartGoodsByCartIds" resultMap="CartGoodsMap">
         SELECT * FROM  tb_client_cart as cart INNER JOIN tb_goods as goods ON goods.goods_id = cart.goods_id
+        WHERE cart_id in
+        <foreach collection="ids" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="selectCartByCartIds" resultMap="CartMap">
+        SELECT * FROM tb_client_cart
         WHERE cart_id in
         <foreach collection="ids" index="index" item="item" open="(" separator="," close=")">
             #{item}

@@ -7,6 +7,7 @@ import com.pinxixi.controller.client.param.ClientCartAddParam;
 import com.pinxixi.controller.client.param.ClientCartUpdateParam;
 import com.pinxixi.controller.client.vo.ClientCartItemVO;
 import com.pinxixi.entity.ClientCart;
+import com.pinxixi.entity.ClientCartGoods;
 import com.pinxixi.entity.ClientUser;
 import com.pinxixi.service.client.ClientCartService;
 import io.swagger.annotations.Api;
@@ -49,7 +50,7 @@ public class ClientCartController {
     @ApiOperation("用户购物车列表")
     @GetMapping
     Result<ClientCartItemVO> cartList(@ClientUserArgument ClientUser user) {
-        List<ClientCart> clientCarts = clientCartService.cartList(user);
+        List<ClientCartGoods> clientCarts = clientCartService.cartList(user);
         return Result.success(clientCarts);
     }
 
@@ -63,7 +64,7 @@ public class ClientCartController {
     Result<ClientCartItemVO> cartListByIds(@RequestParam String cartIds) {
         List<String> strIds = Arrays.asList(cartIds.split(","));
         List<Long> ids = strIds.stream().map(id -> Long.parseLong(id)).collect(Collectors.toList());
-        List<ClientCart> clientCarts = clientCartService.cartListByIds(ids.toArray(new Long[ids.size()]));
+        List<ClientCartGoods> clientCarts = clientCartService.cartListByIds(ids.toArray(new Long[ids.size()]));
         return Result.success(clientCarts);
     }
 

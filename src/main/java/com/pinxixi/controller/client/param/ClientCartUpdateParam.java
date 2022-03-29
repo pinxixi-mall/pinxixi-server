@@ -15,7 +15,7 @@ public class ClientCartUpdateParam {
     private Long cartId;
 
     @ApiModelProperty("用户id")
-    private Long userId;
+    private Integer userId;
 
     @ApiModelProperty("商品数量")
     @NotNull(message = "商品数量不能为空")

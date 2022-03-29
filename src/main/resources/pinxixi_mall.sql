@@ -265,9 +265,9 @@ CREATE TABLE `tb_client_order` (
 -- 订单商品表
 -- ----------------------------
 DROP TABLE IF EXISTS `tb_client_order_goods`;
-CREATE TABLE `tb_client_order` (
+CREATE TABLE `tb_client_order_goods` (
     `order_goods_id` bigint NOT NULL AUTO_INCREMENT COMMENT '订单商品id',
-    `order_id` bigint NOT NULL AUTO_INCREMENT COMMENT '关联订单id',
+    `order_id` bigint NOT NULL COMMENT '关联订单id',
     `goods_id` bigint unsigned NOT NULL COMMENT '商品id',
     `goods_name` varchar(150) NOT NULL DEFAULT '' COMMENT '商品名称',
     `goods_image` varchar(150) NOT NULL DEFAULT '' COMMENT '商品主图',

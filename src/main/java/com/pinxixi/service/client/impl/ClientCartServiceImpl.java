@@ -5,6 +5,7 @@ import com.pinxixi.controller.client.param.ClientCartAddParam;
 import com.pinxixi.controller.client.param.ClientCartUpdateParam;
 import com.pinxixi.dao.ClientCartMapper;
 import com.pinxixi.entity.ClientCart;
+import com.pinxixi.entity.ClientCartGoods;
 import com.pinxixi.entity.ClientUser;
 import com.pinxixi.service.client.ClientCartService;
 import com.pinxixi.utils.PinXiXiUtils;
@@ -41,8 +42,8 @@ public class ClientCartServiceImpl implements ClientCartService {
      * @return
      */
     @Override
-    public List<ClientCart> cartList(ClientUser user) {
-        List<ClientCart> clientCarts = clientCartMapper.selectPageByUserId(user.getUserId());
+    public List<ClientCartGoods> cartList(ClientUser user) {
+        List<ClientCartGoods> clientCarts = clientCartMapper.selectPageByUserId(user.getUserId());
         return clientCarts;
     }
 
@@ -55,7 +56,7 @@ public class ClientCartServiceImpl implements ClientCartService {
     @Override
     public String updateCart(ClientCartUpdateParam updateParam, ClientUser user) {
         Long cartId = updateParam.getCartId();
-        ClientCart cartItem = clientCartMapper.selectCartByCartId(cartId);
+        ClientCartGoods cartItem = clientCartMapper.selectCartGoodsByCartId(cartId);
         if (cartItem.getGoodsStock() < updateParam.getGoodsCount()) {
             // 库存不足
             return ServiceResultEnum.GOODS_INVENTORY_SHORTAGE.getResult();
@@ -82,8 +83,8 @@ public class ClientCartServiceImpl implements ClientCartService {
      * @return
      */
     @Override
-    public List<ClientCart> cartListByIds(Long[] ids) {
-        List<ClientCart> clientCarts = clientCartMapper.selectCartByCartIds(ids);
+    public List<ClientCartGoods> cartListByIds(Long[] ids) {
+        List<ClientCartGoods> clientCarts = clientCartMapper.selectCartGoodsByCartIds(ids);
         return clientCarts;
     }
 }

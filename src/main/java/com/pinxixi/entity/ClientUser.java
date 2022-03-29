@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class ClientUser {
 
-    private Long userId;
+    private Integer userId;
 
     private String userName;
 

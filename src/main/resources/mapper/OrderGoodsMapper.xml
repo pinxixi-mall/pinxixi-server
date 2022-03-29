@@ -16,7 +16,7 @@
     </resultMap>
 
     <select id="selectOrderGoods" resultMap="OrderGoodsMap">
-        SELECT * FROM tb_order_goods WHERE order_goods_id = #{orderGoodsId}
+        SELECT * FROM tb_cilent_order_goods WHERE order_goods_id = #{orderGoodsId}
     </select>
 
     <select id="selectAll" resultMap="OrderGoodsMap">
@@ -24,7 +24,7 @@
     </select>
 
     <insert id="insertOrderGoods" parameterType="com.pinxixi.entity.OrderGoods">
-        INSERT INTO tb_order_goods
+        INSERT INTO tb_cilent_order_goods
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="orderId != null">order_id,</if>
             <if test="goodsId != null">goods_id,</if>
@@ -50,7 +50,7 @@
 
     <!--批量插入-->
     <insert id="insertOrderGoodsList" parameterType="java.util.List">
-        INSERT INTO tb_order_goods
+        INSERT INTO tb_cilent_order_goods
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="orderId != null">order_id,</if>
             <if test="goodsId != null">goods_id,</if>
