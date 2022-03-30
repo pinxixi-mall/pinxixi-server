@@ -9,14 +9,17 @@ import javax.validation.constraints.NotNull;
 @Data
 public class ClientAddressVO {
 
+    @ApiModelProperty("地址id")
+    private Long addressId;
+
     @ApiModelProperty("用户id")
     private Integer userId;
 
     @ApiModelProperty("收件人姓名")
-    private String recipient;
+    private String name;
 
     @ApiModelProperty("收件人手机号")
-    private String phone;
+    private String tel;
 
     @ApiModelProperty("默认地址")
     private Byte isDefault;
@@ -28,7 +31,7 @@ public class ClientAddressVO {
     private String city;
 
     @ApiModelProperty("区")
-    private String region;
+    private String county;
 
     @ApiModelProperty("详细地址")
     private String addressDetail;

@@ -34,7 +34,7 @@ public class ClientAddressServiceImpl implements ClientAddressService {
     }
 
     /**
-     * 用户地址
+     * 用户地址列表
      * @param user
      * @return
      */
@@ -42,6 +42,17 @@ public class ClientAddressServiceImpl implements ClientAddressService {
     public List<ClientAddress> getUserAddressList(ClientUser user) {
         List<ClientAddress> addressList = addressMapper.selectAddressByUserId(user.getUserId());
         return addressList;
+    }
+
+    /**
+     * 用户地址
+     * @param addressId
+     * @return
+     */
+    @Override
+    public ClientAddress getAddressById(Long addressId) {
+        ClientAddress address = addressMapper.selectAddressByAddressId(addressId);
+        return address;
     }
 
 }

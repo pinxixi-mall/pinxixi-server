@@ -15,11 +15,11 @@ public class ClientAddressAddParam {
 
     @ApiModelProperty("收件人姓名")
     @NotEmpty(message = "收件人姓名不能为空")
-    private String recipient;
+    private String name;
 
     @ApiModelProperty("收件人手机号")
     @NotEmpty(message = "收件人手机号不能为空")
-    private String phone;
+    private String tel;
 
     @ApiModelProperty("默认地址")
     private Byte isDefault;

@@ -11,9 +11,9 @@ public class ClientAddress {
 
     private Integer userId;
 
-    private String recipient;
+    private String name;
 
-    private String phone;
+    private String tel;
 
     private Byte isDefault;
 
@@ -21,7 +21,7 @@ public class ClientAddress {
 
     private String city;
 
-    private String region;
+    private String county;
 
     private String addressDetail;
 

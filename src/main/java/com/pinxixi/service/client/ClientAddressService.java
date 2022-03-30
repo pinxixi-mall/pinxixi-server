@@ -11,4 +11,6 @@ public interface ClientAddressService {
     String addAddress(ClientAddressAddParam addParam, ClientUser user);
 
     List<ClientAddress> getUserAddressList(ClientUser user);
+
+    ClientAddress getAddressById(Long addressId);
 }

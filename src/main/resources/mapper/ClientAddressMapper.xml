@@ -6,12 +6,12 @@
     <resultMap id="AddressMap" type="com.pinxixi.entity.ClientAddress">
         <id property="addressId" column="address_id" />
         <id property="userId" column="user_id" />
-        <id property="recipient" column="recipient" />
-        <id property="phone" column="phone" />
+        <id property="name" column="name" />
+        <id property="tel" column="tel" />
         <id property="isDefault" column="isDefault" />
         <id property="province" column="province" />
         <id property="city" column="city" />
-        <id property="region" column="region" />
+        <id property="county" column="county" />
         <id property="addressDetail" column="address_detail" />
         <id property="isDeleted" column="is_deleted" />
         <id property="createTime" column="create_time" />
@@ -19,7 +19,7 @@
     </resultMap>
 
     <sql id="Base_Column_List">
-        address_id, user_id, recipient, phone, is_default, province, city, region, address_detail, is_deleted, create_time, update_time
+        address_id, user_id, name, tel, is_default, province, city, county, address_detail, is_deleted, create_time, update_time
     </sql>
     
     <select id="selectAddressByUserId" resultMap="AddressMap">
@@ -39,12 +39,12 @@
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="addressId != null">address_id,</if>
             <if test="userId != null">user_id,</if>
-            <if test="recipient != null">recipient,</if>
-            <if test="phone != null">phone,</if>
+            <if test="name != null">name,</if>
+            <if test="tel != null">tel,</if>
             <if test="isDefault != null">is_default,</if>
             <if test="province != null">province,</if>
             <if test="city != null">city,</if>
-            <if test="region != null">region,</if>
+            <if test="county != null">county,</if>
             <if test="addressDetail != null">address_detail,</if>
             <if test="createTime != null">create_time,</if>
             <if test="updateTime != null">update_time,</if>
@@ -52,12 +52,12 @@
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="addressId != null">#{addressId},</if>
             <if test="userId != null">#{userId},</if>
-            <if test="recipient != null">#{recipient},</if>
-            <if test="phone != null">#{phone},</if>
+            <if test="name != null">#{name},</if>
+            <if test="tel != null">#{tel},</if>
             <if test="isDefault != null">#{isDefault},</if>
             <if test="province != null">#{province},</if>
             <if test="city != null">#{city},</if>
-            <if test="region != null">#{region},</if>
+            <if test="county != null">#{county},</if>
             <if test="addressDetail != null">#{addressDetail},</if>
             <if test="createTime != null">#{createTime},</if>
             <if test="updateTime != null">#{updateTime},</if>
@@ -67,12 +67,12 @@
     <update id="updateAddress" parameterType="com.pinxixi.entity.ClientAddress">
         UPDATE tb_client_address
         <set>
-            <if test="recipient != null">recipient = #{recipient},</if>
-            <if test="phone != null">phone = #{phone},</if>
+            <if test="name != null">name = #{name},</if>
+            <if test="tel != null">tel = #{tel},</if>
             <if test="isDefault != null">is_default = #{isDefault},</if>
             <if test="province != null">province = #{province},</if>
             <if test="city != null">city = #{city},</if>
-            <if test="region != null">region = #{region},</if>
+            <if test="county != null">county = #{county},</if>
             <if test="addressDetail != null">address_detail = #{addressDetail},</if>
             <if test="createTime != null">create_time = #{createTime},</if>
             <if test="updateTime != null">update_time = #{updateTime},</if>

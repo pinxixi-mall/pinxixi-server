@@ -57,4 +57,19 @@ public class ClientAddressController {
         return Result.common(result);
     }
 
+    /**
+     * 查询用户地址
+     * @param addressId
+     * @return
+     */
+    @ApiOperation("新增用户地址")
+    @GetMapping("/{addressId}")
+    Result getAddress(@PathVariable Long addressId){
+        ClientAddress address = addressService.getAddressById(addressId);
+        if (address == null) {
+            Result.fail("地址不存在");
+        }
+        return Result.success(address);
+    }
+
 }
