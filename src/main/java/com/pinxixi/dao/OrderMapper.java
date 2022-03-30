@@ -16,6 +16,7 @@ public interface OrderMapper {
 
     Order selectOrderByOrderNo(String orderNo);
 
-    Integer updateOrder(Long orderId);
+    Integer updateOrderByOrderId(Long orderId);
 
+    Integer updateOrder(Order order);
 }

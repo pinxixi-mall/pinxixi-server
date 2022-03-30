@@ -27,7 +27,7 @@ public interface ClientCartMapper {
      * @param ids
      * @return
      */
-    List<ClientCart> selectCartByCartIds(Long[] ids);
+    List<ClientCart> selectCartsByCartIds(Long[] ids);
 
     /**
      * 根据购物车ID查询

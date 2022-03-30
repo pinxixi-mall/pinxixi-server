@@ -5,6 +5,7 @@ import com.pinxixi.common.GoodsEnum;
 import com.pinxixi.common.HttpStatusEnum;
 import com.pinxixi.config.PinXiXiException;
 import com.pinxixi.controller.client.param.ClientOrderCreateParam;
+import com.pinxixi.controller.client.param.ClientOrderUpdateParam;
 import com.pinxixi.dao.ClientCartMapper;
 import com.pinxixi.dao.GoodsMapper;
 import com.pinxixi.dao.OrderGoodsMapper;
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -46,7 +48,7 @@ public class ClientOrderServiceImpl implements ClientOrderService {
         //订单购物车项id数组
         Long[] cartIds = createParam.getCartIds();
         //订单购物车
-        List<ClientCart> carts = clientCartMapper.selectCartByCartIds(cartIds);
+        List<ClientCart> carts = clientCartMapper.selectCartsByCartIds(cartIds);
         //订单购物车商品
         List<Long> goodsIds = carts.stream().map(ClientCart::getGoodsId).collect(Collectors.toList());
         List<Goods> goodsList = goodsMapper.selectGoodsByIds(goodsIds);
@@ -81,6 +83,7 @@ public class ClientOrderServiceImpl implements ClientOrderService {
 
         Order orderSaved = null;
         //删除购物车
+        //TODO 使用事务
         if(clientCartMapper.deleteCartByCartIds(cartIds) > 0) {
             //生成订单号
             String orderNo = System.currentTimeMillis() + RandomUtil.randomNumbers(4);
@@ -107,11 +110,10 @@ public class ClientOrderServiceImpl implements ClientOrderService {
                 orderGoodsList.add(orderGoods);
             }
             //保存到订单商品表
-            if(orderGoodsMapper.insertOrderGoodsList(orderGoodsList) <=0) {
+            if(orderGoodsMapper.insertOrderGoodsList(orderGoodsList) <= 0) {
                 PinXiXiException.fail();
             }
         }
-
 
         return orderSaved.getOrderId();
     }
@@ -131,6 +133,23 @@ public class ClientOrderServiceImpl implements ClientOrderService {
     public List<OrderGoods> getOrderGoodsList(Long orderId) {
         List<OrderGoods> orderGoodsList = orderGoodsMapper.selectByOrderId(orderId);
         return orderGoodsList;
+    }
+
+    /**
+     * 更新订单
+     * @param updateParam
+     * @param user
+     * @return
+     */
+    @Override
+    public String updateOrder(ClientOrderUpdateParam updateParam, ClientUser user) {
+        Order order = new Order();
+        BeanUtils.copyProperties(updateParam, order);
+        if (updateParam.getPaymentStatus() != null && updateParam.getPaymentStatus() != 0) {
+            order.setPaymentTime(new Date());
+        }
+        int rows = orderMapper.updateOrder(order);
+        return PinXiXiUtils.genSqlResultByRows(rows);
     }
 
 }

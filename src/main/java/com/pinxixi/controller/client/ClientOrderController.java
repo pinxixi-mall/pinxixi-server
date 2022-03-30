@@ -1,13 +1,14 @@
 package com.pinxixi.controller.client;
 
 import com.pinxixi.common.Result;
+import com.pinxixi.common.ServiceResultEnum;
 import com.pinxixi.config.annotation.ClientUserArgument;
 import com.pinxixi.controller.client.param.ClientOrderCreateParam;
+import com.pinxixi.controller.client.param.ClientOrderUpdateParam;
 import com.pinxixi.controller.client.vo.ClientOrderVO;
 import com.pinxixi.entity.ClientUser;
 import com.pinxixi.entity.Order;
 import com.pinxixi.entity.OrderGoods;
-import com.pinxixi.service.admin.AdminOrderService;
 import com.pinxixi.service.client.ClientOrderService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -51,6 +52,9 @@ public class ClientOrderController {
     @GetMapping("/{orderId}")
     Result<ClientOrderVO> getOrder(@PathVariable Long orderId) {
         Order order = clientOrderService.getOrderByOrderId(orderId);
+        if (order == null) {
+            return Result.fail(ServiceResultEnum.ORDER_NOT_EXIST.getResult());
+        }
         List<OrderGoods> orderGoodsList = clientOrderService.getOrderGoodsList(orderId);
         ClientOrderVO clientOrderVO = new ClientOrderVO();
         BeanUtils.copyProperties(order, clientOrderVO);
@@ -66,8 +70,20 @@ public class ClientOrderController {
     @ApiOperation("获取订单商品")
     @GetMapping("/goods")
     Result getOrderGoods(@RequestParam(value = "orderId") Long orderId) {
-
         return Result.success();
+    }
+
+    /**
+     * 更新订单
+     * @param updateParam
+     * @param user
+     * @return
+     */
+    @ApiOperation("更新订单")
+    @PutMapping
+    Result updateOrder(@RequestBody @Valid ClientOrderUpdateParam updateParam, @ClientUserArgument ClientUser user) {
+        String result = clientOrderService.updateOrder(updateParam, user);
+        return Result.common(result);
     }
 
 }

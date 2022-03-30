@@ -25,6 +25,8 @@ public class Order {
 
     private Date paymentTime;
 
+    private Byte isDeleted;
+
     private Date createTime;
 
     private Date updateTime;

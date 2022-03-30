@@ -13,6 +13,7 @@
         <id property="paymentStatus" column="payment_status" />
         <id property="paymentType" column="payment_type" />
         <id property="paymentTime" column="payment_time" />
+        <id property="isDeleted" column="is_deleted" />
         <id property="createTime" column="create_time" />
         <id property="updateTime" column="update_time" />
     </resultMap>
@@ -78,7 +79,7 @@
         </trim>
     </insert>
 
-    <update id="updateOrder" parameterType="com.pinxixi.entity.Order">
+    <update id="updateOrderByOrderId" parameterType="com.pinxixi.entity.Order">
         UPDATE tb_client_order
         SET <if test="orderStatus != null">
                 order_status = #{orderStatus},
@@ -86,13 +87,38 @@
             <if test="paymentStatus != null">
                 payment_status = #{paymentStatus},
             </if>
-            <if test="paymentStatus != null">
+            <if test="paymentType != null">
                 payment_type = #{paymentType},
             </if>
-            <if test="paymentStatus != null">
+            <if test="paymentTime != null">
                 payment_time = #{paymentTime},
             </if>
-            update_user = #{updateUser}
+            <if test="isDeleted != null">
+                is_deleted = #{isDeleted},
+            </if>
         WHERE order_id = #{orderId}
     </update>
+
+    <update id="updateOrder" parameterType="com.pinxixi.entity.Order">
+        UPDATE tb_client_order
+        <set>
+            <if test="orderStatus != null">
+                order_status = #{orderStatus},
+            </if>
+            <if test="paymentStatus != null">
+                payment_status = #{paymentStatus},
+            </if>
+            <if test="paymentType != null">
+                payment_type = #{paymentType},
+            </if>
+            <if test="paymentTime != null">
+                payment_time = #{paymentTime},
+            </if>
+            <if test="isDeleted != null">
+                is_deleted = #{isDeleted}
+            </if>
+        </set>
+        WHERE order_id = #{orderId}
+    </update>
+
 </mapper>

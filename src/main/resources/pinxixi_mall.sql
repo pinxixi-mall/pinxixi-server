@@ -256,6 +256,7 @@ CREATE TABLE `tb_client_order` (
     `order_status` tinyint NOT NULL DEFAULT '0' COMMENT '订单状态（0-待支付，1-待收货，2-交易成功，3-手动关闭，4-超时关闭，5-商家关闭，99-已删除）',
     `payment_type` tinyint NOT NULL DEFAULT '0' COMMENT '支付方式（1-支付宝，2-微信）',
     `payment_time` datetime DEFAULT NULL COMMENT '支付时间',
+    `is_deleted` tinyint NOT NULL DEFAULT '0' COMMENT '删除标识(0-未删除，1-已删除)',
     `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
     PRIMARY KEY (`order_id`)
@@ -323,8 +324,8 @@ DROP TABLE IF EXISTS `tb_client_address`;
 CREATE TABLE `tb_client_address` (
     `address_id` bigint NOT NULL AUTO_INCREMENT COMMENT '主键id',
     `user_id` bigint NOT NULL DEFAULT '0' COMMENT '用户id',
-    `user_name` varchar(30) NOT NULL DEFAULT '' COMMENT '收货人姓名',
-    `user_phone` varchar(11) NOT NULL DEFAULT '' COMMENT '收货人手机号',
+    `recipient` varchar(30) NOT NULL DEFAULT '' COMMENT '收货人姓名',
+    `phone` varchar(11) NOT NULL DEFAULT '' COMMENT '收货人手机号',
     `is_default` tinyint NOT NULL DEFAULT '0' COMMENT '是否为默认（0-否，1-是）',
     `province` varchar(32) NOT NULL DEFAULT '' COMMENT '省',
     `city` varchar(32) NOT NULL DEFAULT '' COMMENT '市',
@@ -335,3 +336,9 @@ CREATE TABLE `tb_client_address` (
     `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
     PRIMARY KEY (`address_id`)
 ) ENGINE=InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic COMMENT='用户地址表';
+
+INSERT INTO `tb_client_address`
+(address_id, user_id, recipient, phone, is_default, province, city, region, address_detail)
+VALUES
+       (1, 1, '张三丰', '13666666666', 0, '440000', '440301', '440305', '深圳湾2号6栋 66 楼'),
+       (2, 1, '张四丰', '13777777777', 0, '440000', '440301', '440305', '深圳湾2号7栋 68 楼');

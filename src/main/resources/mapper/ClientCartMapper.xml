@@ -58,7 +58,7 @@
         </foreach>
     </select>
 
-    <select id="selectCartByCartIds" resultMap="CartMap">
+    <select id="selectCartsByCartIds" resultMap="CartMap">
         SELECT
         <include refid="Cart_Column_List"/>
         FROM tb_client_cart
@@ -97,7 +97,8 @@
 
     <update id="updateCart" parameterType="com.pinxixi.entity.ClientCart">
         UPDATE tb_client_cart
-        SET <if test="isDeleted != null">
+        <set>
+            <if test="isDeleted != null">
                 is_deleted = #{isDeleted},
             </if>
             <if test="goodsCount != null">
@@ -106,6 +107,7 @@
             <if test="userId != null">
                 user_id = #{userId}
             </if>
+        </set>
         WHERE cart_id = #{cartId}
     </update>
 

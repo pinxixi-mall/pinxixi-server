@@ -99,7 +99,8 @@
 
     <update id="updateGoods" parameterType="com.pinxixi.entity.Goods">
         UPDATE tb_goods
-        SET <if test="goodsName != null">
+        <set>
+            <if test="goodsName != null">
                 goods_name = #{goodsName},
             </if>
             <if test="goodsImage != null">
@@ -129,6 +130,7 @@
             <if test="isDeleted != null">
                 is_deleted = #{isDeleted},
             </if>
+        </set>
             update_user = #{updateUser},
             update_time = #{updateTime}
         WHERE goods_id = #{goodsId}

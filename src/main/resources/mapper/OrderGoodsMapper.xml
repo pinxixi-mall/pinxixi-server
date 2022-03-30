@@ -17,23 +17,24 @@
     </resultMap>
 
     <sql id="OrderGoods_Column_List">
-        order_goods_id, order_id, goods_id, goods_name, goods_image, goods_price, goods_count, goods_desc
+        order_id, goods_id, goods_name, goods_image, goods_price, goods_count, goods_desc
     </sql>
 
     <select id="selectByOrderGoodsId" resultMap="OrderGoodsMap">
         SELECT
+        order_goods_id,
         <include refid="OrderGoods_Column_List"/>
         FROM tb_client_order_goods WHERE order_goods_id = #{orderGoodsId}
     </select>
 
     <select id="selectByOrderId" resultMap="OrderGoodsMap">
-        SELECT
+        SELECT order_goods_id,
         <include refid="OrderGoods_Column_List"/>
         FROM tb_client_order_goods WHERE order_id = #{orderId}
     </select>
 
     <select id="selectAll" resultMap="OrderGoodsMap">
-        SELECT
+        SELECT order_goods_id,
         <include refid="OrderGoods_Column_List"/>
         FROM tb_order_goods WHERE is_deleted = 0
     </select>

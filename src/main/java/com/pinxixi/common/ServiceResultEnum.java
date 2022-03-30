@@ -29,7 +29,9 @@ public enum ServiceResultEnum {
 
     WRONG_OLD_PASSWORD("原密码错误"),
 
-    PASSWORD_INCONSISTENT("两次密码不一致");
+    PASSWORD_INCONSISTENT("两次密码不一致"),
+
+    ORDER_NOT_EXIST("订单不存在");
 
     private String result;
 
