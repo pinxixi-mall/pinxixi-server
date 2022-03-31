@@ -13,6 +13,8 @@ public class Order {
 
     private Integer userId;
 
+    private Long addressId;
+
     private Float orderPrice;
 
     private Float orderCoupon;

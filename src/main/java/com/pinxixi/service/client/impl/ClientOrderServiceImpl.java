@@ -92,6 +92,7 @@ public class ClientOrderServiceImpl implements ClientOrderService {
             order.setOrderNo(orderNo);
             order.setOrderPrice(totalPrice);
             order.setOrderCoupon(createParam.getOrderCoupon());
+            order.setAddressId(createParam.getAddressId());
             order.setUserId(user.getUserId());
             if (orderMapper.insertOrder(order) <= 0) {
                 PinXiXiException.fail();

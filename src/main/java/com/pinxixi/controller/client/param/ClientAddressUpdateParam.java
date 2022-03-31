@@ -4,9 +4,14 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @Data
-public class ClientAddressAddParam {
+public class ClientAddressUpdateParam {
+
+    @ApiModelProperty("地址id")
+    @NotNull(message = "地址id不能为空")
+    private Long addressId;
 
     @ApiModelProperty("收件人姓名")
     @NotEmpty(message = "收件人姓名不能为空")

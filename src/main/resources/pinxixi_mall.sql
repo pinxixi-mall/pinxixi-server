@@ -251,6 +251,7 @@ CREATE TABLE `tb_client_order` (
     `order_no` varchar(20) NOT NULL DEFAULT '' COMMENT '订单号',
     `user_id` bigint NOT NULL DEFAULT '0' COMMENT '用户id',
     `order_price` float NOT NULL DEFAULT '0' COMMENT '订单价格',
+    `address_id` bigint NOT NULL COMMENT '关联地址id',
     `order_coupon` float DEFAULT '0' COMMENT '优惠金额',
     `payment_status` tinyint NOT NULL DEFAULT '0' COMMENT '支付状态（0-未支付，1-支付成功，2-支付失败）',
     `order_status` tinyint NOT NULL DEFAULT '0' COMMENT '订单状态（0-待支付，1-待收货，2-交易成功，3-手动关闭，4-超时关闭，5-商家关闭，99-已删除）',
@@ -328,8 +329,11 @@ CREATE TABLE `tb_client_address` (
     `tel` varchar(11) NOT NULL DEFAULT '' COMMENT '收货人手机号',
     `is_default` tinyint NOT NULL DEFAULT '0' COMMENT '是否为默认（0-否，1-是）',
     `province` varchar(32) NOT NULL DEFAULT '' COMMENT '省',
+    `province_code` varchar(6) NOT NULL DEFAULT '' COMMENT '省代码',
     `city` varchar(32) NOT NULL DEFAULT '' COMMENT '市',
+    `city_code` varchar(6) NOT NULL DEFAULT '' COMMENT '市代码',
     `county` varchar(32) NOT NULL DEFAULT '' COMMENT '区',
+    `county_code` varchar(6) NOT NULL DEFAULT '' COMMENT '区代码',
     `address_detail` varchar(100) NOT NULL DEFAULT '' COMMENT '详细地址',
     `is_deleted` tinyint NOT NULL DEFAULT '0' COMMENT '删除标识（0-未删除，1-已删除）',
     `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
@@ -338,7 +342,7 @@ CREATE TABLE `tb_client_address` (
 ) ENGINE=InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic COMMENT='用户地址表';
 
 INSERT INTO `tb_client_address`
-(address_id, user_id, name, tel, is_default, province, city, county, address_detail)
+(address_id, user_id, name, tel, is_default, province, province_code, city, city_code, county, county_code, address_detail)
 VALUES
-       (1, 1, '张三丰', '13666666666', 0, '440000', '440301', '440305', '深圳湾2号6栋 66 楼'),
-       (2, 1, '张四丰', '13777777777', 0, '440000', '440301', '440305', '深圳湾2号7栋 68 楼');
+       (1, 1, '张三丰', '13666666666', 0, '广东省', '440000', '深圳市', '440301', '南山区', '440305', '深圳湾2号6栋 66 楼'),
+       (2, 1, '张四丰', '13777777777', 0, '广东省', '440000', '深圳市', '440301', '南山区', '440305', '深圳湾2号7栋 68 楼');

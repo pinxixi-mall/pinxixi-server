@@ -19,6 +19,9 @@ public class ClientOrderVO {
     @ApiModelProperty("用户ID")
     private Integer userId;
 
+    @ApiModelProperty("地址ID")
+    private Long addressId;
+
     @ApiModelProperty("订单价格")
     private Float orderPrice;
 

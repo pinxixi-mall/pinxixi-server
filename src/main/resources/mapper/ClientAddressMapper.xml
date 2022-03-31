@@ -8,10 +8,13 @@
         <id property="userId" column="user_id" />
         <id property="name" column="name" />
         <id property="tel" column="tel" />
-        <id property="isDefault" column="isDefault" />
+        <id property="isDefault" column="is_default" />
         <id property="province" column="province" />
+        <id property="provinceCode" column="province_code" />
         <id property="city" column="city" />
+        <id property="cityCode" column="city_code" />
         <id property="county" column="county" />
+        <id property="countyCode" column="county_code" />
         <id property="addressDetail" column="address_detail" />
         <id property="isDeleted" column="is_deleted" />
         <id property="createTime" column="create_time" />
@@ -19,14 +22,20 @@
     </resultMap>
 
     <sql id="Base_Column_List">
-        address_id, user_id, name, tel, is_default, province, city, county, address_detail, is_deleted, create_time, update_time
+        address_id, user_id, name, tel, is_default, province, province_code, city, city_code, county, county_code, address_detail, is_deleted, create_time, update_time
     </sql>
-    
+
     <select id="selectAddressByUserId" resultMap="AddressMap">
         SELECT
         <include refid="Base_Column_List"/>
         FROM tb_client_address WHERE is_deleted = 0 and user_id = #{userId}
-    </select>    
+    </select>
+
+    <select id="selectDefaultAddress" resultMap="AddressMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM tb_client_address WHERE is_deleted = 0 and is_default = 1 and user_id = #{userId}
+    </select>
     
     <select id="selectAddressByAddressId" resultMap="AddressMap">
         SELECT
@@ -43,8 +52,11 @@
             <if test="tel != null">tel,</if>
             <if test="isDefault != null">is_default,</if>
             <if test="province != null">province,</if>
+            <if test="provinceCode != null">province_code,</if>
             <if test="city != null">city,</if>
+            <if test="cityCode != null">city_code,</if>
             <if test="county != null">county,</if>
+            <if test="countyCode != null">county_code,</if>
             <if test="addressDetail != null">address_detail,</if>
             <if test="createTime != null">create_time,</if>
             <if test="updateTime != null">update_time,</if>
@@ -56,8 +68,11 @@
             <if test="tel != null">#{tel},</if>
             <if test="isDefault != null">#{isDefault},</if>
             <if test="province != null">#{province},</if>
+            <if test="provinceCode != null">#{provinceCode},</if>
             <if test="city != null">#{city},</if>
+            <if test="cityCode != null">#{cityCode},</if>
             <if test="county != null">#{county},</if>
+            <if test="countyCode != null">#{countyCode},</if>
             <if test="addressDetail != null">#{addressDetail},</if>
             <if test="createTime != null">#{createTime},</if>
             <if test="updateTime != null">#{updateTime},</if>
@@ -69,15 +84,26 @@
         <set>
             <if test="name != null">name = #{name},</if>
             <if test="tel != null">tel = #{tel},</if>
-            <if test="isDefault != null">is_default = #{isDefault},</if>
             <if test="province != null">province = #{province},</if>
+            <if test="provinceCode != null">province_code = #{provinceCode},</if>
             <if test="city != null">city = #{city},</if>
+            <if test="cityCode != null">city_code = #{cityCode},</if>
             <if test="county != null">county = #{county},</if>
+            <if test="countyCode != null">county_code = #{countyCode},</if>
             <if test="addressDetail != null">address_detail = #{addressDetail},</if>
+            <if test="isDefault != null">is_default = #{isDefault},</if>
             <if test="createTime != null">create_time = #{createTime},</if>
             <if test="updateTime != null">update_time = #{updateTime},</if>
         </set>
         WHERE address_id = #{addressId}
+    </update>
+
+    <update id="resetDefaultAddress" parameterType="com.pinxixi.entity.ClientAddress">
+        UPDATE tb_client_address SET is_default = 0 WHERE is_default = 1
+    </update>
+
+    <update id="deleteAddress" parameterType="com.pinxixi.entity.ClientAddress">
+        UPDATE tb_client_address SET is_deleted = 1 WHERE address_id = #{addressId}
     </update>
 
 </mapper>

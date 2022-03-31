@@ -6,6 +6,7 @@
     <resultMap id="OrderMap" type="com.pinxixi.entity.Order">
         <id property="orderId" column="order_id" />
         <id property="userId" column="user_id" />
+        <id property="addressId" column="address_id" />
         <id property="orderNo" column="order_no" />
         <id property="orderPrice" column="order_price" />
         <id property="orderCoupon" column="order_coupon" />
@@ -19,7 +20,7 @@
     </resultMap>
 
     <sql id="Base_Column_List">
-        order_id, order_no, user_id, order_price, order_coupon, order_status, payment_status, payment_type, payment_time, create_time, update_time
+        order_id, order_no, user_id, address_id, order_price, order_coupon, order_status, payment_status, payment_type, payment_time, create_time, update_time
     </sql>
 
     <select id="selectOrderByOrderId" resultMap="OrderMap">
@@ -56,6 +57,8 @@
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="orderId != null">order_id,</if>
             <if test="orderNo != null">order_no,</if>
+            <if test="userId != null">user_id,</if>
+            <if test="addressId != null">address_id,</if>
             <if test="orderPrice != null">order_price,</if>
             <if test="orderCoupon != null">order_coupon,</if>
             <if test="orderStatus != null">order_status,</if>
@@ -68,6 +71,8 @@
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="orderId != null">#{orderId},</if>
             <if test="orderNo != null">#{orderNo},</if>
+            <if test="userId != null">#{userId},</if>
+            <if test="addressId != null">#{addressId},</if>
             <if test="orderPrice != null">#{orderPrice},</if>
             <if test="orderCoupon != null">#{orderCoupon},</if>
             <if test="orderStatus != null">#{orderStatus},</if>

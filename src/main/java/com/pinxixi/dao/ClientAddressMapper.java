@@ -14,4 +14,9 @@ public interface ClientAddressMapper {
 
     ClientAddress selectAddressByAddressId(Long addressId);
 
+    Integer resetDefaultAddress();
+
+    Integer deleteAddress(Long addressId);
+
+    ClientAddress selectDefaultAddress(Integer userId);
 }

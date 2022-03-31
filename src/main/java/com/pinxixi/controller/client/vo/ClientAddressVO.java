@@ -27,11 +27,20 @@ public class ClientAddressVO {
     @ApiModelProperty("省")
     private String province;
 
+    @ApiModelProperty("省代码")
+    private String provinceCode;
+
     @ApiModelProperty("市")
     private String city;
 
+    @ApiModelProperty("市代码")
+    private String cityCode;
+
     @ApiModelProperty("区")
     private String county;
+
+    @ApiModelProperty("区代码")
+    private String countyCode;
 
     @ApiModelProperty("详细地址")
     private String addressDetail;
