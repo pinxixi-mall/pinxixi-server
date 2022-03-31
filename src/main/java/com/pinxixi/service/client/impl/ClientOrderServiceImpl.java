@@ -6,6 +6,7 @@ import com.pinxixi.common.HttpStatusEnum;
 import com.pinxixi.config.PinXiXiException;
 import com.pinxixi.controller.client.param.ClientOrderCreateParam;
 import com.pinxixi.controller.client.param.ClientOrderUpdateParam;
+import com.pinxixi.controller.client.param.ClientOrdersQueryParam;
 import com.pinxixi.dao.ClientCartMapper;
 import com.pinxixi.dao.GoodsMapper;
 import com.pinxixi.dao.OrderGoodsMapper;
@@ -17,6 +18,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -151,6 +153,21 @@ public class ClientOrderServiceImpl implements ClientOrderService {
         }
         int rows = orderMapper.updateOrder(order);
         return PinXiXiUtils.genSqlResultByRows(rows);
+    }
+
+    /**
+     * 查询订单列表
+     * @param queryParam
+     * @return
+     */
+    @Override
+    public List<Order> getOrdersByStatus(@Valid ClientOrdersQueryParam queryParam) {
+        if (queryParam.getOrderStatus() == -1) {
+            //-1查全部
+            queryParam.setOrderStatus(null);
+        }
+        List<Order> orderList = orderMapper.selectOrdersByStatus(queryParam);
+        return orderList;
     }
 
 }

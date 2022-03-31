@@ -1,9 +1,11 @@
 package com.pinxixi.controller.client;
 
+import com.pinxixi.common.PageResult;
 import com.pinxixi.common.Result;
 import com.pinxixi.common.ServiceResultEnum;
 import com.pinxixi.config.annotation.ClientUserArgument;
 import com.pinxixi.controller.client.param.ClientOrderCreateParam;
+import com.pinxixi.controller.client.param.ClientOrdersQueryParam;
 import com.pinxixi.controller.client.param.ClientOrderUpdateParam;
 import com.pinxixi.controller.client.vo.ClientOrderVO;
 import com.pinxixi.entity.ClientUser;
@@ -63,14 +65,18 @@ public class ClientOrderController {
     }
 
     /**
-     * 根据订单ID获取订单商品
-     * @param orderId
+     * 订单列表
+     * @param queryParam
+     * @param user
      * @return
      */
-    @ApiOperation("获取订单商品")
-    @GetMapping("/goods")
-    Result getOrderGoods(@RequestParam(value = "orderId") Long orderId) {
-        return Result.success();
+    @ApiOperation("订单列表")
+    @GetMapping("/list")
+    Result getOrderGoods(@Valid ClientOrdersQueryParam queryParam, @ClientUserArgument ClientUser user) {
+        queryParam.setUserId(user.getUserId());
+        List<Order> orderList = clientOrderService.getOrdersByStatus(queryParam);
+        PageResult<Object> pageResult = new PageResult<>(orderList);
+        return Result.success(pageResult);
     }
 
     /**

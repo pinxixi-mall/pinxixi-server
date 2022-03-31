@@ -52,6 +52,17 @@
         ORDER BY create_time DESC
     </select>
 
+    <select id="selectOrdersByStatus" resultMap="OrderMap">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM tb_client_order
+        WHERE user_id = #{userId} and is_deleted = 0
+        <if test="orderStatus != null">
+            and order_status = #{orderStatus}
+        </if>
+        ORDER BY create_time DESC
+    </select>
+
     <insert id="insertOrder" parameterType="com.pinxixi.entity.Order">
         INSERT INTO tb_client_order
         <trim prefix="(" suffix=")" suffixOverrides=",">

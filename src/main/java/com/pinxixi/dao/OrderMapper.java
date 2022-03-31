@@ -1,5 +1,6 @@
 package com.pinxixi.dao;
 
+import com.pinxixi.controller.client.param.ClientOrdersQueryParam;
 import com.pinxixi.entity.Order;
 
 import java.util.List;
@@ -19,4 +20,6 @@ public interface OrderMapper {
     Integer updateOrderByOrderId(Long orderId);
 
     Integer updateOrder(Order order);
+
+    List<Order> selectOrdersByStatus(ClientOrdersQueryParam queryParam);
 }
