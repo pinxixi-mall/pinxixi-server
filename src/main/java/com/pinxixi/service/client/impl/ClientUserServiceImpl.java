@@ -5,6 +5,7 @@ import com.pinxixi.common.ServiceResultEnum;
 import com.pinxixi.config.JWTConfig;
 import com.pinxixi.config.PinXiXiException;
 import com.pinxixi.controller.client.param.ClientUserRegisterParam;
+import com.pinxixi.controller.client.param.ClientUserUpdateParam;
 import com.pinxixi.dao.ClientUserMapper;
 import com.pinxixi.entity.ClientUser;
 import com.pinxixi.entity.TokenObj;
@@ -12,6 +13,7 @@ import com.pinxixi.service.client.ClientUserService;
 import com.pinxixi.utils.JWTUtils;
 import com.pinxixi.utils.PinXiXiUtils;
 import com.pinxixi.utils.RedisUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -80,5 +82,19 @@ public class ClientUserServiceImpl implements ClientUserService {
         clientUser.setPassword(registerParam.getPassword());
         Integer rows = clientUserMapper.insertUser(clientUser);
         return PinXiXiUtils.genSqlResultByRows(rows);
+    }
+
+    /**
+     * 修改用户信息
+     * @param updateParam
+     * @return
+     */
+    @Override
+    public Integer updateUserInfo(ClientUserUpdateParam updateParam, ClientUser user) {
+        ClientUser clientUser = new ClientUser();
+        BeanUtils.copyProperties(updateParam, clientUser);
+        clientUser.setUserId(user.getUserId());
+        Integer rows = clientUserMapper.updateUser(clientUser);
+        return rows;
     }
 }

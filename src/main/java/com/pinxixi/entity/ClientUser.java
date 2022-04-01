@@ -11,6 +11,12 @@ public class ClientUser {
 
     private String password;
 
+    private String nickName;
+
+    private String phone;
+
+    private String email;
+
     private String avatar;
 
 }

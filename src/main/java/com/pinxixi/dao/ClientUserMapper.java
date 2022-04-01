@@ -13,4 +13,6 @@ public interface ClientUserMapper {
     ClientUser selectUserByUserId(Integer userId);
 
     Integer insertUser(ClientUser clientUser);
+
+    Integer updateUser(ClientUser clientUser);
 }

@@ -10,12 +10,14 @@ import com.pinxixi.controller.admin.param.AdminUserUpdateParam;
 import com.pinxixi.controller.admin.vo.AdminUserVO;
 import com.pinxixi.controller.client.param.ClientUserLoginParam;
 import com.pinxixi.controller.client.param.ClientUserRegisterParam;
+import com.pinxixi.controller.client.param.ClientUserUpdateParam;
 import com.pinxixi.controller.client.vo.ClientUserVO;
 import com.pinxixi.entity.AdminUser;
 import com.pinxixi.entity.AdminUserToken;
 import com.pinxixi.entity.ClientUser;
 import com.pinxixi.entity.TokenObj;
 import com.pinxixi.service.client.ClientUserService;
+import com.pinxixi.utils.PinXiXiUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.BeanUtils;
@@ -96,6 +98,18 @@ public class ClientUserController {
         ClientUserVO clientUserVO = new ClientUserVO();
         BeanUtils.copyProperties(userInfo, clientUserVO);
         return Result.success(clientUserVO);
+    }
+
+    /**
+     * 修改用户信息
+     * @param updateParam
+     * @return
+     */
+    @ApiOperation("修改用户信息")
+    @PutMapping
+    public Result updateUserInfo(@RequestBody @Valid ClientUserUpdateParam updateParam, @ClientUserArgument ClientUser user) {
+        Integer rows = clientUserService.updateUserInfo(updateParam, user);
+        return Result.common(PinXiXiUtils.genSqlResultByRows(rows));
     }
 
 }

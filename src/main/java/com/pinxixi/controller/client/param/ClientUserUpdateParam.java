@@ -5,6 +5,7 @@ import lombok.Data;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
 
 @Data
 public class ClientUserUpdateParam {
@@ -14,8 +15,21 @@ public class ClientUserUpdateParam {
     @Length(min = 3, message = "用户名长度不能小于3位")
     private String userName;
 
-    @ApiModelProperty("用户密码")
-    @NotEmpty(message = "用户密码不能为空")
+    @ApiModelProperty("密码")
     private String password;
+
+    @ApiModelProperty("昵称")
+    private String nickName;
+
+    @ApiModelProperty("手机号")
+    @Pattern(regexp = "^1[3456789][0-9]{9}$", message = "手机号格式不正确")
+    private String phone;
+
+    @ApiModelProperty("邮箱")
+    @Pattern(regexp = "^\\s*\\w+(?:\\.?[\\w-]+)*@[a-zA-Z0-9]+(?:[-.][a-zA-Z0-9]+)*\\.[a-zA-Z]+\\s*$", message = "邮箱格式不正确")
+    private String email;
+
+    @ApiModelProperty("头像")
+    private String avatar;
 
 }

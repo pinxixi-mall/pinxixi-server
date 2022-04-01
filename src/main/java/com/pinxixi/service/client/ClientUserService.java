@@ -1,6 +1,7 @@
 package com.pinxixi.service.client;
 
 import com.pinxixi.controller.client.param.ClientUserRegisterParam;
+import com.pinxixi.controller.client.param.ClientUserUpdateParam;
 import com.pinxixi.entity.ClientUser;
 import com.pinxixi.entity.TokenObj;
 
@@ -15,4 +16,6 @@ public interface ClientUserService {
     ClientUser userInfo(ClientUser user);
 
     String register(ClientUserRegisterParam registerParam);
+
+    Integer updateUserInfo(ClientUserUpdateParam updateParam, ClientUser user);
 }
