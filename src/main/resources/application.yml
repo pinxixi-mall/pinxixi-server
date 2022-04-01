@@ -46,7 +46,8 @@ jwt:
   excludePaths:
     /admin/login,
     /client/register,
-    /client/login,
+    /client/user/login,
+    /client/user/register,
     /error,
     /swagger-ui/**,
     /swagger-resources/**,

@@ -304,7 +304,7 @@ CREATE TABLE `tb_client_user` (
     `user_id` bigint NOT NULL AUTO_INCREMENT COMMENT '用户id',
     `user_name` varchar(50) NOT NULL COMMENT '用户名称',
     `password` varchar(50) NOT NULL COMMENT '用户密码',
-    `nick_name` varchar(50) NOT NULL COMMENT '用户昵称',
+    `nick_name` varchar(50) DEFAULT 'pxx' COMMENT '用户昵称',
     `avatar` varchar(200) COMMENT '用户头像',
     `phone` varchar(11) COMMENT '手机号',
     `email` varchar(50) COMMENT '邮箱',

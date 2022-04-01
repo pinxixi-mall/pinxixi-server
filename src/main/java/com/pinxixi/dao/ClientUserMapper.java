@@ -9,4 +9,8 @@ public interface ClientUserMapper {
     ClientUser selectUser(String userName, String password);
 
     ClientUser selectUserByName(String userName);
+
+    ClientUser selectUserByUserId(Integer userId);
+
+    Integer insertUser(ClientUser clientUser);
 }

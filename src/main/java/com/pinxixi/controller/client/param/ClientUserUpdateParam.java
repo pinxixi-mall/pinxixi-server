@@ -7,7 +7,7 @@ import org.hibernate.validator.constraints.Length;
 import javax.validation.constraints.NotEmpty;
 
 @Data
-public class ClientUserLoginParam {
+public class ClientUserUpdateParam {
 
     @ApiModelProperty("用户名")
     @NotEmpty(message = "用户名不能为空")

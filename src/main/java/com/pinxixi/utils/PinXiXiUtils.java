@@ -1,12 +1,16 @@
 package com.pinxixi.utils;
 
 import com.pinxixi.common.ServiceResultEnum;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import java.lang.reflect.InvocationTargetException;
 import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
+import java.util.List;
 
 @Component
 public class PinXiXiUtils {
@@ -40,6 +44,33 @@ public class PinXiXiUtils {
      */
     public static String genSqlResultByRows(Integer rows) {
         return rows > 0 ? ServiceResultEnum.SUCCESS.getResult() : null;
+    }
+
+    /**
+     * 复制List到目标List
+     * @param sources List源
+     * @param clazz 目标实体
+     * @param <T>
+     * @return
+     */
+    public static <T> List<T> copyList(List sources, Class<T> clazz) {
+        List<T> targetList = new ArrayList<>();
+        for (Object source : sources) {
+            try {
+                T target = clazz.getDeclaredConstructor().newInstance();
+                BeanUtils.copyProperties(source, target);
+                targetList.add(target);
+            } catch (InstantiationException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            } catch (InvocationTargetException e) {
+                e.printStackTrace();
+            } catch (NoSuchMethodException e) {
+                e.printStackTrace();
+            }
+        }
+        return targetList;
     }
 
 }

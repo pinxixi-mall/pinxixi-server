@@ -14,4 +14,6 @@ public interface OrderGoodsMapper {
     List<OrderGoods> selectByOrderId(Long orderGoodsId);
 
     Integer insertOrderGoodsList(List<OrderGoods> orderGoodsList);
+
+    List<OrderGoods> selectByOrderIds(List<Long> orderIds);
 }

@@ -9,6 +9,8 @@ import com.pinxixi.controller.admin.param.AdminUserPwdResetParam;
 import com.pinxixi.controller.admin.param.AdminUserUpdateParam;
 import com.pinxixi.controller.admin.vo.AdminUserVO;
 import com.pinxixi.controller.client.param.ClientUserLoginParam;
+import com.pinxixi.controller.client.param.ClientUserRegisterParam;
+import com.pinxixi.controller.client.vo.ClientUserVO;
 import com.pinxixi.entity.AdminUser;
 import com.pinxixi.entity.AdminUserToken;
 import com.pinxixi.entity.ClientUser;
@@ -28,7 +30,7 @@ import javax.validation.Valid;
  */
 @Api(value = "v1.0.0", tags = "用户管理")
 @RestController
-@RequestMapping("/client")
+@RequestMapping("/client/user")
 public class ClientUserController {
 
     @Autowired
@@ -49,17 +51,32 @@ public class ClientUserController {
         } else {
             return Result.fail(ServiceResultEnum.LOGIN_FAIL.getResult());
         }
+    }
 
+    /**
+     * 注册
+     * @param registerParam
+     * @return
+     */
+    @ApiOperation("用户注册")
+    @PostMapping("/register")
+    public Result login(@RequestBody @Valid ClientUserRegisterParam registerParam) {
+        String result = clientUserService.register(registerParam);
+        if (result != null) {
+            return Result.success(ServiceResultEnum.REGISTER_SUCCESS.getResult());
+        } else {
+            return Result.fail(ServiceResultEnum.REGISTER_FAIL.getResult());
+        }
     }
 
     /**
      * 退出登录
-     * @param clientUser
+     * @param httpServletRequest
      * @return
      */
     @PostMapping("/logout")
-    public Result logout(@ClientUserArgument ClientUser clientUser) {
-        Boolean logout = clientUserService.logout(clientUser);
+    public Result logout(HttpServletRequest httpServletRequest) {
+        Boolean logout = clientUserService.logout(httpServletRequest);
         if (logout) {
             return Result.success(ServiceResultEnum.LOGOUT_SUCCESS.getResult());
         } else {
@@ -67,6 +84,18 @@ public class ClientUserController {
         }
     }
 
-
+    /**
+     * 用户信息
+     * @param user
+     * @return
+     */
+    @ApiOperation("用户信息")
+    @GetMapping
+    public Result<ClientUserVO> userInfo(@ClientUserArgument ClientUser user) {
+        ClientUser userInfo = clientUserService.userInfo(user);
+        ClientUserVO clientUserVO = new ClientUserVO();
+        BeanUtils.copyProperties(userInfo, clientUserVO);
+        return Result.success(clientUserVO);
+    }
 
 }

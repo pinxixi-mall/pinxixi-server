@@ -6,14 +6,23 @@
     <resultMap id="ClientUserMap" type="com.pinxixi.entity.ClientUser">
         <id column="user_id" property="userId" />
         <id column="user_name" property="userName" />
+        <id column="nick_name" property="userName" />
     </resultMap>
 
+    <insert id="insertUser">
+        INSERT INTO tb_client_user (user_name, password) VALUES (#{userName}, #{password})
+    </insert>
+
     <select id="selectUser" resultMap="ClientUserMap">
-        SELECT * FROM tb_client_user WHERE user_name = #{userName} and password = #{password}
+        SELECT * FROM tb_client_user WHERE user_name = #{userName} and password = #{password} and locked = 0
     </select>
 
     <select id="selectUserByName" resultMap="ClientUserMap">
         SELECT * FROM tb_client_user WHERE user_name = #{userName} AND locked = 0
+    </select>
+
+    <select id="selectUserByUserId" resultMap="ClientUserMap">
+        SELECT * FROM tb_client_user WHERE user_id = #{uerId} and locked = 0
     </select>
 
 </mapper>

@@ -72,10 +72,10 @@ public class ClientOrderController {
      */
     @ApiOperation("订单列表")
     @GetMapping("/list")
-    Result getOrderGoods(@Valid ClientOrdersQueryParam queryParam, @ClientUserArgument ClientUser user) {
+    Result<PageResult<ClientOrderVO>> getOrders(@Valid ClientOrdersQueryParam queryParam, @ClientUserArgument ClientUser user) {
         queryParam.setUserId(user.getUserId());
-        List<Order> orderList = clientOrderService.getOrdersByStatus(queryParam);
-        PageResult<Object> pageResult = new PageResult<>(orderList);
+        PageResult pageResult = clientOrderService.getOrders(queryParam);
+        //PageResult<Object> pageResult = new PageResult<>(orderList);
         return Result.success(pageResult);
     }
 

@@ -1,14 +1,21 @@
 package com.pinxixi.service.client.impl;
 
 import com.pinxixi.common.Constants;
+import com.pinxixi.common.ServiceResultEnum;
+import com.pinxixi.config.JWTConfig;
+import com.pinxixi.config.PinXiXiException;
+import com.pinxixi.controller.client.param.ClientUserRegisterParam;
 import com.pinxixi.dao.ClientUserMapper;
 import com.pinxixi.entity.ClientUser;
 import com.pinxixi.entity.TokenObj;
 import com.pinxixi.service.client.ClientUserService;
 import com.pinxixi.utils.JWTUtils;
+import com.pinxixi.utils.PinXiXiUtils;
 import com.pinxixi.utils.RedisUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import javax.servlet.http.HttpServletRequest;
 
 @Service
 public class ClientUserServiceImpl implements ClientUserService {
@@ -37,7 +44,41 @@ public class ClientUserServiceImpl implements ClientUserService {
     }
 
     @Override
-    public Boolean logout(ClientUser clientUser) {
-        return null;
+    public Boolean logout(HttpServletRequest httpServletRequest) {
+        String token = httpServletRequest.getHeader(JWTConfig.tokenHeader);
+        token = JWTUtils.splitTokenPrefix(token);
+        //删除token缓存
+        return redisUtils.del(Constants.ClIENT_TOKEN_CACHE_KEY + token);
+    }
+
+    /**
+     * 用户信息
+     * @param user
+     * @return
+     */
+    @Override
+    public ClientUser userInfo(ClientUser user) {
+        return clientUserMapper.selectUserByUserId(user.getUserId());
+    }
+
+    /**
+     * 注册
+     * @param registerParam
+     * @return
+     */
+    @Override
+    public String register(ClientUserRegisterParam registerParam) {
+        if (!registerParam.getPassword().equals(registerParam.getConfirmPassword())) {
+            PinXiXiException.error(-1, ServiceResultEnum.PASSWORD_INCONSISTENT.getResult());
+        }
+        ClientUser exitsUser = clientUserMapper.selectUserByName(registerParam.getUserName());
+        if (exitsUser != null) {
+            PinXiXiException.error(-1, ServiceResultEnum.USER_EXITS.getResult());
+        }
+        ClientUser clientUser = new ClientUser();
+        clientUser.setUserName(registerParam.getUserName());
+        clientUser.setPassword(registerParam.getPassword());
+        Integer rows = clientUserMapper.insertUser(clientUser);
+        return PinXiXiUtils.genSqlResultByRows(rows);
     }
 }

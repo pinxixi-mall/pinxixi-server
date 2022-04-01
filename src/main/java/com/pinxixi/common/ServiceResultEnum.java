@@ -17,7 +17,13 @@ public enum ServiceResultEnum {
 
     LOGOUT_FAIL("退出登录失败"),
 
+    REGISTER_SUCCESS("注册成功"),
+
+    REGISTER_FAIL("注册失败"),
+
     USER_NOT_FOUND("没找到用户"),
+
+    USER_EXITS("用户已存在"),
 
     PAGE_PARAM_ERROR("分页参数有误"),
 

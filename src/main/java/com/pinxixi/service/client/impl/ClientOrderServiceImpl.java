@@ -1,12 +1,16 @@
 package com.pinxixi.service.client.impl;
 
 import cn.hutool.core.util.RandomUtil;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.pinxixi.common.GoodsEnum;
 import com.pinxixi.common.HttpStatusEnum;
+import com.pinxixi.common.PageResult;
 import com.pinxixi.config.PinXiXiException;
 import com.pinxixi.controller.client.param.ClientOrderCreateParam;
 import com.pinxixi.controller.client.param.ClientOrderUpdateParam;
 import com.pinxixi.controller.client.param.ClientOrdersQueryParam;
+import com.pinxixi.controller.client.vo.ClientOrderVO;
 import com.pinxixi.dao.ClientCartMapper;
 import com.pinxixi.dao.GoodsMapper;
 import com.pinxixi.dao.OrderGoodsMapper;
@@ -16,13 +20,17 @@ import com.pinxixi.service.client.ClientOrderService;
 import com.pinxixi.utils.PinXiXiUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.groupingBy;
 
 @Service
 public class ClientOrderServiceImpl implements ClientOrderService {
@@ -132,6 +140,11 @@ public class ClientOrderServiceImpl implements ClientOrderService {
         return order;
     }
 
+    /**
+     * 订单商品
+     * @param orderId
+     * @return
+     */
     @Override
     public List<OrderGoods> getOrderGoodsList(Long orderId) {
         List<OrderGoods> orderGoodsList = orderGoodsMapper.selectByOrderId(orderId);
@@ -161,13 +174,39 @@ public class ClientOrderServiceImpl implements ClientOrderService {
      * @return
      */
     @Override
-    public List<Order> getOrdersByStatus(@Valid ClientOrdersQueryParam queryParam) {
-        if (queryParam.getOrderStatus() == -1) {
-            //-1查全部
+    public PageResult getOrders(@Valid ClientOrdersQueryParam queryParam) {
+        if (queryParam.getOrderStatus() == 99) {
+            //99查全部
             queryParam.setOrderStatus(null);
         }
+        PageHelper.startPage(queryParam.getPageNum(), queryParam.getPageSize());
+        //所有订单
         List<Order> orderList = orderMapper.selectOrdersByStatus(queryParam);
-        return orderList;
+        List<ClientOrderVO> clientOrderVOS = new ArrayList<>();
+
+        if (orderList.size() > 0) {
+            clientOrderVOS = PinXiXiUtils.copyList(orderList, ClientOrderVO.class);
+            //所有订单id
+            List<Long> orderIds = orderList.stream().map(Order::getOrderId).collect(Collectors.toList());
+            if(!CollectionUtils.isEmpty(orderIds)) {
+                //所有订单关联的商品
+                List<OrderGoods> orderGoodsList = orderGoodsMapper.selectByOrderIds(orderIds);
+                //按订单id分组
+                Map<Long, List<OrderGoods>> orderGoodsListMap = orderGoodsList.stream().collect(groupingBy(OrderGoods::getOrderId));
+                for (ClientOrderVO clientOrderVO : clientOrderVOS) {
+                    if (orderGoodsListMap.containsKey(clientOrderVO.getOrderId())) {
+                        List<OrderGoods> goodsList = orderGoodsListMap.get(clientOrderVO.getOrderId());
+                        clientOrderVO.setGoodsList(goodsList);
+                    }
+                }
+
+            }
+        }
+        //以startPage后查询的list构建分页
+        PageResult<ClientOrderVO> pageResult = new PageResult<>(orderList);
+        //用添加了goodsList的订单list覆盖原分页结果里的list
+        pageResult.setList(clientOrderVOS);
+        return pageResult;
     }
 
 }

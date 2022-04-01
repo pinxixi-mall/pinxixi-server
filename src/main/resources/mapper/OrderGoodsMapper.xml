@@ -39,6 +39,17 @@
         FROM tb_order_goods WHERE is_deleted = 0
     </select>
 
+    <select id="selectByOrderIds" resultMap="OrderGoodsMap">
+        SELECT
+        order_goods_id,
+        <include refid="OrderGoods_Column_List"/>
+        FROM tb_client_order_goods
+        WHERE order_id in
+        <foreach collection="orderIds" open="(" separator="," close=")" item="id" index="index">
+            #{id}
+        </foreach>
+    </select>
+
     <insert id="insertOrderGoods" parameterType="com.pinxixi.entity.OrderGoods">
         INSERT INTO tb_client_order_goods
         <trim prefix="(" suffix=")" suffixOverrides=",">

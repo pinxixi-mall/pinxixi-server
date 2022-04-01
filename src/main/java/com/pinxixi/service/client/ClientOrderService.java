@@ -1,8 +1,10 @@
 package com.pinxixi.service.client;
 
+import com.pinxixi.common.PageResult;
 import com.pinxixi.controller.client.param.ClientOrderCreateParam;
 import com.pinxixi.controller.client.param.ClientOrderUpdateParam;
 import com.pinxixi.controller.client.param.ClientOrdersQueryParam;
+import com.pinxixi.controller.client.vo.ClientOrderVO;
 import com.pinxixi.entity.ClientUser;
 import com.pinxixi.entity.Order;
 import com.pinxixi.entity.OrderGoods;
@@ -20,5 +22,5 @@ public interface ClientOrderService {
 
     String updateOrder(ClientOrderUpdateParam updateParam, ClientUser user);
 
-    List<Order> getOrdersByStatus(@Valid ClientOrdersQueryParam queryParam);
+    PageResult getOrders(@Valid ClientOrdersQueryParam queryParam);
 }
