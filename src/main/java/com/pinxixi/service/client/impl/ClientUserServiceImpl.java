@@ -4,6 +4,7 @@ import com.pinxixi.common.Constants;
 import com.pinxixi.common.ServiceResultEnum;
 import com.pinxixi.config.JWTConfig;
 import com.pinxixi.config.PinXiXiException;
+import com.pinxixi.controller.admin.param.UserPwdResetParam;
 import com.pinxixi.controller.client.param.ClientUserRegisterParam;
 import com.pinxixi.controller.client.param.ClientUserUpdateParam;
 import com.pinxixi.dao.ClientUserMapper;
@@ -30,9 +31,9 @@ public class ClientUserServiceImpl implements ClientUserService {
 
     /**
      * 用户登录
-     * @param userName
-     * @param password
-     * @return
+     * @param userName 用户名
+     * @param password 用户密码
+     * @return token对象
      */
     @Override
     public TokenObj login(String userName, String password) {
@@ -96,5 +97,27 @@ public class ClientUserServiceImpl implements ClientUserService {
         clientUser.setUserId(user.getUserId());
         Integer rows = clientUserMapper.updateUser(clientUser);
         return rows;
+    }
+
+    /***
+     * 重置密码
+     * @param resetParam
+     * @param clientUser
+     * @return
+     */
+    @Override
+    public String restPassword(UserPwdResetParam resetParam, ClientUser clientUser) {
+        ClientUser user = clientUserMapper.selectUserByUserId(clientUser.getUserId());
+        if (!user.getPassword().equals(resetParam.getOldPassword())) {
+            return ServiceResultEnum.WRONG_OLD_PASSWORD.getResult();
+        } else if (!resetParam.getNewPassword().equals(resetParam.getConfirmPassword())) {
+            return ServiceResultEnum.PASSWORD_INCONSISTENT.getResult();
+        }
+
+        //ClientUser newUser= new ClientUser();
+        //newUser.setUserId(user.getUserId());
+        user.setPassword(resetParam.getNewPassword());
+        Integer rows = clientUserMapper.updateUser(user);
+        return PinXiXiUtils.genSqlResultByRows(rows);
     }
 }

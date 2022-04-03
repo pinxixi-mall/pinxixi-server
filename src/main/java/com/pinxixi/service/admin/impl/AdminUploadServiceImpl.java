@@ -3,22 +3,19 @@ package com.pinxixi.service.admin.impl;
 import cn.hutool.core.date.DateUtil;
 import com.pinxixi.common.Constants;
 import com.pinxixi.controller.admin.vo.FileVO;
-import com.pinxixi.service.admin.UploadService;
+import com.pinxixi.service.admin.AdminUploadService;
 import com.pinxixi.utils.PinXiXiUtils;
 import org.springframework.stereotype.Service;
-import org.springframework.util.ResourceUtils;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletRequest;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @Service
-public class UploadServiceImpl implements UploadService {
+public class AdminUploadServiceImpl implements AdminUploadService {
 
     /**
      * 单文件上传

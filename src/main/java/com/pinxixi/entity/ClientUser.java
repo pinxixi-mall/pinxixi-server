@@ -19,4 +19,6 @@ public class ClientUser {
 
     private String avatar;
 
+    private Byte locked;
+
 }

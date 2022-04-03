@@ -3,6 +3,7 @@ package com.pinxixi.controller.client.param;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
+import reactor.util.annotation.Nullable;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
@@ -22,11 +23,11 @@ public class ClientUserUpdateParam {
     private String nickName;
 
     @ApiModelProperty("手机号")
-    @Pattern(regexp = "^1[3456789][0-9]{9}$", message = "手机号格式不正确")
+    //@Pattern(regexp = "^1[3456789][0-9]{9}$", message = "手机号格式不正确")
     private String phone;
 
     @ApiModelProperty("邮箱")
-    @Pattern(regexp = "^\\s*\\w+(?:\\.?[\\w-]+)*@[a-zA-Z0-9]+(?:[-.][a-zA-Z0-9]+)*\\.[a-zA-Z]+\\s*$", message = "邮箱格式不正确")
+    //@Pattern(regexp = "^\\s*\\w+(?:\\.?[\\w-]+)*@[a-zA-Z0-9]+(?:[-.][a-zA-Z0-9]+)*\\.[a-zA-Z]+\\s*$", message = "邮箱格式不正确")
     private String email;
 
     @ApiModelProperty("头像")

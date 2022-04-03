@@ -4,16 +4,11 @@ import com.pinxixi.common.Result;
 import com.pinxixi.common.ServiceResultEnum;
 import com.pinxixi.config.annotation.AdminUserArgument;
 import com.pinxixi.config.annotation.ClientUserArgument;
-import com.pinxixi.controller.admin.param.AdminUserLoginParam;
-import com.pinxixi.controller.admin.param.AdminUserPwdResetParam;
-import com.pinxixi.controller.admin.param.AdminUserUpdateParam;
-import com.pinxixi.controller.admin.vo.AdminUserVO;
+import com.pinxixi.controller.admin.param.UserPwdResetParam;
 import com.pinxixi.controller.client.param.ClientUserLoginParam;
 import com.pinxixi.controller.client.param.ClientUserRegisterParam;
 import com.pinxixi.controller.client.param.ClientUserUpdateParam;
 import com.pinxixi.controller.client.vo.ClientUserVO;
-import com.pinxixi.entity.AdminUser;
-import com.pinxixi.entity.AdminUserToken;
 import com.pinxixi.entity.ClientUser;
 import com.pinxixi.entity.TokenObj;
 import com.pinxixi.service.client.ClientUserService;
@@ -24,6 +19,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
@@ -35,7 +31,7 @@ import javax.validation.Valid;
 @RequestMapping("/client/user")
 public class ClientUserController {
 
-    @Autowired
+    @Resource
     private ClientUserService clientUserService;
 
     /**
@@ -112,4 +108,19 @@ public class ClientUserController {
         return Result.common(PinXiXiUtils.genSqlResultByRows(rows));
     }
 
+    /**
+     * 重置密码
+     * @param resetParam
+     * @param user
+     * @return
+     */
+    @ApiOperation("重置密码")
+    @PutMapping("/reset")
+    public Result resetPassword(@RequestBody @Valid UserPwdResetParam resetParam, @ClientUserArgument ClientUser user) {
+        String result = clientUserService.restPassword(resetParam, user);
+        if (result.equals(ServiceResultEnum.WRONG_OLD_PASSWORD.getResult()) || result.equals(ServiceResultEnum.PASSWORD_INCONSISTENT.getResult())) {
+            return Result.fail(result);
+        }
+        return Result.success(result);
+    }
 }

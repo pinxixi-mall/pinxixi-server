@@ -3,7 +3,7 @@ package com.pinxixi.service.admin.impl;
 import com.pinxixi.common.Constants;
 import com.pinxixi.common.ServiceResultEnum;
 import com.pinxixi.config.JWTConfig;
-import com.pinxixi.controller.admin.param.AdminUserPwdResetParam;
+import com.pinxixi.controller.admin.param.UserPwdResetParam;
 import com.pinxixi.dao.AdminUserMapper;
 import com.pinxixi.dao.AdminUserTokenMapper;
 import com.pinxixi.entity.AdminUser;
@@ -147,7 +147,7 @@ public class AdminUserServiceImpl implements AdminUserService {
      * @return
      */
     @Override
-    public String restPassword(AdminUserPwdResetParam resetParam, AdminUser adminUser) {
+    public String restPassword(UserPwdResetParam resetParam, AdminUser adminUser) {
         AdminUser user = adminUserMapper.selectUserById(adminUser.getUserId());
         if (!user.getPassword().equals(resetParam.getOldPassword())) {
             return ServiceResultEnum.WRONG_OLD_PASSWORD.getResult();

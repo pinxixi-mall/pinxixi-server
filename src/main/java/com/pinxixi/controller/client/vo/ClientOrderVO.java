@@ -46,4 +46,7 @@ public class ClientOrderVO {
     @ApiModelProperty("订单商品")
     private List<OrderGoods> goodsList;
 
+    @ApiModelProperty("订单地址")
+    private ClientAddressVO address;
+
 }

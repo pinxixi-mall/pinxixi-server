@@ -20,7 +20,9 @@ public interface ClientOrderService {
 
     List<OrderGoods> getOrderGoodsList(Long orderId);
 
-    String updateOrder(ClientOrderUpdateParam updateParam, ClientUser user);
+    String updateOrder(ClientOrderUpdateParam updateParam);
 
     PageResult getOrders(@Valid ClientOrdersQueryParam queryParam);
+
+    ClientOrderVO orderDetailByOrderId(Long orderId);
 }

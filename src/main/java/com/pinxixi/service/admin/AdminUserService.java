@@ -1,6 +1,6 @@
 package com.pinxixi.service.admin;
 
-import com.pinxixi.controller.admin.param.AdminUserPwdResetParam;
+import com.pinxixi.controller.admin.param.UserPwdResetParam;
 import com.pinxixi.entity.AdminUser;
 import com.pinxixi.entity.AdminUserToken;
 
@@ -51,5 +51,5 @@ public interface AdminUserService {
      * @param adminUser
      * @return
      */
-    String restPassword(AdminUserPwdResetParam resetParam, AdminUser adminUser);
+    String restPassword(UserPwdResetParam resetParam, AdminUser adminUser);
 }

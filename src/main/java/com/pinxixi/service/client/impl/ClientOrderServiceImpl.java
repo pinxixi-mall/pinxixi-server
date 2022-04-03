@@ -3,19 +3,19 @@ package com.pinxixi.service.client.impl;
 import cn.hutool.core.util.RandomUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.pinxixi.common.GoodsEnum;
-import com.pinxixi.common.HttpStatusEnum;
-import com.pinxixi.common.PageResult;
+import com.pinxixi.common.*;
 import com.pinxixi.config.PinXiXiException;
 import com.pinxixi.controller.client.param.ClientOrderCreateParam;
 import com.pinxixi.controller.client.param.ClientOrderUpdateParam;
 import com.pinxixi.controller.client.param.ClientOrdersQueryParam;
+import com.pinxixi.controller.client.vo.ClientAddressVO;
 import com.pinxixi.controller.client.vo.ClientOrderVO;
 import com.pinxixi.dao.ClientCartMapper;
 import com.pinxixi.dao.GoodsMapper;
 import com.pinxixi.dao.OrderGoodsMapper;
 import com.pinxixi.dao.OrderMapper;
 import com.pinxixi.entity.*;
+import com.pinxixi.service.client.ClientAddressService;
 import com.pinxixi.service.client.ClientOrderService;
 import com.pinxixi.utils.PinXiXiUtils;
 import org.springframework.beans.BeanUtils;
@@ -46,6 +46,9 @@ public class ClientOrderServiceImpl implements ClientOrderService {
 
     @Resource
     private OrderGoodsMapper orderGoodsMapper;
+
+    @Resource
+    private ClientAddressService clientAddressService;
 
     /**
      * 订单生成
@@ -158,7 +161,7 @@ public class ClientOrderServiceImpl implements ClientOrderService {
      * @return
      */
     @Override
-    public String updateOrder(ClientOrderUpdateParam updateParam, ClientUser user) {
+    public String updateOrder(ClientOrderUpdateParam updateParam) {
         Order order = new Order();
         BeanUtils.copyProperties(updateParam, order);
         if (updateParam.getPaymentStatus() != null && updateParam.getPaymentStatus() != 0) {
@@ -207,6 +210,28 @@ public class ClientOrderServiceImpl implements ClientOrderService {
         //用添加了goodsList的订单list覆盖原分页结果里的list
         pageResult.setList(clientOrderVOS);
         return pageResult;
+    }
+
+    /**
+     * 订单详情（带商品信息+地址信息）
+     * @param orderId
+     * @return
+     */
+    @Override
+    public ClientOrderVO orderDetailByOrderId(Long orderId) {
+        Order order = getOrderByOrderId(orderId);
+        if (order == null) {
+            PinXiXiException.error(501, ServiceResultEnum.ORDER_NOT_EXIST.getResult());
+        }
+        List<OrderGoods> orderGoodsList = getOrderGoodsList(orderId);
+        ClientAddress address = clientAddressService.getAddressById(order.getAddressId());
+        ClientAddressVO clientAddressVO = new ClientAddressVO();
+        BeanUtils.copyProperties(address, clientAddressVO);
+        ClientOrderVO clientOrderVO = new ClientOrderVO();
+        BeanUtils.copyProperties(order, clientOrderVO);
+        clientOrderVO.setAddress(clientAddressVO);
+        clientOrderVO.setGoodsList(orderGoodsList);
+        return clientOrderVO;
     }
 
 }

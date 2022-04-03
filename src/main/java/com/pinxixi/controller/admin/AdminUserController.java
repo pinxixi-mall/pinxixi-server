@@ -3,7 +3,7 @@ package com.pinxixi.controller.admin;
 import com.pinxixi.common.ServiceResultEnum;
 import com.pinxixi.config.annotation.AdminUserArgument;
 import com.pinxixi.controller.admin.param.AdminUserLoginParam;
-import com.pinxixi.controller.admin.param.AdminUserPwdResetParam;
+import com.pinxixi.controller.admin.param.UserPwdResetParam;
 import com.pinxixi.controller.admin.param.AdminUserUpdateParam;
 import com.pinxixi.controller.admin.vo.AdminUserVO;
 import com.pinxixi.entity.AdminUser;
@@ -119,7 +119,7 @@ public class AdminUserController {
      */
     @ApiOperation("重置密码")
     @PutMapping("/user/reset")
-    public Result resetPassword(@RequestBody @Valid AdminUserPwdResetParam resetParam, @AdminUserArgument AdminUser adminUser) {
+    public Result resetPassword(@RequestBody @Valid UserPwdResetParam resetParam, @AdminUserArgument AdminUser adminUser) {
         String result = adminUserService.restPassword(resetParam, adminUser);
         if (result.equals(ServiceResultEnum.WRONG_OLD_PASSWORD.getResult()) || result.equals(ServiceResultEnum.PASSWORD_INCONSISTENT.getResult())) {
             return Result.fail(result);

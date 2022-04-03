@@ -6,7 +6,7 @@
     <resultMap id="ClientUserMap" type="com.pinxixi.entity.ClientUser">
         <id column="user_id" property="userId" />
         <id column="user_name" property="userName" />
-        <id column="nick_name" property="userName" />
+        <id column="nick_name" property="nickName" />
     </resultMap>
 
     <insert id="insertUser" parameterType="com.pinxixi.entity.ClientUser">
@@ -27,6 +27,15 @@
             </if>
             <if test="email != null">
                 email = #{email},
+            </if>
+            <if test="avatar != null">
+                avatar = #{avatar},
+            </if>
+            <if test="password != null">
+                password = #{password},
+            </if>
+            <if test="locked != null">
+                locked = #{locked},
             </if>
         </set>
         WHERE user_id = #{userId}

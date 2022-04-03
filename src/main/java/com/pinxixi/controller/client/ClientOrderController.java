@@ -75,20 +75,18 @@ public class ClientOrderController {
     Result<PageResult<ClientOrderVO>> getOrders(@Valid ClientOrdersQueryParam queryParam, @ClientUserArgument ClientUser user) {
         queryParam.setUserId(user.getUserId());
         PageResult pageResult = clientOrderService.getOrders(queryParam);
-        //PageResult<Object> pageResult = new PageResult<>(orderList);
         return Result.success(pageResult);
     }
 
     /**
      * 更新订单
      * @param updateParam
-     * @param user
      * @return
      */
     @ApiOperation("更新订单")
     @PutMapping
-    Result updateOrder(@RequestBody @Valid ClientOrderUpdateParam updateParam, @ClientUserArgument ClientUser user) {
-        String result = clientOrderService.updateOrder(updateParam, user);
+    Result updateOrder(@RequestBody @Valid ClientOrderUpdateParam updateParam) {
+        String result = clientOrderService.updateOrder(updateParam);
         return Result.common(result);
     }
 

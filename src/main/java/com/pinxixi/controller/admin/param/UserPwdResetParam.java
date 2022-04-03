@@ -6,7 +6,7 @@ import lombok.Data;
 import javax.validation.constraints.NotEmpty;
 
 @Data
-public class AdminUserPwdResetParam {
+public class UserPwdResetParam {
 
     @ApiModelProperty("原密码")
     @NotEmpty(message = "原密码不能为空")
