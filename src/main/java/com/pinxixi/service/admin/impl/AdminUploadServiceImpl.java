@@ -2,13 +2,17 @@ package com.pinxixi.service.admin.impl;
 
 import cn.hutool.core.date.DateUtil;
 import com.pinxixi.common.Constants;
+import com.pinxixi.config.PinXiXiException;
 import com.pinxixi.controller.admin.vo.FileVO;
 import com.pinxixi.service.admin.AdminUploadService;
 import com.pinxixi.utils.PinXiXiUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ResourceUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Date;
 import java.util.regex.Matcher;
@@ -23,7 +27,7 @@ public class AdminUploadServiceImpl implements AdminUploadService {
      * @return
      */
     @Override
-    public FileVO uploadFile(MultipartFile file) {
+    public FileVO uploadFile(MultipartFile file, HttpServletRequest httpServletRequest) {
         //文件全名名
         String filename = file.getOriginalFilename();
         Matcher matcher = Pattern.compile("^(.*)\\.([a-zA-Z0-9]+)$").matcher(filename);
@@ -37,37 +41,39 @@ public class AdminUploadServiceImpl implements AdminUploadService {
         }
         //组装新文件名
         String newFilename = name + "_" + DateUtil.format(new Date(), "yyyyMMddHHmmss") + "." + suffixName;
-        //文件夹
-        File fileDir = getResourcesDir(Constants.UPLOAD_DIR);
-
         //新文件
-        File newFile = new File(fileDir.getAbsolutePath() + File.separator + newFilename);
+        File newFile = new File(getUploadPath() + File.separator + newFilename);
 
         try {
             //写入文件
             file.transferTo(newFile);
-            String fileUrl = PinXiXiUtils.getHostPort() + "/" + Constants.UPLOAD_DIR + "/" + newFilename;
+            //upload对应WebMvcConfig里配置的addResourceHandler
+            String fileUrl = PinXiXiUtils.getServerAddress() + "/upload/" + newFilename;
             FileVO fileVO = new FileVO();
             fileVO.setName(newFilename);
             fileVO.setUrl(fileUrl);
             return fileVO;
         } catch (IOException e) {
             e.printStackTrace();
+            PinXiXiException.error(500, e.getMessage());
             return null;
         }
     }
 
     /**
      * 生成上传路径
-     * @param dir
      * @return
      */
-    public static File getResourcesDir(String dir) {
-        String dirPath = new String("src/main/resources/" + dir);
-        File fileDir = new File(dirPath);
-        if (!fileDir.exists()) {
-            fileDir.mkdir();
+    private String getUploadPath() {
+        File path = null;
+        try {
+            path = new File(ResourceUtils.getURL("classpath:").getPath());
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
         }
-        return fileDir;
+        if (!path.exists()) path = new File("");
+        File upload = new File(path.getAbsolutePath(), Constants.UPLOAD_DIR);
+        if (!upload.exists()) upload.mkdirs();
+        return upload.getAbsolutePath();
     }
 }

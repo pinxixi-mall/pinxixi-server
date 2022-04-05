@@ -107,7 +107,7 @@
                 goods_image = #{goodsImage},
             </if>
             <if test="goodsCategoryId != null">
-                goods_status = #{goodsCategoryId},
+                goods_category_id = #{goodsCategoryId},
             </if>
             <if test="goodsDesc != null">
                 goods_desc = #{goodsDesc},
@@ -130,9 +130,13 @@
             <if test="isDeleted != null">
                 is_deleted = #{isDeleted},
             </if>
+            <if test="updateUser != null">
+                update_user = #{updateUser},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
         </set>
-            update_user = #{updateUser},
-            update_time = #{updateTime}
         WHERE goods_id = #{goodsId}
     </update>
 </mapper>

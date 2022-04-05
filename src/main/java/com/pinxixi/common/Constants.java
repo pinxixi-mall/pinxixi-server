@@ -15,7 +15,7 @@ public class Constants {
     public static final String ClIENT_TOKEN_CACHE_KEY = "client:token:";
 
     //文件上传保存路径文件夹
-    public static final String UPLOAD_DIR = "upload";
+    public static final String UPLOAD_DIR = "static/upload/";
 
     public static final Integer PAGE_NUM = 1;
 

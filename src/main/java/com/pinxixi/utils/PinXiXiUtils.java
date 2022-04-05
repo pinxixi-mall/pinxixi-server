@@ -2,14 +2,18 @@ package com.pinxixi.utils;
 
 import com.pinxixi.common.ServiceResultEnum;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.InvocationTargetException;
-import java.net.Inet4Address;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
+import java.net.*;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.List;
 
 @Component
@@ -23,7 +27,7 @@ public class PinXiXiUtils {
     };
 
     /**
-     * 获取当前IP+端口
+     * 本地IP+端口
      * @return
      */
     public static String getHostPort() {
@@ -33,8 +37,19 @@ public class PinXiXiUtils {
         } catch (UnknownHostException e) {
             e.printStackTrace();
         }
-        PinXiXiUtils pinXiXiUtils = new PinXiXiUtils();
         return "http://" + localHost.getHostAddress() + ":" + port;
+    }
+
+    /**
+     * 项目IP+端口
+     * @return
+     */
+    public static String getServerAddress(){
+        ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+        HttpServletRequest request = requestAttributes.getRequest();
+        String serverIp = request.getServerName();
+        int serverPort = request.getServerPort();
+        return "http://" + serverIp + ":" + serverPort;
     }
 
     /**

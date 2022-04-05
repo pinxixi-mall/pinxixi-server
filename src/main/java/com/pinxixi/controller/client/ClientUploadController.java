@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
+
 
 @RestController
 @Api(tags = "公共上传")
@@ -28,10 +30,10 @@ public class ClientUploadController {
      */
     @ApiOperation("单文件上传")
     @PostMapping("/file")
-    public Result<FileVO> upload(@RequestParam("file") MultipartFile file) {
+    public Result<FileVO> upload(@RequestParam("file") MultipartFile file, HttpServletRequest httpServletRequest) {
         if (file.isEmpty()) {
             return Result.fail("文件为空");
         }
-        return Result.success(adminUploadService.uploadFile(file));
+        return Result.success(adminUploadService.uploadFile(file, httpServletRequest));
     }
 }

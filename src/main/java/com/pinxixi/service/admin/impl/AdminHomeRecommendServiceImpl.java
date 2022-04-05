@@ -61,11 +61,11 @@ public class AdminHomeRecommendServiceImpl implements AdminHomeRecommendService 
     public String updateRecommend(RecommendUpdateParam updateParam) {
         RecommendGoods recommendGoods = new RecommendGoods();
         BeanUtils.copyProperties(updateParam, recommendGoods);
-        Long goodsId = updateParam.getGoodsId();
-        RecommendGoods item = recommendMapper.selectByGoodsId(goodsId);
-        if (item != null) {
-            return ServiceResultEnum.GOODS_EXISTS.getResult();
-        }
+        //Long goodsId = updateParam.getGoodsId();
+        //RecommendGoods item = recommendMapper.selectByGoodsId(goodsId);
+        //if (item != null) {
+        //    return ServiceResultEnum.GOODS_EXISTS.getResult();
+        //}
         int rows = recommendMapper.updateRecommend(recommendGoods);
         return PinXiXiUtils.genSqlResultByRows(rows);
     }

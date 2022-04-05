@@ -42,9 +42,9 @@ public class GoodsAddParam {
     @NotNull(message = "商品状态不能为空")
     private Byte goodsStatus;
 
-    @ApiModelProperty("商品类型（1-普通，2-推荐）")
-    @NotNull(message = "商品类型不能为空")
-    private Byte goodsType;
+    //@ApiModelProperty("商品类型（1-普通，2-推荐）")
+    //@NotNull(message = "商品类型不能为空")
+    //private Byte goodsType;
 
     @ApiModelProperty("商品详情")
     @NotEmpty(message = "商品详情不能为空")

@@ -5,6 +5,7 @@ import com.pinxixi.config.handler.AdminUserArgumentResolver;
 import com.pinxixi.config.handler.ClientUserArgumentResolver;
 import com.pinxixi.config.interceptor.TokenInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
@@ -25,6 +26,9 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
     @Autowired
     private ClientUserArgumentResolver clientUserArgumentResolver;
+
+    @Value("${spring.profiles.active}")
+    private String env;
 
     @Bean
     public TokenInterceptor tokenInterceptor() {
@@ -63,13 +67,11 @@ public class WebMvcConfig implements WebMvcConfigurer {
         //swagger接口文档路径
         registry.addResourceHandler("/swagger-ui/**")
                 .addResourceLocations("classpath:/META-INF/resources/webjars/springfox-swagger-ui/");
+
         //上传文件路径
-        String path = System.getProperty("user.dir") + "/src/main/resources/" + Constants.UPLOAD_DIR + "/";
-        registry.addResourceHandler("/upload/**")
-                //class路径，需重启服务才能访问
-                //.addResourceLocations("classpath:/" + Constants.UPLOAD_DIR + "/")
-                //项目路径
-                .addResourceLocations("file:" + path);
+        String path = env.equals("dev") ? "classpath:/" + Constants.UPLOAD_DIR : "file:./" + Constants.UPLOAD_DIR;
+         registry.addResourceHandler("/upload/**").addResourceLocations(path);
+
     }
 
 }
