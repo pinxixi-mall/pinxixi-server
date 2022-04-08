@@ -29,6 +29,7 @@ public class ClientHomeController {
     @ApiOperation("首页轮播图")
     @GetMapping("/carousel")
     public Result<PageResult<HomeCarouselVO>> carousel() {
+        System.out.println("-----------test jenkins ----------");
         List<HomeCarouselVO> homeCarousels = clientHomeService.carouselList();
         PageResult<Object> pageResult = new PageResult<>(homeCarousels);
         return Result.success(pageResult);
