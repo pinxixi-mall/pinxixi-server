@@ -22,23 +22,22 @@ SET FOREIGN_KEY_CHECKS = 0;
 -- ----------------------------
 DROP TABLE IF EXISTS `tb_admin_user`;
 CREATE TABLE `tb_admin_user` (
-                                 `user_id` bigint NOT NULL AUTO_INCREMENT COMMENT '管理员id',
-                                 `user_name` varchar(50) COLLATE utf8mb4_general_ci NOT NULL COMMENT '管理员名称',
-                                 `password` varchar(50) COLLATE utf8mb4_general_ci NOT NULL COMMENT '管理员密码',
-                                 `nick_name` varchar(50) COLLATE utf8mb4_general_ci NOT NULL COMMENT '管理员昵称',
-                                 `avatar` varchar(200) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '管理员头像',
-                                 `phone` varchar(11) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '手机号',
-                                 `email` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '邮箱',
-                                 `locked` tinyint DEFAULT '0' COMMENT '是否锁定（0-未锁定，1-已锁定）',
-                                 PRIMARY KEY (`user_id`) USING BTREE
+     `user_id` bigint NOT NULL AUTO_INCREMENT COMMENT '管理员id',
+     `user_name` varchar(50) COLLATE utf8mb4_general_ci NOT NULL COMMENT '管理员名称',
+     `password` varchar(50) COLLATE utf8mb4_general_ci NOT NULL COMMENT '管理员密码',
+     `nick_name` varchar(50) COLLATE utf8mb4_general_ci NOT NULL COMMENT '管理员昵称',
+     `avatar` varchar(200) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '管理员头像',
+     `phone` varchar(11) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '手机号',
+     `email` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '邮箱',
+     `locked` tinyint DEFAULT '0' COMMENT '是否锁定（0-未锁定，1-已锁定）',
+     PRIMARY KEY (`user_id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC COMMENT='管理员表';
 
 -- ----------------------------
 -- Records of tb_admin_user
 -- ----------------------------
 BEGIN;
-INSERT INTO `tb_admin_user` VALUES (1, 'admin', '123', 'pxx1', 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png', '16666666666', '123456@qq.com', 0);
-INSERT INTO `tb_admin_user` VALUES (2, 'admin1', '123', 'pxx2', 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png', '17777777777', '789456@qq.com', 0);
+INSERT INTO `tb_admin_user` VALUES (1, 'admin', '123456', '达文西', 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png', '16666666666', '123456@qq.com', 0);
 COMMIT;
 
 -- ----------------------------
@@ -46,11 +45,11 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `tb_admin_user_token`;
 CREATE TABLE `tb_admin_user_token` (
-                                       `user_id` bigint NOT NULL AUTO_INCREMENT COMMENT '管理员id',
-                                       `token` varchar(200) COLLATE utf8mb4_general_ci NOT NULL COMMENT 'token值',
-                                       `update_time` datetime NOT NULL COMMENT '更新时间',
-                                       `expired_time` datetime NOT NULL COMMENT '过期时间',
-                                       PRIMARY KEY (`user_id`) USING BTREE
+   `user_id` bigint NOT NULL AUTO_INCREMENT COMMENT '管理员id',
+   `token` varchar(200) COLLATE utf8mb4_general_ci NOT NULL COMMENT 'token值',
+   `update_time` datetime NOT NULL COMMENT '更新时间',
+   `expired_time` datetime NOT NULL COMMENT '过期时间',
+   PRIMARY KEY (`user_id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC COMMENT='管理员token表';
 
 -- ----------------------------
@@ -64,32 +63,33 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `tb_carousel`;
 CREATE TABLE `tb_carousel` (
-                               `carousel_id` int NOT NULL AUTO_INCREMENT COMMENT '轮播图id',
-                               `carousel_image` varchar(150) COLLATE utf8mb4_general_ci NOT NULL COMMENT '轮播图片地址',
-                               `carousel_url` varchar(150) COLLATE utf8mb4_general_ci NOT NULL DEFAULT '#' COMMENT '轮播图跳转链接',
-                               `carousel_sort` int NOT NULL DEFAULT '0' COMMENT '轮播图排序（越小越靠前）',
-                               `carousel_status` tinyint NOT NULL DEFAULT '0' COMMENT '状态（0-已下架，1-上架中）',
-                               `is_deleted` tinyint NOT NULL DEFAULT '0' COMMENT '删除标识（0-未删除，1-已删除）',
-                               `create_user` int NOT NULL COMMENT '创建人id',
-                               `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-                               `update_user` int DEFAULT NULL COMMENT '更新人id',
-                               `update_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
-                               PRIMARY KEY (`carousel_id`) USING BTREE
+    `carousel_id` int NOT NULL AUTO_INCREMENT COMMENT '轮播图id',
+    `carousel_image` varchar(150) COLLATE utf8mb4_general_ci NOT NULL COMMENT '轮播图片地址',
+    `carousel_url` varchar(150) COLLATE utf8mb4_general_ci NOT NULL DEFAULT '#' COMMENT '轮播图跳转链接',
+    `carousel_sort` int NOT NULL DEFAULT '0' COMMENT '轮播图排序（越小越靠前）',
+    `carousel_status` tinyint NOT NULL DEFAULT '0' COMMENT '状态（0-已下架，1-上架中）',
+    `is_deleted` tinyint NOT NULL DEFAULT '0' COMMENT '删除标识（0-未删除，1-已删除）',
+    `create_user` int NOT NULL COMMENT '创建人id',
+    `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_user` int DEFAULT NULL COMMENT '更新人id',
+    `update_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
+    PRIMARY KEY (`carousel_id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC COMMENT='首页轮播图表';
 
 -- ----------------------------
 -- Records of tb_carousel
 -- ----------------------------
 BEGIN;
-INSERT INTO `tb_carousel` VALUES (1, 'http://119.29.134.117:9090/upload/4be41bffb97d8a09_20220405222039.jpg', '##', 1, 0, 0, 1, '2022-04-05 22:20:46', 1, '2022-04-05 22:20:46');
-INSERT INTO `tb_carousel` VALUES (2, 'http://119.29.134.117:9090/upload/168ff5869a75742f_20220405222052.jpg', '##', 3, 0, 0, 1, '2022-04-05 22:20:56', 1, '2022-04-05 22:20:56');
-INSERT INTO `tb_carousel` VALUES (3, 'http://119.29.134.117:9090/upload/q70_20220405222102.jpeg', '###', 7, 0, 0, 1, '2022-04-05 22:21:11', 1, '2022-04-05 22:21:11');
-INSERT INTO `tb_carousel` VALUES (4, 'http://119.29.134.117:9090/upload/ffb936a604b7ac06_20220405222117.jpg', '##', 3, 0, 0, 1, '2022-04-05 22:21:21', 1, '2022-04-05 22:21:21');
-INSERT INTO `tb_carousel` VALUES (5, 'http://119.29.134.117:9090/upload/a89719cbbde0cc32_20220405222128.jpg', '###', 5, 0, 0, 1, '2022-04-05 22:21:35', 1, '2022-04-05 22:21:35');
-INSERT INTO `tb_carousel` VALUES (6, 'http://119.29.134.117:9090/upload/ffb936a604b7ac06_20220405222141.png', '####', 2, 0, 0, 1, '2022-04-05 22:21:45', 1, '2022-04-05 22:21:45');
-INSERT INTO `tb_carousel` VALUES (7, 'http://119.29.134.117:9090/upload/cb7cf5029afef5e3_20220405222158.jpg', '####', 8, 0, 0, 1, '2022-04-05 22:22:05', 1, '2022-04-05 22:22:05');
-INSERT INTO `tb_carousel` VALUES (8, 'http://119.29.134.117:9090/upload/5305d110a541898a_20220405222222.jpg', '##', 9, 0, 0, 1, '2022-04-05 22:22:26', 1, '2022-04-05 22:22:26');
-INSERT INTO `tb_carousel` VALUES (9, 'http://119.29.134.117:9090/upload/82e124c1104d14c5_20220405222246.jpg', '##', 6, 0, 0, 1, '2022-04-05 22:22:52', 1, '2022-04-05 22:22:52');
+INSERT INTO `tb_carousel` VALUES
+    (1, 'http://119.29.134.117:9090/upload/4be41bffb97d8a09_20220405222039.jpg', '##', 1, 0, 0, 1, '2022-04-05 22:20:46', 1, '2022-04-05 22:20:46'),
+    (2, 'http://119.29.134.117:9090/upload/168ff5869a75742f_20220405222052.jpg', '##', 3, 0, 0, 1, '2022-04-05 22:20:56', 1, '2022-04-05 22:20:56'),
+    (3, 'http://119.29.134.117:9090/upload/q70_20220405222102.jpeg', '###', 7, 0, 0, 1, '2022-04-05 22:21:11', 1, '2022-04-05 22:21:11'),
+    (4, 'http://119.29.134.117:9090/upload/ffb936a604b7ac06_20220405222117.jpg', '##', 3, 0, 0, 1, '2022-04-05 22:21:21', 1, '2022-04-05 22:21:21'),
+    (5, 'http://119.29.134.117:9090/upload/a89719cbbde0cc32_20220405222128.jpg', '###', 5, 0, 0, 1, '2022-04-05 22:21:35', 1, '2022-04-05 22:21:35'),
+    (6, 'http://119.29.134.117:9090/upload/ffb936a604b7ac06_20220405222141.png', '####', 2, 0, 0, 1, '2022-04-05 22:21:45', 1, '2022-04-05 22:21:45'),
+    (7, 'http://119.29.134.117:9090/upload/cb7cf5029afef5e3_20220405222158.jpg', '####', 8, 0, 0, 1, '2022-04-05 22:22:05', 1, '2022-04-05 22:22:05'),
+    (8, 'http://119.29.134.117:9090/upload/5305d110a541898a_20220405222222.jpg', '##', 9, 0, 0, 1, '2022-04-05 22:22:26', 1, '2022-04-05 22:22:26'),
+    (9, 'http://119.29.134.117:9090/upload/82e124c1104d14c5_20220405222246.jpg', '##', 6, 0, 0, 1, '2022-04-05 22:22:52', 1, '2022-04-05 22:22:52');
 COMMIT;
 
 -- ----------------------------
@@ -97,30 +97,31 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `tb_client_address`;
 CREATE TABLE `tb_client_address` (
-                                     `address_id` bigint NOT NULL AUTO_INCREMENT COMMENT '主键id',
-                                     `user_id` bigint NOT NULL DEFAULT '0' COMMENT '用户id',
-                                     `name` varchar(30) COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '收货人姓名',
-                                     `tel` varchar(11) COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '收货人手机号',
-                                     `is_default` tinyint NOT NULL DEFAULT '0' COMMENT '是否为默认（0-否，1-是）',
-                                     `province` varchar(32) COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '省',
-                                     `province_code` varchar(6) COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '省代码',
-                                     `city` varchar(32) COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '市',
-                                     `city_code` varchar(6) COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '市代码',
-                                     `county` varchar(32) COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '区',
-                                     `county_code` varchar(6) COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '区代码',
-                                     `address_detail` varchar(100) COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '详细地址',
-                                     `is_deleted` tinyint NOT NULL DEFAULT '0' COMMENT '删除标识（0-未删除，1-已删除）',
-                                     `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-                                     `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
-                                     PRIMARY KEY (`address_id`)
+     `address_id` bigint NOT NULL AUTO_INCREMENT COMMENT '主键id',
+     `user_id` bigint NOT NULL DEFAULT '0' COMMENT '用户id',
+     `name` varchar(30) COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '收货人姓名',
+     `tel` varchar(11) COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '收货人手机号',
+     `is_default` tinyint NOT NULL DEFAULT '0' COMMENT '是否为默认（0-否，1-是）',
+     `province` varchar(32) COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '省',
+     `province_code` varchar(6) COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '省代码',
+     `city` varchar(32) COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '市',
+     `city_code` varchar(6) COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '市代码',
+     `county` varchar(32) COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '区',
+     `county_code` varchar(6) COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '区代码',
+     `address_detail` varchar(100) COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '详细地址',
+     `is_deleted` tinyint NOT NULL DEFAULT '0' COMMENT '删除标识（0-未删除，1-已删除）',
+     `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+     `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
+     PRIMARY KEY (`address_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC COMMENT='用户地址表';
 
 -- ----------------------------
 -- Records of tb_client_address
 -- ----------------------------
 BEGIN;
-INSERT INTO `tb_client_address` VALUES (1, 1, '张三丰', '13666666666', 1, '广东省', '440000', '深圳市', '440301', '南山区', '440305', '深圳湾2号6栋 66 楼', 0, '2022-03-31 19:47:03', '2022-03-31 19:47:03');
-INSERT INTO `tb_client_address` VALUES (2, 1, '张四丰', '13777777777', 0, '广东省', '440000', '深圳市', '440301', '南山区', '440305', '深圳湾2号7栋 68 楼', 0, '2022-03-31 19:47:03', '2022-03-31 19:47:03');
+INSERT INTO `tb_client_address` VALUES
+    (1, 1, '张三丰', '13666666666', 1, '广东省', '440000', '深圳市', '440301', '南山区', '440305', '深圳湾2号6栋 66 楼', 0, '2022-03-31 19:47:03', '2022-03-31 19:47:03'),
+    (2, 1, '张四丰', '13777777777', 0, '广东省', '440000', '深圳市', '440301', '南山区', '440305', '深圳湾2号7栋 68 楼', 0, '2022-03-31 19:47:03', '2022-03-31 19:47:03');
 COMMIT;
 
 -- ----------------------------
@@ -128,14 +129,14 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `tb_client_cart`;
 CREATE TABLE `tb_client_cart` (
-                                  `cart_id` bigint NOT NULL AUTO_INCREMENT COMMENT '主键id',
-                                  `user_id` bigint NOT NULL COMMENT '用户id',
-                                  `goods_id` bigint NOT NULL DEFAULT '0' COMMENT '商品id',
-                                  `goods_count` int NOT NULL DEFAULT '1' COMMENT '商品数量',
-                                  `is_deleted` tinyint NOT NULL DEFAULT '0' COMMENT '删除标识（0-未删除，1-已删除）',
-                                  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-                                  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
-                                  PRIMARY KEY (`cart_id`)
+    `cart_id` bigint NOT NULL AUTO_INCREMENT COMMENT '主键id',
+    `user_id` bigint NOT NULL COMMENT '用户id',
+    `goods_id` bigint NOT NULL DEFAULT '0' COMMENT '商品id',
+    `goods_count` int NOT NULL DEFAULT '1' COMMENT '商品数量',
+    `is_deleted` tinyint NOT NULL DEFAULT '0' COMMENT '删除标识（0-未删除，1-已删除）',
+    `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
+    PRIMARY KEY (`cart_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC COMMENT='客户购物车表';
 
 -- ----------------------------
@@ -143,20 +144,20 @@ CREATE TABLE `tb_client_cart` (
 -- ----------------------------
 DROP TABLE IF EXISTS `tb_client_order`;
 CREATE TABLE `tb_client_order` (
-                                   `order_id` bigint NOT NULL AUTO_INCREMENT COMMENT '订单id',
-                                   `order_no` varchar(20) COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '订单号',
-                                   `user_id` bigint NOT NULL DEFAULT '0' COMMENT '用户id',
-                                   `order_price` float NOT NULL DEFAULT '0' COMMENT '订单价格',
-                                   `address_id` bigint NOT NULL COMMENT '关联地址id',
-                                   `order_coupon` float DEFAULT '0' COMMENT '优惠金额',
-                                   `payment_status` tinyint NOT NULL DEFAULT '0' COMMENT '支付状态（0-未支付，1-支付成功，2-支付失败）',
-                                   `order_status` tinyint NOT NULL DEFAULT '0' COMMENT '订单状态（0-待支付，1-待收货，2-交易成功，3-手动关闭，4-超时关闭，5-商家关闭，99-已删除）',
-                                   `payment_type` tinyint NOT NULL DEFAULT '0' COMMENT '支付方式（1-支付宝，2-微信）',
-                                   `payment_time` datetime DEFAULT NULL COMMENT '支付时间',
-                                   `is_deleted` tinyint NOT NULL DEFAULT '0' COMMENT '删除标识(0-未删除，1-已删除)',
-                                   `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-                                   `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
-                                   PRIMARY KEY (`order_id`)
+    `order_id` bigint NOT NULL AUTO_INCREMENT COMMENT '订单id',
+    `order_no` varchar(20) COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '订单号',
+    `user_id` bigint NOT NULL DEFAULT '0' COMMENT '用户id',
+    `order_price` float NOT NULL DEFAULT '0' COMMENT '订单价格',
+    `address_id` bigint NOT NULL COMMENT '关联地址id',
+    `order_coupon` float DEFAULT '0' COMMENT '优惠金额',
+    `payment_status` tinyint NOT NULL DEFAULT '0' COMMENT '支付状态（0-未支付，1-支付成功，2-支付失败）',
+    `order_status` tinyint NOT NULL DEFAULT '0' COMMENT '订单状态（0-待支付，1-待收货，2-交易成功，3-手动关闭，4-超时关闭，5-商家关闭，99-已删除）',
+    `payment_type` tinyint NOT NULL DEFAULT '0' COMMENT '支付方式（1-支付宝，2-微信）',
+    `payment_time` datetime DEFAULT NULL COMMENT '支付时间',
+    `is_deleted` tinyint NOT NULL DEFAULT '0' COMMENT '删除标识(0-未删除，1-已删除)',
+    `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
+    PRIMARY KEY (`order_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC COMMENT='客户订单表';
 
 -- ----------------------------
@@ -164,17 +165,17 @@ CREATE TABLE `tb_client_order` (
 -- ----------------------------
 DROP TABLE IF EXISTS `tb_client_order_goods`;
 CREATE TABLE `tb_client_order_goods` (
-                                         `order_goods_id` bigint NOT NULL AUTO_INCREMENT COMMENT '订单商品id',
-                                         `order_id` bigint NOT NULL COMMENT '关联订单id',
-                                         `goods_id` bigint unsigned NOT NULL COMMENT '商品id',
-                                         `goods_name` varchar(150) COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '商品名称',
-                                         `goods_image` varchar(150) COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '商品主图',
-                                         `goods_count` int NOT NULL DEFAULT '1' COMMENT '商品数量',
-                                         `goods_price` float NOT NULL DEFAULT '0' COMMENT '商品价格',
-                                         `goods_desc` varchar(200) COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '商品简介',
-                                         `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-                                         `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
-                                         PRIMARY KEY (`order_goods_id`)
+    `order_goods_id` bigint NOT NULL AUTO_INCREMENT COMMENT '订单商品id',
+    `order_id` bigint NOT NULL COMMENT '关联订单id',
+    `goods_id` bigint unsigned NOT NULL COMMENT '商品id',
+    `goods_name` varchar(150) COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '商品名称',
+    `goods_image` varchar(150) COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '商品主图',
+    `goods_count` int NOT NULL DEFAULT '1' COMMENT '商品数量',
+    `goods_price` float NOT NULL DEFAULT '0' COMMENT '商品价格',
+    `goods_desc` varchar(200) COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '商品简介',
+    `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
+    PRIMARY KEY (`order_goods_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC COMMENT='客户订单商品表';
 
 -- ----------------------------
@@ -182,23 +183,22 @@ CREATE TABLE `tb_client_order_goods` (
 -- ----------------------------
 DROP TABLE IF EXISTS `tb_client_user`;
 CREATE TABLE `tb_client_user` (
-                                  `user_id` bigint NOT NULL AUTO_INCREMENT COMMENT '用户id',
-                                  `user_name` varchar(50) COLLATE utf8mb4_general_ci NOT NULL COMMENT '用户名称',
-                                  `password` varchar(50) COLLATE utf8mb4_general_ci NOT NULL COMMENT '用户密码',
-                                  `nick_name` varchar(50) COLLATE utf8mb4_general_ci NOT NULL COMMENT '用户昵称',
-                                  `avatar` varchar(200) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '用户头像',
-                                  `phone` varchar(11) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '手机号',
-                                  `email` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '邮箱',
-                                  `locked` tinyint DEFAULT '0' COMMENT '是否锁定（0-未锁定，1-已锁定）',
-                                  PRIMARY KEY (`user_id`) USING BTREE
+    `user_id` bigint NOT NULL AUTO_INCREMENT COMMENT '用户id',
+    `user_name` varchar(50) COLLATE utf8mb4_general_ci NOT NULL COMMENT '用户名称',
+    `password` varchar(50) COLLATE utf8mb4_general_ci NOT NULL COMMENT '用户密码',
+    `nick_name` varchar(50) COLLATE utf8mb4_general_ci NOT NULL COMMENT '用户昵称',
+    `avatar` varchar(200) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '用户头像',
+    `phone` varchar(11) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '手机号',
+    `email` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '邮箱',
+    `locked` tinyint DEFAULT '0' COMMENT '是否锁定（0-未锁定，1-已锁定）',
+    PRIMARY KEY (`user_id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC COMMENT='用户表';
 
 -- ----------------------------
 -- Records of tb_client_user
 -- ----------------------------
 BEGIN;
-INSERT INTO `tb_client_user` VALUES (1, 'xx1', '123', '2221111', 'http://127.0.0.1:9090/upload/Screen Shot 2021-08-01 at 4.30.37 PM_20220403002210.png', '16666666666', '123456@qq.com', 0);
-INSERT INTO `tb_client_user` VALUES (2, 'client2', '123', 'xx2', 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png', '17777777777', '789456@qq.com', 0);
+INSERT INTO `tb_client_user` VALUES (1, 'pxx', '123456', '达文东', 'http://127.0.0.1:9090/upload/Screen Shot 2021-08-01 at 4.30.37 PM_20220403002210.png', '16666666666', '123456@qq.com', 0);
 COMMIT;
 
 -- ----------------------------
@@ -206,21 +206,21 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `tb_goods`;
 CREATE TABLE `tb_goods` (
-                            `goods_id` bigint unsigned NOT NULL AUTO_INCREMENT COMMENT '商品id',
-                            `goods_name` varchar(150) COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '商品名称',
-                            `goods_image` varchar(150) COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '商品主图',
-                            `goods_category_id` bigint NOT NULL DEFAULT '0' COMMENT '商品分类id',
-                            `goods_desc` varchar(200) COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '商品简介',
-                            `goods_price` float NOT NULL DEFAULT '0' COMMENT '商品价格',
-                            `goods_stock` int unsigned NOT NULL DEFAULT '0' COMMENT '商品库存',
-                            `goods_status` tinyint NOT NULL DEFAULT '1' COMMENT '商品状态（0-下架，1-上架）',
-                            `goods_detail` text COLLATE utf8mb4_general_ci NOT NULL COMMENT '商品详情',
-                            `is_deleted` tinyint NOT NULL DEFAULT '0' COMMENT '删除标识（0-未删除，1-已删除）',
-                            `create_user` int NOT NULL DEFAULT '0' COMMENT '创建人id',
-                            `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-                            `update_user` int NOT NULL DEFAULT '0' COMMENT '更新人id',
-                            `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
-                            PRIMARY KEY (`goods_id`) USING BTREE
+    `goods_id` bigint unsigned NOT NULL AUTO_INCREMENT COMMENT '商品id',
+    `goods_name` varchar(150) COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '商品名称',
+    `goods_image` varchar(150) COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '商品主图',
+    `goods_category_id` bigint NOT NULL DEFAULT '0' COMMENT '商品分类id',
+    `goods_desc` varchar(200) COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '商品简介',
+    `goods_price` float NOT NULL DEFAULT '0' COMMENT '商品价格',
+    `goods_stock` int unsigned NOT NULL DEFAULT '0' COMMENT '商品库存',
+    `goods_status` tinyint NOT NULL DEFAULT '1' COMMENT '商品状态（0-下架，1-上架）',
+    `goods_detail` text COLLATE utf8mb4_general_ci NOT NULL COMMENT '商品详情',
+    `is_deleted` tinyint NOT NULL DEFAULT '0' COMMENT '删除标识（0-未删除，1-已删除）',
+    `create_user` int NOT NULL DEFAULT '0' COMMENT '创建人id',
+    `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_user` int NOT NULL DEFAULT '0' COMMENT '更新人id',
+    `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
+    PRIMARY KEY (`goods_id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC COMMENT='商品表';
 
 -- ----------------------------
@@ -254,18 +254,18 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `tb_goods_category`;
 CREATE TABLE `tb_goods_category` (
-                                     `category_id` bigint NOT NULL AUTO_INCREMENT COMMENT '分类id',
-                                     `category_name` varchar(50) COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '分类名称',
-                                     `category_level` tinyint NOT NULL DEFAULT '0' COMMENT '分类级别(1-一级分类，2-二级分类，3-三级分类)',
-                                     `parent_id` bigint NOT NULL DEFAULT '0' COMMENT '父级分类id',
-                                     `category_image` varchar(150) COLLATE utf8mb4_general_ci DEFAULT '0' COMMENT '分类图标',
-                                     `category_sort` int NOT NULL DEFAULT '0' COMMENT '排序',
-                                     `is_deleted` tinyint NOT NULL DEFAULT '0' COMMENT '删除标识(0-未删除，1-已删除)',
-                                     `create_user` int NOT NULL DEFAULT '0' COMMENT '创建人id',
-                                     `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-                                     `update_user` int DEFAULT '0' COMMENT '更新人id',
-                                     `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
-                                     PRIMARY KEY (`category_id`) USING BTREE
+    `category_id` bigint NOT NULL AUTO_INCREMENT COMMENT '分类id',
+    `category_name` varchar(50) COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '分类名称',
+    `category_level` tinyint NOT NULL DEFAULT '0' COMMENT '分类级别(1-一级分类，2-二级分类，3-三级分类)',
+    `parent_id` bigint NOT NULL DEFAULT '0' COMMENT '父级分类id',
+    `category_image` varchar(150) COLLATE utf8mb4_general_ci DEFAULT '0' COMMENT '分类图标',
+    `category_sort` int NOT NULL DEFAULT '0' COMMENT '排序',
+    `is_deleted` tinyint NOT NULL DEFAULT '0' COMMENT '删除标识(0-未删除，1-已删除)',
+    `create_user` int NOT NULL DEFAULT '0' COMMENT '创建人id',
+    `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_user` int DEFAULT '0' COMMENT '更新人id',
+    `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
+    PRIMARY KEY (`category_id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=109 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC COMMENT='商品分类表';
 
 -- ----------------------------
@@ -378,16 +378,16 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `tb_recommend_goods`;
 CREATE TABLE `tb_recommend_goods` (
-                                      `recommend_id` bigint unsigned NOT NULL AUTO_INCREMENT COMMENT '推荐商品id',
-                                      `goods_id` bigint unsigned NOT NULL COMMENT '商品id',
-                                      `recommend_desc` varchar(150) COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '推荐商品描述',
-                                      `recommend_sort` int NOT NULL DEFAULT '0' COMMENT '推荐排序（越小越靠前）',
-                                      `is_deleted` tinyint NOT NULL DEFAULT '0' COMMENT '删除标识（0-未删除，1-已删除）',
-                                      `create_user` int NOT NULL DEFAULT '0' COMMENT '创建人id',
-                                      `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-                                      `update_user` int NOT NULL DEFAULT '0' COMMENT '更新人id',
-                                      `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
-                                      PRIMARY KEY (`recommend_id`) USING BTREE
+    `recommend_id` bigint unsigned NOT NULL AUTO_INCREMENT COMMENT '推荐商品id',
+    `goods_id` bigint unsigned NOT NULL COMMENT '商品id',
+    `recommend_desc` varchar(150) COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '推荐商品描述',
+    `recommend_sort` int NOT NULL DEFAULT '0' COMMENT '推荐排序（越小越靠前）',
+    `is_deleted` tinyint NOT NULL DEFAULT '0' COMMENT '删除标识（0-未删除，1-已删除）',
+    `create_user` int NOT NULL DEFAULT '0' COMMENT '创建人id',
+    `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_user` int NOT NULL DEFAULT '0' COMMENT '更新人id',
+    `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
+    PRIMARY KEY (`recommend_id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC COMMENT='推荐商品表';
 
 -- ----------------------------

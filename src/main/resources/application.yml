@@ -7,7 +7,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql:///pinxixi_mall?useUnicode=true&serverTimezone=Asia/Shanghai
     username: root
-    password: 123456789
+    password: 18792757
   devtools:
     livereload:
       #热部署
