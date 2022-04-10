@@ -23,6 +23,12 @@ public class GoodsCategoryUpdateParam {
     @ApiModelProperty("分类排序")
     private Integer categorySort;
 
+    @ApiModelProperty("父级分类")
+    private Long parentId;
+
+    @ApiModelProperty("图标")
+    private String categoryImage;
+
     @ApiModelProperty("删除标识：0-未删除，1-已删除")
     private Byte isDeleted;
 

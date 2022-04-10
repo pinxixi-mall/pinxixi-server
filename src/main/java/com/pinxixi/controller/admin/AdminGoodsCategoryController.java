@@ -92,6 +92,21 @@ public class AdminGoodsCategoryController {
     }
 
     /**
+     * 查询单个商品分类
+     * @param categoryId
+     * @return
+     */
+    @ApiOperation("查询单个商品分类")
+    @GetMapping("/category/{categoryId}")
+    public Result<GoodsCategoryVO> getCategory(@PathVariable Long categoryId) {
+        GoodsCategory goodsCategory = adminGoodsCategoryService.getGoodsCategory(categoryId);
+        if (goodsCategory != null) {
+            return Result.success(goodsCategory);
+        }
+        return Result.fail("分类不存在");
+    }
+
+    /**
      * 商品分类by级别
      * @return
      */

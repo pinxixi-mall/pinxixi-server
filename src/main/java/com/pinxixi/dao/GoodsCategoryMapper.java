@@ -12,6 +12,8 @@ public interface GoodsCategoryMapper {
 
     List<GoodsCategory> selectAll();
 
+    GoodsCategory selectCategory(Long categoryId);
+
     List<GoodsCategoryVO> selectByLevel(Byte level);
 
     int insertGoodsCategory(GoodsCategory goodsCategory);

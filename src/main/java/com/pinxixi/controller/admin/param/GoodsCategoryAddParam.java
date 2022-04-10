@@ -25,6 +25,10 @@ public class GoodsCategoryAddParam {
     @NotEmpty(message = "分类名称不能为空")
     private String categoryName;
 
+    @ApiModelProperty("分类图标")
+    @NotEmpty(message = "分类图标不能为空")
+    private String categoryImage;
+
     @ApiModelProperty("分类排序")
     private Integer categorySort;
 

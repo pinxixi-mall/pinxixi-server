@@ -16,6 +16,7 @@ import reactor.util.annotation.Nullable;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -64,6 +65,17 @@ public class AdminGoodsCategoryServiceImpl implements AdminGoodsCategoryService 
     }
 
     /**
+     * 根据categoryId查询
+     * @param categoryId
+     * @return
+     */
+    @Override
+    public GoodsCategory getGoodsCategory(Long categoryId) {
+        GoodsCategory goodsCategory = categoryMapper.selectCategory(categoryId);
+        return goodsCategory;
+    }
+
+    /**
      * 新增商品分类
      * @param addParam
      * @return
@@ -86,6 +98,7 @@ public class AdminGoodsCategoryServiceImpl implements AdminGoodsCategoryService 
         GoodsCategory goodsCategory = new GoodsCategory();
         goodsCategory.setUpdateUser(adminUser.getUserId());
         BeanUtils.copyProperties(updateParam, goodsCategory);
+        //TODO 如果有子类，删除所有子类
         int rows = categoryMapper.updateGoodsCategory(goodsCategory);
         return PinXiXiUtils.genSqlResultByRows(rows);
     }
@@ -104,10 +117,10 @@ public class AdminGoodsCategoryServiceImpl implements AdminGoodsCategoryService 
         List<GoodsCategory> level3List;
 
         if (startLevel == null || startLevel == 1) {
-            level1List = list.stream().filter((GoodsCategory category) -> category.getCategoryLevel() == 1).collect(Collectors.toList());
+            level1List = list.stream().filter((GoodsCategory category) -> category.getCategoryLevel() == 1).sorted(Comparator.comparingInt(GoodsCategory::getCategorySort)).collect(Collectors.toList());
         }
-        level2List = list.stream().filter((GoodsCategory category) -> category.getCategoryLevel() == 2).collect(Collectors.toList());
-        level3List = list.stream().filter((GoodsCategory category) -> category.getCategoryLevel() == 3).collect(Collectors.toList());
+        level2List = list.stream().filter((GoodsCategory category) -> category.getCategoryLevel() == 2).sorted(Comparator.comparingInt(GoodsCategory::getCategorySort)).collect(Collectors.toList());
+        level3List = list.stream().filter((GoodsCategory category) -> category.getCategoryLevel() == 3).sorted(Comparator.comparingInt(GoodsCategory::getCategorySort)).collect(Collectors.toList());
 
         if ((level1List.size() > 0 && level2List.size() > 0) ||
             (level2List.size() > 0 && level3List.size() > 0)) {

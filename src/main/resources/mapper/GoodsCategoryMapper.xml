@@ -42,7 +42,7 @@
                 and category_name LIKE CONCAT('%', #{categoryName}, '%')
             </if>
         </where>
-        ORDER BY create_time DESC
+        ORDER BY category_sort DESC
     </select>
 
     <select id="selectByLevel" resultMap="CategoryMap">
@@ -84,6 +84,12 @@
             </if>
             <if test="categorySort != null">
                 category_sort = #{categorySort},
+            </if>
+            <if test="parentId != null">
+                parent_id = #{parentId},
+            </if>
+            <if test="categoryImage != null">
+                category_image = #{categoryImage},
             </if>
             <if test="isDeleted != null">
                 is_deleted = #{isDeleted},

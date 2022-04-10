@@ -22,6 +22,8 @@ public interface AdminGoodsCategoryService {
 
     List<GoodsCategory> selectCategoryByLevel(GoodsCategoryQueryParam queryParam);
 
+    GoodsCategory getGoodsCategory(Long categoryId);
+
     String addCategory(GoodsCategoryAddParam addParam);
 
     String updateCategory(GoodsCategoryUpdateParam updateParam, AdminUser adminUser);

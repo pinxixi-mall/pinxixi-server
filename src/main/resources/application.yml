@@ -5,7 +5,8 @@ spring:
   # 数据源配置
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql:///pinxixi_mall?useUnicode=true&serverTimezone=Asia/Shanghai
+    # url: jdbc:mysql:///pinxixi_mall?useUnicode=true&serverTimezone=Asia/Shanghai
+    url: jdbc:mysql://119.29.134.117/pinxixi_mall?useUnicode=true&serverTimezone=Asia/Shanghai
     username: root
     password: 18792757
   devtools:
@@ -33,7 +34,7 @@ spring:
       max-file-size: 5MB
   profiles:
     # 环境
-    active: prod
+    active: dev
 # JWT配置
 jwt:
   # 秘钥
