@@ -1,3 +1,16 @@
+# pinxixi-server
+
+## 系统简介
+拼西西商城后台服务，包含H5客户端和后台管理系统。
+
+### 主要技术栈
++ Springboot 2.x
++ Mybatis
++ MySQL 8.x
++ Redis
+
+<br/>
+
 ## 开发
 ### 问题记录
 #### 1. 集成swagger启动报错
@@ -9,7 +22,7 @@
 
 解决：  
 application.yml
-```
+```yml
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
@@ -21,7 +34,7 @@ application.yml
 >Interceptor默认没有被spring容器管理。
 
 解决：
-```
+```java
     @Bean
     public TokenInterceptor tokenInterceptor() {
         return new TokenInterceptor();
@@ -38,7 +51,6 @@ y原因：
 ```java
 public Result exceptionHandler(NoHandlerFoundException e) {}
 ```
-
 
 <br/>
 
